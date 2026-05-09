@@ -126,6 +126,58 @@ body {
   min-height: 56vh;
 }
 
+.dashboard-shell {
+  background:
+    linear-gradient(180deg, rgba(237, 243, 234, 0.92), rgba(245, 241, 231, 0.98)),
+    var(--page-bg);
+}
+
+.metric-card {
+  background: #fff;
+  border: 1px solid rgba(13, 44, 79, 0.08);
+  border-radius: 18px;
+  box-shadow: 0 14px 30px rgba(15, 23, 42, 0.06);
+}
+
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  border-radius: 999px;
+  padding: 0.25rem 0.65rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.status-green {
+  background: rgba(39, 93, 56, 0.12);
+  color: var(--green);
+}
+
+.status-gold {
+  background: rgba(200, 168, 78, 0.18);
+  color: #7a5a08;
+}
+
+.dashboard-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.dashboard-table th,
+.dashboard-table td {
+  padding: 0.95rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid rgba(13, 44, 79, 0.08);
+}
+
+.dashboard-table th {
+  color: var(--muted);
+  font-size: 0.76rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
 .fade-up {
   animation: fadeUp 0.75s ease forwards;
   opacity: 0;
