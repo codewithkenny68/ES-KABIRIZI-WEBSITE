@@ -1,618 +1,191 @@
 <!doctype html>
-<html lang="en" class="h-full">
- <head>
+<html lang="en">
+<head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>E.S. Kabirizi</title>
+  <title>Home | ES Kabirizi</title>
   <script src="https://cdn.tailwindcss.com/3.4.17"></script>
   <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
-  <script src="/_sdk/element_sdk.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800;900&amp;family=Source+Sans+3:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            navy: '#0a1628',
-            gold: '#c8a84e',
-            cream: '#f7f4ed',
-            slate: '#1e293b',
-            accent: '#1a5276'
-          }
-        }
-      }
-    }
-  </script>
-  <style>
-    html, body { height: 100%; margin: 0; }
-    .font-display { font-family: 'Playfair Display', Georgia, serif; }
-    .font-body { font-family: 'Source Sans 3', Arial, sans-serif; }
-
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes slideIn {
-      from { opacity: 0; transform: translateX(-40px); }
-      to { opacity: 1; transform: translateX(0); }
-    }
-    @keyframes scaleIn {
-      from { opacity: 0; transform: scale(0.9); }
-      to { opacity: 1; transform: scale(1); }
-    }
-    .anim-fade-up { animation: fadeUp 0.8s ease forwards; }
-    .anim-slide-in { animation: slideIn 0.7s ease forwards; }
-    .anim-scale-in { animation: scaleIn 0.6s ease forwards; }
-    .delay-1 { animation-delay: 0.15s; opacity: 0; }
-    .delay-2 { animation-delay: 0.3s; opacity: 0; }
-    .delay-3 { animation-delay: 0.45s; opacity: 0; }
-    .delay-4 { animation-delay: 0.6s; opacity: 0; }
-    .delay-5 { animation-delay: 0.75s; opacity: 0; }
-
-    .hero-bg {
-      background: linear-gradient(135deg, #0a1628 0%, #1a5276 40%, #0a1628 100%);
-      position: relative;
-      overflow: hidden;
-    }
-    .hero-bg::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: repeating-linear-gradient(
-        45deg,
-        transparent,
-        transparent 40px,
-        rgba(200,168,78,0.03) 40px,
-        rgba(200,168,78,0.03) 80px
-      );
-    }
-    .hero-bg::after {
-      content: '';
-      position: absolute;
-      top: -50%;
-      right: -20%;
-      width: 70%;
-      height: 200%;
-      background: radial-gradient(ellipse, rgba(200,168,78,0.08) 0%, transparent 70%);
-    }
-
-    .gold-line {
-      width: 60px;
-      height: 3px;
-      background: linear-gradient(90deg, #c8a84e, transparent);
-    }
-
-    .stat-card {
-      background: rgba(255,255,255,0.05);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(200,168,78,0.2);
-      transition: all 0.3s ease;
-    }
-    .stat-card:hover {
-      border-color: rgba(200,168,78,0.5);
-      transform: translateY(-4px);
-      background: rgba(255,255,255,0.08);
-    }
-
-    .program-card {
-      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-      border: 1px solid rgba(200,168,78,0.15);
-    }
-    .program-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-      border-color: #c8a84e;
-    }
-
-    .nav-link {
-      position: relative;
-      transition: color 0.3s ease;
-    }
-    .nav-link::after {
-      content: '';
-      position: absolute;
-      bottom: -4px;
-      left: 0;
-      width: 0;
-      height: 2px;
-      background: #c8a84e;
-      transition: width 0.3s ease;
-    }
-    .nav-link:hover::after { width: 100%; }
-
-    .news-card {
-      transition: all 0.3s ease;
-    }
-    .news-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 12px 30px rgba(0,0,0,0.1);
-    }
-
-    .scroll-reveal { opacity: 0; transform: translateY(30px); transition: all 0.7s ease; }
-    .scroll-reveal.visible { opacity: 1; transform: translateY(0); }
-
-    .mobile-menu {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.4s ease;
-    }
-    .mobile-menu.open { max-height: 400px; }
-
-    .crest-shield {
-      width: 52px; height: 60px;
-      background: linear-gradient(180deg, #c8a84e 0%, #a08030 100%);
-      clip-path: polygon(50% 0%, 100% 15%, 100% 70%, 50% 100%, 0% 70%, 0% 15%);
-      display: flex; align-items: center; justify-content: center;
-      position: relative;
-    }
-    .crest-inner {
-      width: 44px; height: 52px;
-      background: linear-gradient(180deg, #0a1628 0%, #1a5276 100%);
-      clip-path: polygon(50% 0%, 100% 15%, 100% 70%, 50% 100%, 0% 70%, 0% 15%);
-      display: flex; align-items: center; justify-content: center;
-      font-family: 'Playfair Display', serif;
-      color: #c8a84e;
-      font-weight: 800;
-      font-size: 14px;
-      letter-spacing: 1px;
-    }
-  </style>
-  <style>body { box-sizing: border-box; }</style>
-  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
- </head>
- <body class="h-full font-body bg-cream text-slate overflow-auto" id="app-body"><!-- Top Bar -->
-  <div id="top-bar" class="bg-navy text-white text-sm py-2 px-4">
-   <div class="max-w-7xl mx-auto flex justify-between items-center flex-wrap gap-2">
-    <div class="flex items-center gap-4"><span class="flex items-center gap-1 opacity-80"><i data-lucide="phone" style="width:14px;height:14px"></i> <span id="top-phone">+250 788 000 000</span></span> <span class="flex items-center gap-1 opacity-80"><i data-lucide="mail" style="width:14px;height:14px"></i> <span id="top-email">info@eskabirizi.ac.rw</span></span>
-    </div>
-    <div class="flex items-center gap-3 opacity-70"><span>Follow us:</span> <a href="#" class="hover:text-gold transition-colors"><i data-lucide="facebook" style="width:14px;height:14px"></i></a> <a href="#" class="hover:text-gold transition-colors"><i data-lucide="twitter" style="width:14px;height:14px"></i></a> <a href="#" class="hover:text-gold transition-colors"><i data-lucide="instagram" style="width:14px;height:14px"></i></a>
-    </div>
-   </div>
-  </div><!-- Navigation -->
-  <nav class="bg-white shadow-md sticky top-0 z-50" id="main-nav">
-   <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
-    <div class="flex items-center gap-3">
-     <div class="crest-shield">
-      <div class="crest-inner">
-       ES Kabirizi
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700;800&family=Source+Sans+3:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+  <div class="bg-[var(--navy)] text-white text-sm px-4 py-2">
+    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3">
+      <div class="flex flex-wrap items-center gap-4">
+        <span class="flex items-center gap-2 opacity-90"><i data-lucide="mail" class="w-4 h-4"></i> eskabirizi02@gmail.com</span>
+        <span class="flex items-center gap-2 opacity-90"><i data-lucide="phone" class="w-4 h-4"></i>+250 788 499 105</span>
       </div>
-     </div>
-     <div>
-      <h1 id="nav-school-name" class="font-display font-bold text-navy text-lg leading-tight">E.S. Kabirizi</h1>
-      <p id="nav-motto" class="text-xs text-gold font-semibold tracking-widest uppercase">Excellence, Discipline, Unity</p>
-     </div>
+      <div class="hidden sm:flex items-center gap-3 text-white/75">
+        <a href="gallery.html" class="hover:text-white transition-colors">Campus photos</a>
+        <a href="contact.html" class="hover:text-white transition-colors">Contact</a>
+      </div>
     </div>
-    <div class="hidden md:flex items-center gap-8"><a href="#home" class="nav-link text-navy font-semibold text-sm hover:text-gold">Home</a> <a href="#about" class="nav-link text-navy font-semibold text-sm hover:text-gold">About</a> <a href="#programs" class="nav-link text-navy font-semibold text-sm hover:text-gold">Programs</a> <a href="#news" class="nav-link text-navy font-semibold text-sm hover:text-gold">News</a> <a href="#contact" class="nav-link text-navy font-semibold text-sm hover:text-gold">Contact</a> <a href="#admissions" class="bg-gold text-navy font-bold text-sm px-5 py-2 rounded hover:bg-yellow-500 transition-colors">Admissions</a>
-    </div><button id="mobile-toggle" class="md:hidden text-navy" aria-label="Toggle menu"> <i data-lucide="menu" style="width:28px;height:28px"></i> </button>
-   </div>
-   <div id="mobile-menu" class="mobile-menu md:hidden bg-white border-t px-4"><a href="#home" class="block py-3 text-navy font-semibold border-b border-gray-100">Home</a> <a href="#about" class="block py-3 text-navy font-semibold border-b border-gray-100">About</a> <a href="#programs" class="block py-3 text-navy font-semibold border-b border-gray-100">Programs</a> <a href="#news" class="block py-3 text-navy font-semibold border-b border-gray-100">News</a> <a href="#contact" class="block py-3 text-navy font-semibold border-b border-gray-100">Contact</a> <a href="#admissions" class="block py-3 text-gold font-bold">Admissions →</a>
-   </div>
-  </nav><!-- Hero -->
-  <section id="home" class="hero-bg py-24 md:py-36 px-4 relative">
-   <div class="max-w-7xl mx-auto relative z-10">
-    <div class="max-w-2xl">
-     <div class="gold-line mb-6 anim-fade-up"></div>
-     <h2 id="hero-heading" class="font-display text-white text-4xl md:text-6xl font-bold leading-tight anim-fade-up delay-1">Welcome to<br>
-      E.S. Kabirizi</h2>
-     <p id="hero-subtext" class="text-gray-300 text-lg md:text-xl mt-6 leading-relaxed anim-fade-up delay-2">Shaping Future Leaders Through Quality Education Since 1985</p>
-     <div class="flex flex-wrap gap-4 mt-10 anim-fade-up delay-3"><a href="#programs" class="bg-gold text-navy font-bold px-8 py-3 rounded hover:bg-yellow-500 transition-all transform hover:scale-105"> Explore Programs </a> <a href="#about" class="border-2 border-white/30 text-white font-semibold px-8 py-3 rounded hover:border-gold hover:text-gold transition-all"> Learn More </a>
-     </div>
-    </div><!-- Stats -->
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-16 anim-fade-up delay-4">
-     <div class="stat-card rounded-lg p-5 text-center">
-      <p class="font-display text-gold text-3xl font-bold">1,200+</p>
-      <p class="text-gray-400 text-sm mt-1">Students</p>
-     </div>
-     <div class="stat-card rounded-lg p-5 text-center">
-      <p class="font-display text-gold text-3xl font-bold">85+</p>
-      <p class="text-gray-400 text-sm mt-1">Teachers</p>
-     </div>
-     <div class="stat-card rounded-lg p-5 text-center">
-      <p class="font-display text-gold text-3xl font-bold">95%</p>
-      <p class="text-gray-400 text-sm mt-1">Pass Rate</p>
-     </div>
-     <div class="stat-card rounded-lg p-5 text-center">
-      <p class="font-display text-gold text-3xl font-bold">38</p>
-      <p class="text-gray-400 text-sm mt-1">Years of Excellence</p>
-     </div>
-    </div>
-   </div>
-  </section><!-- About -->
-  <section id="about" class="py-20 px-4 bg-white scroll-reveal">
-   <div class="max-w-7xl mx-auto">
-    <div class="grid md:grid-cols-2 gap-12 items-center">
-     <div>
-      <p class="text-gold font-semibold text-sm tracking-widest uppercase mb-2">About Our School</p>
-      <h3 class="font-display text-navy text-3xl md:text-4xl font-bold leading-tight">A Legacy of Academic Excellence in Rwanda</h3>
-      <div class="gold-line mt-4 mb-6"></div>
-      <p id="about-text" class="text-gray-600 leading-relaxed text-lg">École Secondaire Kabirizi is a premier secondary school dedicated to nurturing academic excellence, moral integrity, and leadership. Founded in 1985, our institution has consistently produced outstanding graduates who contribute to Rwanda's development and beyond.</p>
-      <p class="text-gray-600 leading-relaxed mt-4">With a commitment to holistic education, we offer a balanced curriculum that combines rigorous academics with sports, arts, and community service programs.</p>
-      <div class="grid grid-cols-2 gap-4 mt-8">
-       <div class="flex items-start gap-3">
-        <div class="bg-gold/10 p-2 rounded">
-         <i data-lucide="award" style="width:20px;height:20px;color:#c8a84e"></i>
+  </div>
+
+  <nav class="nav-glass sticky top-0 z-50 shadow-lg">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between gap-4">
+      <a href="index.html" class="flex items-center gap-3 min-w-0">
+        <img src="kabirizi picsss/%C3%89cole%20Secondaire%20DE.KABIRIZI%20emblem.png" alt="ES Kabirizi emblem" class="w-12 h-12 rounded-full bg-white p-1.5 shrink-0">
+        <div class="min-w-0">
+          <div class="text-white font-heading font-bold text-lg leading-tight">ES Kabirizi</div>
+          <div class="text-yellow-200 text-xs tracking-[0.18em] uppercase">Science and conscience</div>
         </div>
+      </a>
+      <div class="hidden md:flex items-center gap-6 text-white text-sm font-medium">
+        <a href="index.html" class="text-yellow-200">Home</a>
+        <a href="about.html" class="hover:text-yellow-200 transition-colors">About</a>
+        <a href="programs.html" class="hover:text-yellow-200 transition-colors">Programs</a>
+        <a href="administration.html" class="hover:text-yellow-200 transition-colors">Administration</a>
+        <a href="gallery.html" class="hover:text-yellow-200 transition-colors">Gallery</a>
+        <a href="contact.html" class="hover:text-yellow-200 transition-colors">Contact</a>
+      </div>
+      <button id="menu-btn" class="md:hidden text-white" aria-label="Toggle menu"><i data-lucide="menu" class="w-7 h-7"></i></button>
+    </div>
+    <div id="mobile-nav" class="mobile-menu md:hidden nav-glass px-4">
+      <div class="flex flex-col gap-3 py-4 text-white text-sm font-medium">
+        <a href="index.html" class="text-yellow-200">Home</a>
+        <a href="about.html" class="hover:text-yellow-200">About</a>
+        <a href="programs.html" class="hover:text-yellow-200">Programs</a>
+        <a href="administration.html" class="hover:text-yellow-200">Administration</a>
+        <a href="gallery.html" class="hover:text-yellow-200">Gallery</a>
+        <a href="contact.html" class="hover:text-yellow-200">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <section class="relative min-h-[78vh] px-4 overflow-hidden">
+      <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('kabirizi picsss/20260323_163059.JPG');"></div>
+      <div class="absolute inset-0 hero-overlay"></div>
+      <div class="relative max-w-7xl mx-auto min-h-[78vh] flex items-center py-20 md:py-28">
+        <div class="max-w-3xl">
+          <div class="bg-white/10 border border-white/20 backdrop-blur-md rounded-3xl px-6 py-7 md:px-8 md:py-9 shadow-2xl">
+            <p class="section-label text-sm font-semibold uppercase fade-up">Ecole Secondaire de Kabirizi</p>
+            <h1 class="font-heading text-white text-4xl md:text-6xl leading-tight mt-3 fade-up delay-1">A school website rooted in the real campus</h1>
+            <p class="text-slate-100 text-lg md:text-xl leading-relaxed mt-5 max-w-2xl fade-up delay-2">Welcome to ES Kabirizi, presented through the school emblem, the campus entrance, and everyday scenes from the grounds.</p>
+            <div class="flex flex-wrap gap-4 mt-8 fade-up delay-2">
+              <a href="about.html" class="btn-primary px-7 py-3 rounded-full font-semibold text-sm shadow-lg">See the campus</a>
+              <a href="contact.html" class="btn-secondary px-7 py-3 rounded-full font-semibold text-sm">Contact the school</a>
+            </div>
+          </div>
+          <div class="grid sm:grid-cols-3 gap-4 mt-6">
+            <div class="soft-card rounded-2xl px-5 py-4 fade-up delay-1">
+              <p class="text-xs uppercase tracking-[0.18em] text-[var(--gold)] font-semibold">Identity</p>
+              <p class="text-sm text-[var(--muted)] mt-2">Real school emblem and school colors used throughout the site.</p>
+            </div>
+            <div class="soft-card rounded-2xl px-5 py-4 fade-up delay-2">
+              <p class="text-xs uppercase tracking-[0.18em] text-[var(--gold)] font-semibold">Campus</p>
+              <p class="text-sm text-[var(--muted)] mt-2">The landing image shows the school entrance and administrative block.</p>
+            </div>
+            <div class="soft-card rounded-2xl px-5 py-4 fade-up delay-2">
+              <p class="text-xs uppercase tracking-[0.18em] text-[var(--gold)] font-semibold">Community</p>
+              <p class="text-sm text-[var(--muted)] mt-2">Pages highlight learning, leadership, campus life, and ways to connect.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-16 md:py-20 px-4 scroll-reveal">
+      <div class="max-w-7xl mx-auto bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600 rounded-[2rem] p-6 md:p-10 shadow-2xl overflow-hidden">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          <div class="rounded-3xl border border-white/15 bg-white/10 p-6 text-center text-white">
+            <div class="mx-auto flex h-14 w-14 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white">
+              <i data-lucide="users" class="w-6 h-6"></i>
+            </div>
+            <p class="mt-6 text-4xl font-bold">118k</p>
+            <p class="mt-2 text-sm text-white/80">Our Happy Students</p>
+          </div>
+          <div class="rounded-3xl border border-white/15 bg-white/10 p-6 text-center text-white">
+            <div class="mx-auto flex h-14 w-14 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white">
+              <i data-lucide="graduation-cap" class="w-6 h-6"></i>
+            </div>
+            <p class="mt-6 text-4xl font-bold">150k</p>
+            <p class="mt-2 text-sm text-white/80">Enrolled Learner</p>
+          </div>
+          <div class="rounded-3xl border border-white/15 bg-white/10 p-6 text-center text-white">
+            <div class="mx-auto flex h-14 w-14 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white">
+              <i data-lucide="award" class="w-6 h-6"></i>
+            </div>
+            <p class="mt-6 text-4xl font-bold">120+</p>
+            <p class="mt-2 text-sm text-white/80">Expert Instructor</p>
+          </div>
+          <div class="rounded-3xl border border-white/15 bg-white/10 p-6 text-center text-white">
+            <div class="mx-auto flex h-14 w-14 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white">
+              <i data-lucide="thumbs-up" class="w-6 h-6"></i>
+            </div>
+            <p class="mt-6 text-4xl font-bold">96%</p>
+            <p class="mt-2 text-sm text-white/80">Satisfaction Rate</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-16 md:py-20 px-4 scroll-reveal">
+      <div class="max-w-7xl mx-auto grid lg:grid-cols-[1fr_1.1fr] gap-10 items-center">
         <div>
-         <p class="font-semibold text-navy text-sm">Top Performer</p>
-         <p class="text-gray-500 text-xs">National Exams</p>
+          <p class="section-label text-sm font-bold uppercase">Welcome</p>
+          <h2 class="font-heading text-3xl md:text-5xl text-[var(--navy)] leading-tight mt-3">Learning shaped by discipline, care, and ambition.</h2>
+          <div class="gold-line mt-5"></div>
+          <p class="text-[var(--muted)] text-lg leading-relaxed mt-6">ES Kabirizi serves students through a balanced school experience: strong classroom routines, supportive leadership, campus activities, and a visible connection to the local community.</p>
+          <div class="grid sm:grid-cols-2 gap-4 mt-8">
+            <a href="programs.html" class="soft-card card-hover rounded-2xl p-5 block">
+              <i data-lucide="book-open" class="w-7 h-7 text-[var(--green)]"></i>
+              <h3 class="font-semibold text-[var(--navy)] mt-4">Academic Programs</h3>
+              <p class="text-sm text-[var(--muted)] mt-2">Explore learning areas and student development.</p>
+            </a>
+            <a href="administration.html" class="soft-card card-hover rounded-2xl p-5 block">
+              <i data-lucide="users" class="w-7 h-7 text-[var(--green)]"></i>
+              <h3 class="font-semibold text-[var(--navy)] mt-4">Administration</h3>
+              <p class="text-sm text-[var(--muted)] mt-2">Meet the offices that keep the school moving.</p>
+            </a>
+          </div>
         </div>
-       </div>
-       <div class="flex items-start gap-3">
-        <div class="bg-gold/10 p-2 rounded">
-         <i data-lucide="book-open" style="width:20px;height:20px;color:#c8a84e"></i>
+        <div class="media-frame h-[460px] shadow-xl">
+          <img src="kabirizi picsss/20260323_163138.JPG" alt="ES Kabirizi campus view">
         </div>
-        <div>
-         <p class="font-semibold text-navy text-sm">Modern Library</p>
-         <p class="text-gray-500 text-xs">10,000+ Books</p>
-        </div>
-       </div>
-       <div class="flex items-start gap-3">
-        <div class="bg-gold/10 p-2 rounded">
-         <i data-lucide="flask-conical" style="width:20px;height:20px;color:#c8a84e"></i>
-        </div>
-        <div>
-         <p class="font-semibold text-navy text-sm">Science Labs</p>
-         <p class="text-gray-500 text-xs">Fully Equipped</p>
-        </div>
-       </div>
-       <div class="flex items-start gap-3">
-        <div class="bg-gold/10 p-2 rounded">
-         <i data-lucide="wifi" style="width:20px;height:20px;color:#c8a84e"></i>
-        </div>
-        <div>
-         <p class="font-semibold text-navy text-sm">Smart Campus</p>
-         <p class="text-gray-500 text-xs">Connected Learning</p>
-        </div>
-       </div>
       </div>
-     </div>
-     <div class="relative">
-      <div class="bg-gradient-to-br from-navy to-accent rounded-2xl p-8 text-white">
-       <h4 class="font-display text-2xl font-bold mb-4">Our Mission</h4>
-       <p class="text-gray-300 leading-relaxed">To provide quality education that empowers students with knowledge, skills, and values to become responsible citizens and leaders of tomorrow.</p>
-       <div class="border-t border-white/10 mt-6 pt-6">
-        <h4 class="font-display text-2xl font-bold mb-4">Our Vision</h4>
-        <p class="text-gray-300 leading-relaxed">To be a center of academic excellence recognized nationally and internationally for producing well-rounded graduates.</p>
-       </div>
-       <div class="border-t border-white/10 mt-6 pt-6">
-        <h4 class="font-display text-lg font-bold text-gold mb-3">Core Values</h4>
-        <div class="flex flex-wrap gap-2"><span class="bg-white/10 px-3 py-1 rounded-full text-sm">Excellence</span> <span class="bg-white/10 px-3 py-1 rounded-full text-sm">Discipline</span> <span class="bg-white/10 px-3 py-1 rounded-full text-sm">Unity</span> <span class="bg-white/10 px-3 py-1 rounded-full text-sm">Integrity</span> <span class="bg-white/10 px-3 py-1 rounded-full text-sm">Innovation</span>
+    </section>
+  </main>
+
+  <footer class="bg-[var(--green)] text-white py-10 px-4">
+    <div class="max-w-7xl mx-auto grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+      <div>
+        <div class="flex items-center gap-3 mb-4">
+          <img src="kabirizi picsss/%C3%89cole%20Secondaire%20DE.KABIRIZI%20emblem.png" alt="ES Kabirizi emblem" class="w-10 h-10 rounded-full bg-white p-1">
+          <span class="font-heading font-bold text-lg">ES Kabirizi</span>
         </div>
-       </div>
+        <p class="text-green-100 text-sm leading-relaxed">A photo-led school website built around the real emblem, campus entrance, and everyday views of the school environment.</p>
       </div>
-      <div class="absolute -bottom-4 -right-4 w-full h-full border-2 border-gold/20 rounded-2xl -z-10"></div>
-     </div>
+      <div>
+        <h3 class="font-semibold text-yellow-200 mb-3">Quick links</h3>
+        <nav class="flex flex-col gap-2 text-sm text-green-100">
+          <a href="about.html" class="hover:text-white">About</a>
+          <a href="programs.html" class="hover:text-white">Programs</a>
+          <a href="administration.html" class="hover:text-white">Administration</a>
+          <a href="gallery.html" class="hover:text-white">Gallery</a>
+        </nav>
+      </div>
+      <div>
+        <h3 class="font-semibold text-yellow-200 mb-3">School life</h3>
+        <div class="flex flex-col gap-2 text-sm text-green-100">
+          <span>Learning spaces</span>
+          <span>Student support</span>
+          <span>Campus community</span>
+        </div>
+      </div>
+      <div>
+        <h3 class="font-semibold text-yellow-200 mb-3">Contact</h3>
+        <div class="flex flex-col gap-2 text-sm text-green-100">
+          <span>info@eskabirizi.ac.rw / eskabirizi02@gmail.com</span>
+          <span>+250 788 499 105</span>
+          <span>Ngoma, Rwanda</span>
+        </div>
+      </div>
     </div>
-   </div>
-  </section><!-- Programs -->
-  <section id="programs" class="py-20 px-4 bg-cream scroll-reveal">
-   <div class="max-w-7xl mx-auto text-center">
-    <p class="text-gold font-semibold text-sm tracking-widest uppercase mb-2">Academic Programs</p>
-    <h3 class="font-display text-navy text-3xl md:text-4xl font-bold">Combinations We Offer</h3>
-    <div class="gold-line mx-auto mt-4 mb-12"></div>
-    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-     <div class="program-card bg-white rounded-xl p-6 text-left">
-      <div class="bg-navy/5 w-14 h-14 rounded-lg flex items-center justify-center mb-4"><i data-lucide="calculator" style="width:28px;height:28px;color:#1a5276"></i>
-      </div>
-      <h4 class="font-display text-navy font-bold text-xl">MCB</h4>
-      <p class="text-gold text-sm font-semibold mt-1">Mathematics–Chemistry–Biology</p>
-      <p class="text-gray-500 text-sm mt-3 leading-relaxed">Prepares students for careers in medicine, pharmacy, environmental science, and biotechnology.</p>
-     </div>
-     <div class="program-card bg-white rounded-xl p-6 text-left">
-      <div class="bg-navy/5 w-14 h-14 rounded-lg flex items-center justify-center mb-4"><i data-lucide="atom" style="width:28px;height:28px;color:#1a5276"></i>
-      </div>
-      <h4 class="font-display text-navy font-bold text-xl">PCM</h4>
-      <p class="text-gold text-sm font-semibold mt-1">Physics–Chemistry–Mathematics</p>
-      <p class="text-gray-500 text-sm mt-3 leading-relaxed">Ideal for future engineers, physicists, and technology professionals with strong analytical foundations.</p>
-     </div>
-     <div class="program-card bg-white rounded-xl p-6 text-left">
-      <div class="bg-navy/5 w-14 h-14 rounded-lg flex items-center justify-center mb-4"><i data-lucide="microscope" style="width:28px;height:28px;color:#1a5276"></i>
-      </div>
-      <h4 class="font-display text-navy font-bold text-xl">PCB</h4>
-      <p class="text-gold text-sm font-semibold mt-1">Physics–Chemistry–Biology</p>
-      <p class="text-gray-500 text-sm mt-3 leading-relaxed">A versatile science combination opening doors to medical, research, and agricultural sciences.</p>
-     </div>
-     <div class="program-card bg-white rounded-xl p-6 text-left">
-      <div class="bg-navy/5 w-14 h-14 rounded-lg flex items-center justify-center mb-4"><i data-lucide="globe" style="width:28px;height:28px;color:#1a5276"></i>
-      </div>
-      <h4 class="font-display text-navy font-bold text-xl">MEG</h4>
-      <p class="text-gold text-sm font-semibold mt-1">Mathematics–Economics–Geography</p>
-      <p class="text-gray-500 text-sm mt-3 leading-relaxed">Combines quantitative skills with social sciences for careers in economics, business, and urban planning.</p>
-     </div>
-     <div class="program-card bg-white rounded-xl p-6 text-left">
-      <div class="bg-navy/5 w-14 h-14 rounded-lg flex items-center justify-center mb-4"><i data-lucide="landmark" style="width:28px;height:28px;color:#1a5276"></i>
-      </div>
-      <h4 class="font-display text-navy font-bold text-xl">HEG</h4>
-      <p class="text-gold text-sm font-semibold mt-1">History–Economics–Geography</p>
-      <p class="text-gray-500 text-sm mt-3 leading-relaxed">Develops critical thinking in humanities for law, diplomacy, journalism, and public administration.</p>
-     </div>
-     <div class="program-card bg-white rounded-xl p-6 text-left">
-      <div class="bg-navy/5 w-14 h-14 rounded-lg flex items-center justify-center mb-4"><i data-lucide="languages" style="width:28px;height:28px;color:#1a5276"></i>
-      </div>
-      <h4 class="font-display text-navy font-bold text-xl">LFK</h4>
-      <p class="text-gold text-sm font-semibold mt-1">Literature–French–Kinyarwanda</p>
-      <p class="text-gray-500 text-sm mt-3 leading-relaxed">Cultivates linguistic and literary excellence for careers in education, translation, and communication.</p>
-     </div>
-    </div>
-   </div>
-  </section><!-- News -->
-  <section id="news" class="py-20 px-4 bg-white scroll-reveal">
-   <div class="max-w-7xl mx-auto">
-    <p class="text-gold font-semibold text-sm tracking-widest uppercase mb-2">Latest Updates</p>
-    <h3 class="font-display text-navy text-3xl md:text-4xl font-bold">News &amp; Events</h3>
-    <div class="gold-line mt-4 mb-12"></div>
-    <div class="grid md:grid-cols-3 gap-6">
-     <article class="news-card rounded-xl overflow-hidden bg-cream border border-gray-100">
-      <div class="bg-gradient-to-br from-navy to-accent h-44 flex items-center justify-center"><i data-lucide="trophy" style="width:48px;height:48px;color:#c8a84e"></i>
-      </div>
-      <div class="p-5"><span class="text-gold text-xs font-bold uppercase tracking-wider">Achievement</span>
-       <h4 class="font-display text-navy font-bold mt-2">National Science Olympiad Winners</h4>
-       <p class="text-gray-500 text-sm mt-2">Our PCM students secured 1st place in the 2024 Rwanda National Science Olympiad.</p>
-       <p class="text-gray-400 text-xs mt-3 flex items-center gap-1"><i data-lucide="calendar" style="width:12px;height:12px"></i> March 15, 2024</p>
-      </div>
-     </article>
-     <article class="news-card rounded-xl overflow-hidden bg-cream border border-gray-100">
-      <div class="bg-gradient-to-br from-accent to-navy h-44 flex items-center justify-center"><i data-lucide="users" style="width:48px;height:48px;color:#c8a84e"></i>
-      </div>
-      <div class="p-5"><span class="text-gold text-xs font-bold uppercase tracking-wider">Event</span>
-       <h4 class="font-display text-navy font-bold mt-2">Parents' Day Celebration</h4>
-       <p class="text-gray-500 text-sm mt-2">Join us for our annual Parents' Day event featuring student performances and exhibitions.</p>
-       <p class="text-gray-400 text-xs mt-3 flex items-center gap-1"><i data-lucide="calendar" style="width:12px;height:12px"></i> April 20, 2024</p>
-      </div>
-     </article>
-     <article class="news-card rounded-xl overflow-hidden bg-cream border border-gray-100">
-      <div class="bg-gradient-to-br from-gold/80 to-gold/40 h-44 flex items-center justify-center"><i data-lucide="graduation-cap" style="width:48px;height:48px;color:#0a1628"></i>
-      </div>
-      <div class="p-5"><span class="text-gold text-xs font-bold uppercase tracking-wider">Admissions</span>
-       <h4 class="font-display text-navy font-bold mt-2">2025 Enrollment Now Open</h4>
-       <p class="text-gray-500 text-sm mt-2">Applications for the 2025 academic year are now being accepted. Apply before June 30.</p>
-       <p class="text-gray-400 text-xs mt-3 flex items-center gap-1"><i data-lucide="calendar" style="width:12px;height:12px"></i> February 1, 2024</p>
-      </div>
-     </article>
-    </div>
-   </div>
-  </section><!-- Admissions CTA -->
-  <section id="admissions" class="hero-bg py-20 px-4 relative scroll-reveal">
-   <div class="max-w-4xl mx-auto text-center relative z-10">
-    <h3 class="font-display text-white text-3xl md:text-5xl font-bold">Begin Your Journey at E.S. Kabirizi</h3>
-    <p class="text-gray-300 text-lg mt-4 max-w-2xl mx-auto">Join a community of learners dedicated to excellence. Applications for the 2025 academic year are now open.</p>
-    <div class="flex flex-wrap gap-4 mt-8 justify-center"><a href="#contact" class="bg-gold text-navy font-bold px-10 py-4 rounded text-lg hover:bg-yellow-500 transition-all transform hover:scale-105"> Apply Now </a> <a href="#programs" class="border-2 border-gold/50 text-gold font-semibold px-10 py-4 rounded text-lg hover:bg-gold/10 transition-all"> View Programs </a>
-    </div>
-   </div>
-  </section><!-- Contact -->
-  <section id="contact" class="py-20 px-4 bg-white scroll-reveal">
-   <div class="max-w-7xl mx-auto">
-    <div class="grid md:grid-cols-2 gap-12">
-     <div>
-      <p class="text-gold font-semibold text-sm tracking-widest uppercase mb-2">Get In Touch</p>
-      <h3 class="font-display text-navy text-3xl font-bold">Contact Us</h3>
-      <div class="gold-line mt-4 mb-8"></div>
-      <div class="space-y-6">
-       <div class="flex items-start gap-4">
-        <div class="bg-gold/10 p-3 rounded-lg">
-         <i data-lucide="map-pin" style="width:22px;height:22px;color:#c8a84e"></i>
-        </div>
-        <div>
-         <p class="font-semibold text-navy">Address</p>
-         <p class="text-gray-500">Kabirizi, Southern Province, Rwanda</p>
-        </div>
-       </div>
-       <div class="flex items-start gap-4">
-        <div class="bg-gold/10 p-3 rounded-lg">
-         <i data-lucide="phone" style="width:22px;height:22px;color:#c8a84e"></i>
-        </div>
-        <div>
-         <p class="font-semibold text-navy">Phone</p>
-         <p class="text-gray-500" id="contact-phone">+250 788 000 000</p>
-        </div>
-       </div>
-       <div class="flex items-start gap-4">
-        <div class="bg-gold/10 p-3 rounded-lg">
-         <i data-lucide="mail" style="width:22px;height:22px;color:#c8a84e"></i>
-        </div>
-        <div>
-         <p class="font-semibold text-navy">Email</p>
-         <p class="text-gray-500" id="contact-email">info@eskabirizi.ac.rw</p>
-        </div>
-       </div>
-       <div class="flex items-start gap-4">
-        <div class="bg-gold/10 p-3 rounded-lg">
-         <i data-lucide="clock" style="width:22px;height:22px;color:#c8a84e"></i>
-        </div>
-        <div>
-         <p class="font-semibold text-navy">Office Hours</p>
-         <p class="text-gray-500">Mon – Fri: 7:30 AM – 5:00 PM</p>
-        </div>
-       </div>
-      </div>
-     </div>
-     <div>
-      <form id="contact-form" class="bg-cream rounded-xl p-8 border border-gray-100">
-       <h4 class="font-display text-navy font-bold text-xl mb-6">Send a Message</h4>
-       <div class="space-y-4">
-        <div><label for="name" class="block text-sm font-semibold text-navy mb-1">Full Name</label> <input type="text" id="name" placeholder="Enter your name" class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:border-gold transition-colors bg-white">
-        </div>
-        <div><label for="email" class="block text-sm font-semibold text-navy mb-1">Email</label> <input type="email" id="email" placeholder="your@email.com" class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:border-gold transition-colors bg-white">
-        </div>
-        <div><label for="subject" class="block text-sm font-semibold text-navy mb-1">Subject</label> <select id="subject" class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:border-gold transition-colors bg-white"> <option>General Inquiry</option> <option>Admissions</option> <option>Academic Programs</option> <option>Other</option> </select>
-        </div>
-        <div><label for="message" class="block text-sm font-semibold text-navy mb-1">Message</label> <textarea id="message" rows="4" placeholder="Your message..." class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:border-gold transition-colors bg-white resize-none"></textarea>
-        </div><button type="submit" class="w-full bg-gold text-navy font-bold py-3 rounded-lg hover:bg-yellow-500 transition-all transform hover:scale-[1.02]"> Send Message </button>
-        <p id="form-success" class="text-green-600 text-sm font-semibold text-center hidden">✓ Message sent successfully!</p>
-       </div>
-      </form>
-     </div>
-    </div>
-   </div>
-  </section><!-- Footer -->
-  <footer class="bg-navy text-white py-16 px-4">
-   <div class="max-w-7xl mx-auto">
-    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-10">
-     <div>
-      <div class="flex items-center gap-3 mb-4">
-       <div class="crest-shield" style="width:40px;height:46px">
-        <div class="crest-inner" style="width:34px;height:40px;font-size:11px">
-         ESK
-        </div>
-       </div>
-       <div>
-        <p id="footer-name" class="font-display font-bold text-lg">E.S. Kabirizi</p>
-        <p class="text-gold text-xs tracking-wider">Est. 1985</p>
-       </div>
-      </div>
-      <p class="text-gray-400 text-sm leading-relaxed">Shaping future leaders through quality education, discipline, and moral values in the heart of Rwanda.</p>
-     </div>
-     <div>
-      <h4 class="font-display font-bold text-gold mb-4">Quick Links</h4>
-      <ul class="space-y-2 text-gray-400 text-sm">
-       <li><a href="#home" class="hover:text-gold transition-colors">Home</a></li>
-       <li><a href="#about" class="hover:text-gold transition-colors">About Us</a></li>
-       <li><a href="#programs" class="hover:text-gold transition-colors">Programs</a></li>
-       <li><a href="#news" class="hover:text-gold transition-colors">News &amp; Events</a></li>
-       <li><a href="#contact" class="hover:text-gold transition-colors">Contact</a></li>
-      </ul>
-     </div>
-     <div>
-      <h4 class="font-display font-bold text-gold mb-4">Programs</h4>
-      <ul class="space-y-2 text-gray-400 text-sm">
-       <li>MCB – Math, Chem, Bio</li>
-       <li>PCM – Physics, Chem, Math</li>
-       <li>PCB – Physics, Chem, Bio</li>
-       <li>MEG – Math, Econ, Geo</li>
-       <li>HEG – History, Econ, Geo</li>
-       <li>LFK – Lit, French, Kinyarwanda</li>
-      </ul>
-     </div>
-     <div>
-      <h4 class="font-display font-bold text-gold mb-4">Contact Info</h4>
-      <ul class="space-y-3 text-gray-400 text-sm">
-       <li class="flex items-center gap-2"><i data-lucide="map-pin" style="width:14px;height:14px;color:#c8a84e"></i> Kabirizi, Southern Province</li>
-       <li class="flex items-center gap-2"><i data-lucide="phone" style="width:14px;height:14px;color:#c8a84e"></i> <span id="footer-phone">+250 788 000 000</span></li>
-       <li class="flex items-center gap-2"><i data-lucide="mail" style="width:14px;height:14px;color:#c8a84e"></i> <span id="footer-email">info@eskabirizi.ac.rw</span></li>
-      </ul>
-     </div>
-    </div>
-    <div class="border-t border-white/10 mt-12 pt-8 flex flex-wrap justify-between items-center gap-4">
-     <p class="text-gray-500 text-sm">© 2024 E.S. Kabirizi. All Rights Reserved.</p>
-     <div class="flex gap-4"><a href="#" class="text-gray-500 hover:text-gold transition-colors"><i data-lucide="facebook" style="width:18px;height:18px"></i></a> <a href="#" class="text-gray-500 hover:text-gold transition-colors"><i data-lucide="twitter" style="width:18px;height:18px"></i></a> <a href="#" class="text-gray-500 hover:text-gold transition-colors"><i data-lucide="instagram" style="width:18px;height:18px"></i></a> <a href="#" class="text-gray-500 hover:text-gold transition-colors"><i data-lucide="youtube" style="width:18px;height:18px"></i></a>
-     </div>
-    </div>
-   </div>
+    <p class="border-t border-white/15 mt-8 pt-6 text-sm text-green-100 text-center">&copy; 2026 ES Kabirizi. All rights reserved.</p>
   </footer>
-  <script>
-    const defaultConfig = {
-      school_name: 'E.S. Kabirizi',
-      school_motto: 'Excellence, Discipline, Unity',
-      hero_heading: 'Welcome to\nE.S. Kabirizi',
-      hero_subtext: 'Shaping Future Leaders Through Quality Education Since 1985',
-      about_text: 'École Secondaire Kabirizi is a premier secondary school dedicated to nurturing academic excellence, moral integrity, and leadership. Founded in 1985, our institution has consistently produced outstanding graduates who contribute to Rwanda\'s development and beyond.',
-      contact_phone: '+250 788 000 000',
-      contact_email: 'info@eskabirizi.ac.rw',
-      background_color: '#f7f4ed',
-      surface_color: '#ffffff',
-      text_color: '#1e293b',
-      primary_action_color: '#c8a84e',
-      secondary_action_color: '#0a1628',
-      font_family: 'Playfair Display',
-      font_size: 16
-    };
-
-    function applyConfig(config) {
-      const c = { ...defaultConfig, ...config };
-
-      // Text updates
-      document.getElementById('nav-school-name').textContent = c.school_name;
-      document.getElementById('nav-motto').textContent = c.school_motto;
-      document.getElementById('hero-heading').innerHTML = (c.hero_heading || defaultConfig.hero_heading).replace(/\n/g, '<br>');
-      document.getElementById('hero-subtext').textContent = c.hero_subtext;
-      document.getElementById('about-text').textContent = c.about_text;
-      document.getElementById('top-phone').textContent = c.contact_phone;
-      document.getElementById('top-email').textContent = c.contact_email;
-      document.getElementById('contact-phone').textContent = c.contact_phone;
-      document.getElementById('contact-email').textContent = c.contact_email;
-      document.getElementById('footer-phone').textContent = c.contact_phone;
-      document.getElementById('footer-email').textContent = c.contact_email;
-      document.getElementById('footer-name').textContent = c.school_name;
-
-      // Font
-      const fontStack = `${c.font_family}, Georgia, serif`;
-      document.querySelectorAll('.font-display').forEach(el => el.style.fontFamily = fontStack);
-
-      // Font size
-      const base = c.font_size || 16;
-      document.querySelectorAll('.font-display').forEach(el => {
-        // Keep relative sizing by checking current computed styles
-      });
-      document.body.style.fontSize = base + 'px';
-    }
-
-    // Element SDK init
-    if (window.elementSdk) {
-      window.elementSdk.init({
-        defaultConfig,
-        onConfigChange: async (config) => applyConfig(config),
-        mapToCapabilities: (config) => {
-          const c = { ...defaultConfig, ...config };
-          return {
-            recolorables: [
-              { get: () => c.background_color, set: (v) => { config.background_color = v; window.elementSdk.setConfig({ background_color: v }); } },
-              { get: () => c.surface_color, set: (v) => { config.surface_color = v; window.elementSdk.setConfig({ surface_color: v }); } },
-              { get: () => c.text_color, set: (v) => { config.text_color = v; window.elementSdk.setConfig({ text_color: v }); } },
-              { get: () => c.primary_action_color, set: (v) => { config.primary_action_color = v; window.elementSdk.setConfig({ primary_action_color: v }); } },
-              { get: () => c.secondary_action_color, set: (v) => { config.secondary_action_color = v; window.elementSdk.setConfig({ secondary_action_color: v }); } }
-            ],
-            borderables: [],
-            fontEditable: {
-              get: () => c.font_family,
-              set: (v) => { config.font_family = v; window.elementSdk.setConfig({ font_family: v }); }
-            },
-            fontSizeable: {
-              get: () => c.font_size,
-              set: (v) => { config.font_size = v; window.elementSdk.setConfig({ font_size: v }); }
-            }
-          };
-        },
-        mapToEditPanelValues: (config) => {
-          const c = { ...defaultConfig, ...config };
-          return new Map([
-            ['school_name', c.school_name],
-            ['school_motto', c.school_motto],
-            ['hero_heading', c.hero_heading],
-            ['hero_subtext', c.hero_subtext],
-            ['about_text', c.about_text],
-            ['contact_phone', c.contact_phone],
-            ['contact_email', c.contact_email]
-          ]);
-        }
-      });
-    }
-
-    // Mobile menu
-    document.getElementById('mobile-toggle').addEventListener('click', () => {
-      document.getElementById('mobile-menu').classList.toggle('open');
-    });
-
-    // Close mobile menu on link click
-    document.querySelectorAll('#mobile-menu a').forEach(a => {
-      a.addEventListener('click', () => document.getElementById('mobile-menu').classList.remove('open'));
-    });
-
-    // Contact form
-    document.getElementById('contact-form').addEventListener('submit', (e) => {
-      e.preventDefault();
-      document.getElementById('form-success').classList.remove('hidden');
-      e.target.reset();
-      setTimeout(() => document.getElementById('form-success').classList.add('hidden'), 3000);
-    });
-
-    // Scroll reveal
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
-    }, { threshold: 0.1 });
-    document.querySelectorAll('.scroll-reveal').forEach(el => observer.observe(el));
-
-    // Init icons
-    lucide.createIcons();
-  </script>
- <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9ebc617c951873dc',t:'MTc3NjEwMzMzNi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+  <script src="assets/site.js"></script>
+</body>
 </html>

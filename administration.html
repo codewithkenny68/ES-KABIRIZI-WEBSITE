@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Administration | ES Kabirizi</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700;800&family=Source+Sans+3:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+  <div class="bg-[var(--navy)] text-white text-sm px-4 py-2"><div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3"><div class="flex flex-wrap items-center gap-4"><span class="flex items-center gap-2 opacity-90"><i data-lucide="mail" class="w-4 h-4"></i>info@eskabirizi.ac.rw / eskabirizi02@gmail.com</span><span class="flex items-center gap-2 opacity-90"><i data-lucide="phone" class="w-4 h-4"></i>+250 788 499 105</span></div><a href="contact.html" class="hidden sm:inline hover:text-white text-white/75">Contact</a></div></div>
+  <nav class="nav-glass sticky top-0 z-50 shadow-lg"><div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between gap-4"><a href="index.html" class="flex items-center gap-3 min-w-0"><img src="kabirizi picsss/%C3%89cole%20Secondaire%20DE.KABIRIZI%20emblem.png" alt="ES Kabirizi emblem" class="w-12 h-12 rounded-full bg-white p-1.5 shrink-0"><div><div class="text-white font-heading font-bold text-lg leading-tight">ES Kabirizi</div><div class="text-yellow-200 text-xs tracking-[0.18em] uppercase">Science and conscience</div></div></a><div class="hidden md:flex items-center gap-6 text-white text-sm font-medium"><a href="index.html" class="hover:text-yellow-200">Home</a><a href="about.html" class="hover:text-yellow-200">About</a><a href="programs.html" class="hover:text-yellow-200">Programs</a><a href="administration.html" class="text-yellow-200">Administration</a><a href="gallery.html" class="hover:text-yellow-200">Gallery</a><a href="contact.html" class="hover:text-yellow-200">Contact</a></div><button id="menu-btn" class="md:hidden text-white" aria-label="Toggle menu"><i data-lucide="menu" class="w-7 h-7"></i></button></div><div id="mobile-nav" class="mobile-menu md:hidden nav-glass px-4"><div class="flex flex-col gap-3 py-4 text-white text-sm font-medium"><a href="index.html">Home</a><a href="about.html">About</a><a href="programs.html">Programs</a><a href="administration.html" class="text-yellow-200">Administration</a><a href="gallery.html">Gallery</a><a href="contact.html">Contact</a></div></div></nav>
+
+  <main>
+    <section class="relative page-hero px-4 overflow-hidden">
+      <div class="absolute inset-0 bg-cover bg-center" style="background-image:url('kabirizi picsss/20260323_163308.JPG')"></div>
+      <div class="absolute inset-0 hero-overlay"></div>
+      <div class="relative max-w-7xl mx-auto page-hero flex items-center py-20">
+        <div class="max-w-3xl">
+          <p class="section-label text-sm font-bold uppercase fade-up">Administration</p>
+          <h1 class="font-heading text-white text-4xl md:text-6xl leading-tight mt-3 fade-up delay-1">Leadership that supports learning every day.</h1>
+          <p class="text-slate-100 text-lg md:text-xl leading-relaxed mt-5 fade-up delay-2">The administration page presents the offices and responsibilities that help the school serve students and families well.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-16 md:py-20 px-4 scroll-reveal">
+      <div class="max-w-7xl mx-auto grid lg:grid-cols-[0.9fr_1.1fr] gap-10 items-start">
+        <div class="media-frame h-[520px] shadow-xl"><img src="kabirizi picsss/20260323_163335.JPG" alt="Administration block at ES Kabirizi"></div>
+        <div>
+          <p class="section-label text-sm font-bold uppercase">School offices</p>
+          <h2 class="font-heading text-3xl md:text-5xl text-[var(--navy)] mt-3">Organized guidance for students and staff.</h2>
+          <div class="gold-line mt-5"></div>
+          <div class="grid sm:grid-cols-2 gap-5 mt-8">
+            <div class="soft-card rounded-2xl p-6"><i data-lucide="landmark" class="w-7 h-7 text-[var(--green)]"></i><h3 class="font-semibold text-[var(--navy)] mt-4">Head Teacher</h3><p class="text-sm text-[var(--muted)] mt-2">Provides overall direction, school discipline, and academic leadership.</p></div>
+            <div class="soft-card rounded-2xl p-6"><i data-lucide="clipboard-check" class="w-7 h-7 text-[var(--green)]"></i><h3 class="font-semibold text-[var(--navy)] mt-4">Studies Office</h3><p class="text-sm text-[var(--muted)] mt-2">Coordinates lessons, assessment, timetables, and academic follow-up.</p></div>
+            <div class="soft-card rounded-2xl p-6"><i data-lucide="heart-handshake" class="w-7 h-7 text-[var(--green)]"></i><h3 class="font-semibold text-[var(--navy)] mt-4">Discipline Office</h3><p class="text-sm text-[var(--muted)] mt-2">Supports student conduct, safety, and responsible school culture.</p></div>
+            <div class="soft-card rounded-2xl p-6"><i data-lucide="briefcase-business" class="w-7 h-7 text-[var(--green)]"></i><h3 class="font-semibold text-[var(--navy)] mt-4">Administration</h3><p class="text-sm text-[var(--muted)] mt-2">Handles records, communication, logistics, and daily school operations.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bg-[var(--green)] text-white py-10 px-4"><div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between gap-8"><div><div class="flex items-center gap-3 mb-4"><img src="kabirizi picsss/%C3%89cole%20Secondaire%20DE.KABIRIZI%20emblem.png" alt="ES Kabirizi emblem" class="w-10 h-10 rounded-full bg-white p-1"><span class="font-heading font-bold text-lg">ES Kabirizi</span></div><p class="text-green-100 text-sm max-w-md">Leadership, structure, and care for the school community.</p></div><nav class="flex flex-wrap gap-4 text-sm text-green-100"><a href="index.html">Home</a><a href="about.html">About</a><a href="programs.html">Programs</a><a href="gallery.html">Gallery</a><a href="contact.html">Contact</a></nav></div><p class="border-t border-white/15 max-w-7xl mx-auto mt-8 pt-6 text-sm text-green-100 text-center">&copy; 2026 ES Kabirizi. All rights reserved.</p></footer>
+  <script src="assets/site.js"></script>
+</body>
+</html>

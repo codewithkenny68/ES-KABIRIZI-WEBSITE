@@ -1,0 +1,7 @@
+;/*FB_PKG_DELIM*/
+
+__d("CasaSurfaceEventFalcoEvent",["FalcoLoggerInternal","getFalcoLogPolicy_DO_NOT_USE"],(function(t,n,r,o,a,i,l){"use strict";var e=r("getFalcoLogPolicy_DO_NOT_USE")("8417"),s=o("FalcoLoggerInternal").create("casa_surface_event",e),u=s;l.default=u}),98);
+__d("CometCasaSurfaceLoggingUtils",["CasaSurfaceEventFalcoEvent","justknobx"],(function(t,n,r,o,a,i,l){"use strict";function e(e,t,n,o,a){r("justknobx")._("1874")&&r("CasaSurfaceEventFalcoEvent").log(function(){return{click_type:n!=null?n:null,entry_point:a!=null?a:null,event_metadata:o!=null?o:null,event_type:"click",profile_id:t!=null?t:null,surface:e}})}function s(e,t,n,o){r("justknobx")._("1874")&&r("CasaSurfaceEventFalcoEvent").log(function(){return{click_type:null,entry_point:o!=null?o:null,event_metadata:n!=null?n:null,event_type:"impression",profile_id:t!=null?t:null,surface:e}})}l.logCasaSurfaceClick=e,l.logCasaSurfaceImpression=s}),98);
+__d("CometFeedPinnedEdgeStore",["cr:27602"],(function(t,n,r,o,a,i,l){"use strict";l.default=n("cr:27602")}),98);
+__d("ProdashMBSUpsellDialogSessionGuard",[],(function(t,n,r,o,a,i){"use strict";var e=!1;function l(){return e}function s(){e=!0}i.hasBeenShownThisSession=l,i.markAsShown=s}),66);
+__d("TaggedScreenTimeSurfaceTags",[],(function(t,n,r,o,a,i){"use strict";var e=1,l=2;i.HOME_FEED=e,i.REELS=l}),66);
