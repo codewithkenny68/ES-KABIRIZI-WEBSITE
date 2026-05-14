@@ -213,3 +213,112 @@ body {
     transform: translateY(0);
   }
 }
+
+.page-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  background: rgba(8, 24, 43, 0.96);
+  color: #f8e399;
+  text-align: center;
+  transition: opacity 0.35s ease, visibility 0.35s ease;
+  opacity: 1;
+  visibility: visible;
+}
+
+.page-loader.hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.loader-ring {
+  width: 4rem;
+  height: 4rem;
+  border: 0.45rem solid rgba(248, 227, 153, 0.22);
+  border-top-color: #f8e399;
+  border-radius: 50%;
+  animation: spin 0.9s linear infinite;
+}
+
+.loader-text {
+  font-size: 0.95rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.not-found-shell {
+  min-height: 72vh;
+  background:
+    linear-gradient(90deg, rgba(6, 18, 31, 0.88), rgba(13, 44, 79, 0.68), rgba(39, 93, 56, 0.56)),
+
+    url("../kabirizi picsss/20260323_163059.JPG") center / cover;
+}
+
+.not-found-panel {
+  background: rgba(255, 255, 255, 0.91);
+  border: 1px solid rgba(255, 255, 255, 0.56);
+  box-shadow: 0 22px 55px rgba(6, 18, 31, 0.22);
+}
+
+.not-found-number {
+  color: transparent;
+  background: linear-gradient(135deg, var(--navy), var(--green) 54%, var(--gold));
+  background-clip: text;
+  -webkit-background-clip: text;
+}
+
+.campus-loader {
+  position: relative;
+  height: 10px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(13, 44, 79, 0.12);
+}
+
+.campus-loader::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 42%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--green), var(--gold), #f3d98b);
+  animation: campusSearch 1.45s ease-in-out infinite;
+}
+
+.campus-steps {
+  border-left: 2px solid rgba(200, 168, 78, 0.42);
+}
+
+.campus-step-dot {
+  width: 0.72rem;
+  height: 0.72rem;
+  border-radius: 999px;
+  background: var(--gold);
+  box-shadow: 0 0 0 6px rgba(200, 168, 78, 0.16);
+}
+
+@keyframes campusSearch {
+  0% {
+    transform: translateX(-105%);
+  }
+
+  55% {
+    transform: translateX(126%);
+  }
+
+  100% {
+    transform: translateX(260%);
+  }
+}
