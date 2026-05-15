@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>News | ES Kabirizi</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700;800&family=Source+Sans+3:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/site.css">
+  <link rel="icon" href="kabirizi picsss/%C3%89cole%20Secondaire%20DE.KABIRIZI%20emblem.png" type="image/png">
+</head>
+<body>
+  <div id="page-loader" class="page-loader">
+    <div class="loader-ring"></div>
+    <p class="loader-text">Loading ES Kabirizi...</p>
+  </div>
+
+  <div class="bg-[var(--navy)] text-white text-sm px-4 py-2">
+    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3">
+      <div class="flex flex-wrap items-center gap-4">
+        <span class="flex items-center gap-2 opacity-90"><i data-lucide="mail" class="w-4 h-4"></i> eskabirizi02@gmail.com</span>
+        <span class="flex items-center gap-2 opacity-90"><i data-lucide="phone" class="w-4 h-4"></i>+250 788 499 105</span>
+      </div>
+      <span class="hidden sm:inline text-white/75">School announcements</span>
+    </div>
+  </div>
+
+  <nav class="nav-glass sticky top-0 z-50 shadow-lg">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between gap-4">
+      <a href="index.html" class="flex items-center gap-3 min-w-0">
+        <img src="kabirizi picsss/%C3%89cole%20Secondaire%20DE.KABIRIZI%20emblem.png" alt="ES Kabirizi emblem" class="w-12 h-12 rounded-full bg-white p-1.5 shrink-0">
+        <div>
+          <div class="text-white font-heading font-bold text-lg leading-tight">ES Kabirizi</div>
+          <div class="text-yellow-200 text-xs tracking-[0.18em] uppercase">Science and conscience</div>
+        </div>
+      </a>
+      <div class="hidden md:flex items-center gap-5 text-white text-sm font-medium">
+        <a href="index.html" class="hover:text-yellow-200">Home</a>
+        <a href="about.html" class="hover:text-yellow-200">About</a>
+        <a href="programs.html" class="hover:text-yellow-200">Programs</a>
+        <a href="administration.html" class="hover:text-yellow-200">Administration</a>
+        <a href="gallery.html" class="hover:text-yellow-200">Gallery</a>
+        <a href="contact.html" class="hover:text-yellow-200">Contact</a>
+        <a href="news.html" class="text-yellow-200">News</a>
+        <a href="dashboard.html" class="hover:text-yellow-200">Dashboard</a>
+      </div>
+      <button id="menu-btn" class="md:hidden text-white" aria-label="Toggle menu"><i data-lucide="menu" class="w-7 h-7"></i></button>
+    </div>
+    <div id="mobile-nav" class="mobile-menu md:hidden nav-glass px-4">
+      <div class="flex flex-col gap-3 py-4 text-white text-sm font-medium">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="programs.html">Programs</a>
+        <a href="administration.html">Administration</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="contact.html">Contact</a>
+        <a href="news.html" class="text-yellow-200">News</a>
+        <a href="dashboard.html">Dashboard</a>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <section class="relative page-hero px-4 overflow-hidden">
+      <div class="absolute inset-0 bg-cover bg-center" style="background-image:url('kabirizi picsss/20260323_164029.JPG')"></div>
+      <div class="absolute inset-0 hero-overlay"></div>
+      <div class="relative max-w-7xl mx-auto page-hero flex items-center py-20">
+        <div class="max-w-3xl">
+          <p class="section-label text-sm font-bold uppercase fade-up">School news</p>
+          <h1 class="font-heading text-white text-4xl md:text-6xl leading-tight mt-3 fade-up delay-1">Latest updates from ES Kabirizi.</h1>
+          <p class="text-slate-100 text-lg md:text-xl leading-relaxed mt-5 fade-up delay-2">Administrators can sign in to publish announcements, while visitors see live updates from Firestore.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-16 md:py-20 px-4 scroll-reveal">
+      <div class="max-w-7xl mx-auto grid lg:grid-cols-[0.85fr_1.15fr] gap-8 items-start">
+        <aside class="soft-card rounded-3xl p-6 md:p-8 shadow-sm">
+          <div class="flex items-center justify-between gap-4">
+            <div>
+              <p class="section-label text-xs font-bold uppercase">Admin</p>
+              <h2 class="font-heading text-3xl text-[var(--navy)] mt-1">Post news</h2>
+            </div>
+            <span id="authState" class="status-pill status-gold">Signed out</span>
+          </div>
+
+          <form id="loginForm" class="space-y-4 mt-7">
+            <div>
+              <label for="email" class="block text-sm font-semibold text-[var(--navy)] mb-1">Email</label>
+              <input id="email" type="email" autocomplete="email" class="w-full border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[var(--green)]" placeholder="admin@gmail.com" required>
+            </div>
+            <div>
+              <label for="password" class="block text-sm font-semibold text-[var(--navy)] mb-1">Password</label>
+              <input id="password" type="password" autocomplete="current-password" class="w-full border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[var(--green)]" placeholder="Password" required>
+            </div>
+            <button type="submit" class="btn-primary w-full rounded-xl px-5 py-3 text-sm font-semibold flex items-center justify-center gap-2"><i data-lucide="log-in" class="w-4 h-4"></i>Login</button>
+          </form>
+
+          <form id="newsForm" class="hidden space-y-4 mt-7">
+            <div>
+              <label for="title" class="block text-sm font-semibold text-[var(--navy)] mb-1">News title</label>
+              <input id="title" type="text" class="w-full border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[var(--green)]" placeholder="Announcement title" required>
+            </div>
+            <div>
+              <label for="content" class="block text-sm font-semibold text-[var(--navy)] mb-1">News content</label>
+              <textarea id="content" rows="7" class="w-full border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[var(--green)] resize-none" placeholder="Write the announcement..." required></textarea>
+            </div>
+            <div class="flex flex-col sm:flex-row gap-3">
+              <button type="submit" class="btn-primary flex-1 rounded-xl px-5 py-3 text-sm font-semibold flex items-center justify-center gap-2"><i data-lucide="send" class="w-4 h-4"></i>Post news</button>
+              <button id="logoutBtn" type="button" class="rounded-xl px-5 py-3 text-sm font-semibold border border-[var(--green)] text-[var(--green)] bg-white flex items-center justify-center gap-2"><i data-lucide="log-out" class="w-4 h-4"></i>Logout</button>
+            </div>
+          </form>
+
+          <p id="statusMessage" class="hidden mt-5 rounded-xl px-4 py-3 text-sm"></p>
+          <p class="text-xs text-[var(--muted)] leading-relaxed mt-5">Replace the Firebase config in this file, then enable Email/Password Auth and Firestore in Firebase Console.</p>
+        </aside>
+
+        <section class="soft-card rounded-3xl p-6 md:p-8 shadow-sm">
+          <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
+            <div>
+              <p class="section-label text-xs font-bold uppercase">Live display</p>
+              <h2 class="font-heading text-3xl md:text-4xl text-[var(--navy)] mt-1">Latest news</h2>
+            </div>
+            <span id="newsCount" class="text-sm text-[var(--muted)]">Loading...</span>
+          </div>
+          <div id="newsList" class="mt-7 space-y-5">
+            <div class="rounded-2xl bg-white border border-slate-100 p-5 text-sm text-[var(--muted)]">Loading news...</div>
+          </div>
+        </section>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bg-[var(--green)] text-white py-10 px-4">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between gap-8">
+      <div>
+        <div class="flex items-center gap-3 mb-4">
+          <img src="kabirizi picsss/%C3%89cole%20Secondaire%20DE.KABIRIZI%20emblem.png" alt="ES Kabirizi emblem" class="w-10 h-10 rounded-full bg-white p-1">
+          <span class="font-heading font-bold text-lg">ES Kabirizi</span>
+        </div>
+        <p class="text-green-100 text-sm max-w-md">School announcements powered by Firebase Authentication and Firestore.</p>
+      </div>
+      <nav class="flex flex-wrap gap-4 text-sm text-green-100">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="programs.html">Programs</a>
+        <a href="administration.html">Administration</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="contact.html">Contact</a>
+        <a href="dashboard.html">Dashboard</a>
+      </nav>
+    </div>
+    <p class="border-t border-white/15 max-w-7xl mx-auto mt-8 pt-6 text-sm text-green-100 text-center">&copy; 2026 ES Kabirizi. All rights reserved.</p>
+  </footer>
+
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+  <script src="assets/site.js"></script>
+  <script>
+    const firebaseConfig = {
+      apiKey: "YOUR_API_KEY",
+      authDomain: "YOUR_AUTH_DOMAIN",
+      projectId: "YOUR_PROJECT_ID"
+    };
+
+    const statusMessage = document.getElementById("statusMessage");
+    const loginForm = document.getElementById("loginForm");
+    const newsForm = document.getElementById("newsForm");
+    const logoutBtn = document.getElementById("logoutBtn");
+    const authState = document.getElementById("authState");
+    const newsList = document.getElementById("newsList");
+    const newsCount = document.getElementById("newsCount");
+
+    function showStatus(message, type) {
+      statusMessage.textContent = message;
+      statusMessage.className = "mt-5 rounded-xl px-4 py-3 text-sm " + (type === "error" ? "bg-red-50 text-red-700" : "bg-green-50 text-green-700");
+    }
+
+    function formatTime(value) {
+      if (!value) return "Just now";
+      const date = value.toDate ? value.toDate() : new Date(value);
+      return date.toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" });
+    }
+
+    function renderNewsItem(data) {
+      const article = document.createElement("article");
+      article.className = "rounded-2xl bg-white border border-slate-100 p-5 shadow-sm";
+
+      const meta = document.createElement("p");
+      meta.className = "text-xs font-bold uppercase tracking-[0.14em] text-[var(--gold)]";
+      meta.textContent = formatTime(data.time);
+
+      const heading = document.createElement("h3");
+      heading.className = "font-heading text-2xl text-[var(--navy)] mt-2";
+      heading.textContent = data.title || "Untitled news";
+
+      const content = document.createElement("p");
+      content.className = "text-[var(--muted)] leading-relaxed mt-3 whitespace-pre-line";
+      content.textContent = data.content || "";
+
+      article.append(meta, heading, content);
+      return article;
+    }
+
+    if (firebaseConfig.apiKey === "YOUR_API_KEY") {
+      newsList.innerHTML = "";
+      const setupNotice = document.createElement("div");
+      setupNotice.className = "rounded-2xl bg-amber-50 border border-amber-200 p-5 text-sm text-amber-800";
+      setupNotice.textContent = "Add your Firebase config in news.html to enable live news and admin login.";
+      newsList.appendChild(setupNotice);
+      newsCount.textContent = "Setup needed";
+      showStatus("Firebase config is still using placeholders.", "error");
+    } else {
+      firebase.initializeApp(firebaseConfig);
+      const auth = firebase.auth();
+      const db = firebase.firestore();
+
+      loginForm.addEventListener("submit", function (event) {
+        event.preventDefault();
+        auth.signInWithEmailAndPassword(document.getElementById("email").value, document.getElementById("password").value)
+          .then(function () {
+            showStatus("Login successful.", "success");
+            loginForm.reset();
+          })
+          .catch(function (error) {
+            showStatus(error.message, "error");
+          });
+      });
+
+      logoutBtn.addEventListener("click", function () {
+        auth.signOut();
+      });
+
+      auth.onAuthStateChanged(function (user) {
+        if (user) {
+          loginForm.classList.add("hidden");
+          newsForm.classList.remove("hidden");
+          authState.textContent = "Signed in";
+          authState.className = "status-pill status-green";
+        } else {
+          loginForm.classList.remove("hidden");
+          newsForm.classList.add("hidden");
+          authState.textContent = "Signed out";
+          authState.className = "status-pill status-gold";
+        }
+      });
+
+      newsForm.addEventListener("submit", function (event) {
+        event.preventDefault();
+        db.collection("news").add({
+          title: document.getElementById("title").value.trim(),
+          content: document.getElementById("content").value.trim(),
+          time: firebase.firestore.FieldValue.serverTimestamp()
+        }).then(function () {
+          showStatus("News posted successfully.", "success");
+          newsForm.reset();
+        }).catch(function (error) {
+          showStatus(error.message, "error");
+        });
+      });
+
+      db.collection("news").orderBy("time", "desc").onSnapshot(function (snapshot) {
+        newsList.innerHTML = "";
+        newsCount.textContent = snapshot.size === 1 ? "1 update" : snapshot.size + " updates";
+
+        if (snapshot.empty) {
+          const empty = document.createElement("div");
+          empty.className = "rounded-2xl bg-white border border-slate-100 p-5 text-sm text-[var(--muted)]";
+          empty.textContent = "No news has been posted yet.";
+          newsList.appendChild(empty);
+          return;
+        }
+
+        snapshot.forEach(function (doc) {
+          newsList.appendChild(renderNewsItem(doc.data()));
+        });
+      }, function (error) {
+        newsList.innerHTML = "";
+        const errorBox = document.createElement("div");
+        errorBox.className = "rounded-2xl bg-red-50 border border-red-100 p-5 text-sm text-red-700";
+        errorBox.textContent = error.message;
+        newsList.appendChild(errorBox);
+        newsCount.textContent = "Unavailable";
+      });
+    }
+  </script>
+</body>
+</html>

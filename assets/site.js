@@ -49,3 +49,45 @@ window.addEventListener('load', function () {
     }, 500);
   }
 });
+
+/* Image modal viewer: open image on click, set download link */
+(function () {
+  function openModal(src, alt) {
+    var modal = document.getElementById('img-modal');
+    var modalImg = document.getElementById('img-modal-img');
+    var dl = document.getElementById('img-modal-download');
+    if (!modal || !modalImg || !dl) return;
+    modalImg.src = src;
+    modalImg.alt = alt || '';
+    dl.href = src;
+    var filename = src.split('/').pop().split('?')[0];
+    dl.setAttribute('download', filename || 'image');
+    modal.classList.add('open');
+    modal.setAttribute('aria-hidden', 'false');
+  }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('.zoomable').forEach(function (img) {
+      img.addEventListener('click', function () {
+        openModal(img.src, img.alt);
+      });
+    });
+
+    var modal = document.getElementById('img-modal');
+    if (modal) {
+      modal.addEventListener('click', function (e) {
+        if (e.target === modal || e.target.classList.contains('img-modal-close')) {
+          modal.classList.remove('open');
+          modal.setAttribute('aria-hidden', 'true');
+        }
+      });
+
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') {
+          modal.classList.remove('open');
+          modal.setAttribute('aria-hidden', 'true');
+        }
+      });
+    }
+  });
+})();
