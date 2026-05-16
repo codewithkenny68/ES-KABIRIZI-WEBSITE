@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Login | ES Kabirizi</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700;800&family=Source+Sans+3:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/site.css">
+  <link rel="icon" href="kabirizi picsss/%C3%89cole%20Secondaire%20DE.KABIRIZI%20emblem.png" type="image/png">
+</head>
+<body>
+  <div id="page-loader" class="page-loader">
+    <div class="loader-ring"></div>
+    <p class="loader-text">Loading ES Kabirizi</p>
+  </div>
+
+  <div class="bg-[var(--navy)] text-white text-sm px-4 py-2">
+    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3">
+      <div class="flex flex-wrap items-center gap-4">
+        <span class="flex items-center gap-2 opacity-90"><i data-lucide="mail" class="w-4 h-4"></i> eskabirizi02@gmail.com</span>
+        <span class="flex items-center gap-2 opacity-90"><i data-lucide="phone" class="w-4 h-4"></i>+250 788 499 105</span>
+      </div>
+      <a href="index.html" class="hover:text-white text-white/75">Back to website</a>
+    </div>
+  </div>
+
+  <nav class="nav-glass sticky top-0 z-50 shadow-lg">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between gap-4">
+      <a href="index.html" class="flex items-center gap-3 min-w-0">
+        <img src="kabirizi picsss/%C3%89cole%20Secondaire%20DE.KABIRIZI%20emblem.png" alt="ES Kabirizi emblem" class="w-12 h-12 rounded-full bg-white p-1.5 shrink-0">
+        <div class="min-w-0">
+          <div class="text-white font-heading font-bold text-lg leading-tight">ES Kabirizi</div>
+          <div class="text-yellow-200 text-xs tracking-[0.18em] uppercase">Admin area</div>
+        </div>
+      </a>
+      <div class="hidden md:flex items-center gap-6 text-white text-sm font-medium">
+        <a href="index.html" class="hover:text-yellow-200 transition-colors">Home</a>
+        <a href="news.html" class="hover:text-yellow-200 transition-colors">News</a>
+        <a href="dashboard.html" class="hover:text-yellow-200 transition-colors">Dashboard</a>
+        <a href="admin.html" class="text-yellow-200">Admin</a>
+      </div>
+      <button id="menu-btn" class="md:hidden text-white" aria-label="Toggle menu"><i data-lucide="menu" class="w-7 h-7"></i></button>
+    </div>
+    <div id="mobile-nav" class="mobile-menu md:hidden nav-glass px-4">
+      <div class="flex flex-col gap-3 py-4 text-white text-sm font-medium">
+        <a href="index.html" class="hover:text-yellow-200">Home</a>
+        <a href="news.html" class="hover:text-yellow-200">News</a>
+        <a href="dashboard.html" class="hover:text-yellow-200">Dashboard</a>
+        <a href="admin.html" class="text-yellow-200">Admin</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="admin-shell min-h-screen px-4 py-12 md:py-16">
+    <section id="admin-login-view" class="max-w-md mx-auto">
+      <div class="bg-white rounded-2xl shadow-2xl border border-slate-200 p-6 md:p-8">
+        <div class="text-center">
+          <div class="mx-auto w-16 h-16 rounded-full bg-[#2f5fa9]/10 text-[#2f5fa9] flex items-center justify-center">
+            <i data-lucide="lock-keyhole" class="w-8 h-8"></i>
+          </div>
+          <h1 class="font-heading text-3xl font-bold text-[#092f6a] mt-5">Admin Login</h1>
+          <p class="text-sm text-slate-600 mt-2">Sign in to post information and manage user passwords.</p>
+        </div>
+
+        <form id="admin-login-form" class="mt-8 space-y-5">
+          <div>
+            <label for="admin-username" class="block font-semibold text-slate-950 mb-2">Username</label>
+            <input id="admin-username" type="text" autocomplete="username" placeholder="Enter admin username" class="w-full rounded-md border border-slate-300 bg-white px-4 py-3 text-sm outline-none transition focus:border-[#2f5fa9] focus:ring-2 focus:ring-[#2f5fa9]/20">
+          </div>
+          <div>
+            <label for="admin-password" class="block font-semibold text-slate-950 mb-2">Password</label>
+            <input id="admin-password" type="password" autocomplete="current-password" placeholder="Enter password" class="w-full rounded-md border border-slate-300 bg-white px-4 py-3 text-sm outline-none transition focus:border-[#2f5fa9] focus:ring-2 focus:ring-[#2f5fa9]/20">
+          </div>
+          <button type="submit" class="w-full rounded-md bg-[#2f5fa9] px-5 py-3 font-semibold text-white transition hover:bg-[#234f93]">Login</button>
+          <p id="admin-login-message" class="hidden text-sm text-center"></p>
+        </form>
+
+        <div class="mt-6 rounded-lg bg-slate-50 border border-slate-200 p-4 text-sm text-slate-600">
+          Demo login accounts:
+          <ul class="mt-2 list-disc pl-5 space-y-1 text-slate-700">
+            <li><span class="font-semibold">admin</span> / <span class="font-semibold">school2026</span> (Administrator)</li>
+            <li><span class="font-semibold">teacher1</span> / <span class="font-semibold">class2026</span> (Teacher)</li>
+            <li><span class="font-semibold">staff1</span> / <span class="font-semibold">welcome2026</span> (Staff)</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="admin-dashboard-view" class="hidden max-w-7xl mx-auto">
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-8">
+        <div>
+          <p class="section-label text-sm font-bold uppercase">Admin Dashboard</p>
+          <h1 class="font-heading text-3xl md:text-5xl text-[#092f6a] mt-2">Manage School Updates</h1>
+          <p id="admin-welcome" class="mt-3 text-sm text-slate-600">Welcome back. Choose an area to review or post updates.</p>
+        </div>
+        <button id="admin-logout" type="button" class="inline-flex items-center justify-center gap-2 rounded-full bg-[#28a942] px-6 py-3 font-heading text-lg font-bold text-white shadow-[0_16px_32px_rgba(40,169,66,0.28)] transition hover:bg-[#23953a]">
+          <i data-lucide="log-out" class="w-5 h-5"></i>
+          Logout
+        </button>
+      </div>
+
+      <div class="mb-8 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+        <h2 class="font-heading text-2xl font-bold text-[#092f6a]">Quick Page Checks</h2>
+        <p class="mt-2 text-sm text-slate-600">Open pages to review content and confirm the site update status.</p>
+        <div class="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          <a href="index.html" class="rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-semibold text-slate-700 hover:border-[#2f5fa9] hover:text-[#2f5fa9]">Home</a>
+          <a href="about.html" class="rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-semibold text-slate-700 hover:border-[#2f5fa9] hover:text-[#2f5fa9]">About</a>
+          <a href="programs.html" class="rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-semibold text-slate-700 hover:border-[#2f5fa9] hover:text-[#2f5fa9]">Programs</a>
+          <a href="gallery.html" class="rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-semibold text-slate-700 hover:border-[#2f5fa9] hover:text-[#2f5fa9]">Gallery</a>
+          <a href="contact.html" class="rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-semibold text-slate-700 hover:border-[#2f5fa9] hover:text-[#2f5fa9]">Contact</a>
+          <a href="dashboard.html" class="rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-semibold text-slate-700 hover:border-[#2f5fa9] hover:text-[#2f5fa9]">Dashboard</a>
+        </div>
+      </div>
+
+      <div class="grid lg:grid-cols-[1fr_0.9fr] gap-8">
+        <div class="space-y-8">
+          <form id="admin-post-form" class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 md:p-8">
+            <h2 class="font-heading text-2xl font-bold text-[#092f6a]">Post Information</h2>
+            <p class="mt-2 text-sm text-slate-600">Create announcements, school updates, reminders, or news items.</p>
+
+            <div class="grid sm:grid-cols-2 gap-4 mt-6">
+              <div>
+                <label for="post-title" class="block font-semibold text-slate-950 mb-2">Title *</label>
+                <input id="post-title" type="text" placeholder="Example: Parent meeting" class="w-full rounded-md border border-slate-300 px-4 py-3 text-sm outline-none focus:border-[#2f5fa9] focus:ring-2 focus:ring-[#2f5fa9]/20">
+              </div>
+              <div>
+                <label for="post-category" class="block font-semibold text-slate-950 mb-2">Category *</label>
+                <select id="post-category" class="w-full rounded-md border border-slate-300 px-4 py-3 text-sm outline-none focus:border-[#2f5fa9] focus:ring-2 focus:ring-[#2f5fa9]/20">
+                  <option>Announcement</option>
+                  <option>News</option>
+                  <option>Event</option>
+                  <option>Reminder</option>
+                </select>
+              </div>
+              <div class="sm:col-span-2">
+                <label for="post-body" class="block font-semibold text-slate-950 mb-2">Information *</label>
+                <textarea id="post-body" rows="6" placeholder="Write the information to share..." class="w-full rounded-md border border-slate-300 px-4 py-3 text-sm outline-none focus:border-[#2f5fa9] focus:ring-2 focus:ring-[#2f5fa9]/20"></textarea>
+              </div>
+            </div>
+
+            <button type="submit" class="mt-6 rounded-md bg-[#2f5fa9] px-6 py-3 font-semibold text-white transition hover:bg-[#234f93]">Publish Information</button>
+            <p id="post-message" class="hidden mt-4 text-sm"></p>
+          </form>
+
+          <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 md:p-8">
+            <div class="flex items-center justify-between gap-4 mb-5">
+              <h2 class="font-heading text-2xl font-bold text-[#092f6a]">Published Information</h2>
+              <button id="clear-posts" type="button" class="text-sm font-semibold text-red-600 hover:text-red-700">Clear all</button>
+            </div>
+            <div id="admin-post-list" class="space-y-4"></div>
+          </div>
+        </div>
+
+        <div class="space-y-8">
+          <form id="admin-user-form" class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 md:p-8">
+            <h2 class="font-heading text-2xl font-bold text-[#092f6a]">Add User Password</h2>
+            <p class="mt-2 text-sm text-slate-600">Create a user login record for staff or school users.</p>
+
+            <div class="space-y-4 mt-6">
+              <div>
+                <label for="new-user-name" class="block font-semibold text-slate-950 mb-2">Username *</label>
+                <input id="new-user-name" type="text" placeholder="Example: teacher01" class="w-full rounded-md border border-slate-300 px-4 py-3 text-sm outline-none focus:border-[#2f5fa9] focus:ring-2 focus:ring-[#2f5fa9]/20">
+              </div>
+              <div>
+                <label for="new-user-password" class="block font-semibold text-slate-950 mb-2">Password *</label>
+                <input id="new-user-password" type="text" placeholder="Create password" class="w-full rounded-md border border-slate-300 px-4 py-3 text-sm outline-none focus:border-[#2f5fa9] focus:ring-2 focus:ring-[#2f5fa9]/20">
+              </div>
+              <div>
+                <label for="new-user-role" class="block font-semibold text-slate-950 mb-2">Role</label>
+                <select id="new-user-role" class="w-full rounded-md border border-slate-300 px-4 py-3 text-sm outline-none focus:border-[#2f5fa9] focus:ring-2 focus:ring-[#2f5fa9]/20">
+                  <option>Teacher</option>
+                  <option>Admin Assistant</option>
+                  <option>Parent Representative</option>
+                  <option>Student Leader</option>
+                </select>
+              </div>
+            </div>
+
+            <button type="submit" class="mt-6 rounded-md bg-[#2f5fa9] px-6 py-3 font-semibold text-white transition hover:bg-[#234f93]">Save User</button>
+            <p id="user-message" class="hidden mt-4 text-sm"></p>
+          </form>
+
+          <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 md:p-8">
+            <h2 class="font-heading text-2xl font-bold text-[#092f6a] mb-5">Users</h2>
+            <div id="admin-user-list" class="space-y-4"></div>
+          </div>
+
+          <div class="rounded-2xl bg-[#092f6a] text-white p-6 md:p-8">
+            <i data-lucide="shield-alert" class="w-8 h-8 text-yellow-200"></i>
+            <h2 class="font-heading text-2xl font-bold mt-4">Security Note</h2>
+            <p class="mt-3 text-sm leading-relaxed text-white/80">This page is a browser-only demo. For real admin accounts and passwords, use a backend server, database, password hashing, and HTTPS.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="assets/site.js"></script>
+  <script src="assets/admin.js"></script>
+</body>
+</html>

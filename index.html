@@ -46,6 +46,8 @@
         <a href="contact.html" class="hover:text-yellow-200 transition-colors">Contact</a>
         <a href="news.html" class="hover:text-yellow-200 transition-colors">News</a>
         <a href="dashboard.html" class="hover:text-yellow-200 transition-colors">Dashboard</a>
+        <a href="login.html" class="hover:text-yellow-200 transition-colors">Login</a>
+        <a href="admin.html" class="hover:text-yellow-200 transition-colors">Admin</a>
       </div>
       <button id="menu-btn" class="md:hidden text-white" aria-label="Toggle menu"><i data-lucide="menu" class="w-7 h-7"></i></button>
     </div>
@@ -59,6 +61,8 @@
         <a href="contact.html" class="hover:text-yellow-200">Contact</a>
         <a href="news.html" class="hover:text-yellow-200">News</a>
         <a href="dashboard.html" class="hover:text-yellow-200">Dashboard</a>
+        <a href="login.html" class="hover:text-yellow-200">Login</a>
+        <a href="admin.html" class="hover:text-yellow-200">Admin</a>
       </div>
     </div>
   </nav>
@@ -68,6 +72,7 @@
       <div class="hero-slider" data-hero-slider aria-hidden="true">
         <div class="hero-slide is-active" style="background-image: url('kabirizi picsss/20260323_163059.JPG');"></div>
         <div class="hero-slide" style="background-image: url('kabirizi picsss/20260323_163138.JPG');"></div>
+        <div class="hero-slide" style="background-image: url('kabirizi picsss/garuka ushimee pics.jpg');"></div>
         <div class="hero-slide" style="background-image: url('kabirizi picsss/20260323_164135.JPG');"></div>
         <div class="hero-slide" style="background-image: url('kabirizi picsss/20260323_165702.JPG');"></div>
       </div>
@@ -352,7 +357,7 @@
     </section>
 
     <section class="video-feature relative overflow-hidden px-4 py-20 md:py-28 scroll-reveal">
-      <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('kabirizi picsss/20260323_164220.mp4');"></div>
+      <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('kabirizi picsss/20260323_164330.JPG');"></div>
       <div class="absolute inset-0 bg-black/65"></div>
       <div class="relative max-w-5xl mx-auto text-center text-white">
         <p class="section-label text-sm font-bold uppercase">Watch Our Story</p>
@@ -617,10 +622,11 @@
   <div id="video-modal" class="video-modal" aria-hidden="true">
     <div class="video-modal-panel">
       <button type="button" class="video-modal-close" data-video-close aria-label="Close video">&times;</button>
-      <div class="video-modal-empty">
-        <i data-lucide="video" class="w-14 h-14"></i>
-        <h3 class="font-heading text-2xl font-bold mt-4">School Video Coming Soon</h3>
-        <p class="mt-2 text-sm text-white/75">Add your video file to the project and update the video source to play it here.</p>
+      <div class="video-modal-player px-6 py-8">
+        <video id="video-modal-video" class="w-full max-w-4xl mx-auto rounded-lg shadow-lg" controls playsinline preload="metadata">
+          <source src="kabirizi picsss/20260323_164220.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
       </div>
     </div>
   </div>
@@ -665,6 +671,7 @@
             <a href="administration.html" class="hover:text-slate-900">Administration</a>
             <a href="contact.html" class="hover:text-slate-900">Contact</a>
             <a href="dashboard.html" class="hover:text-slate-900">Dashboard</a>
+            <a href="admin.html" class="hover:text-slate-900">Admin</a>
           </nav>
         </div>
       </div>

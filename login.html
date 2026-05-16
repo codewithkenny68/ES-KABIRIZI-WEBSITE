@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Login | ES Kabirizi</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700;800&family=Source+Sans+3:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/site.css">
+  <link rel="icon" href="kabirizi picsss/%C3%89cole%20Secondaire%20DE.KABIRIZI%20emblem.png" type="image/png">
+</head>
+<body>
+  <div id="page-loader" class="page-loader">
+    <div class="loader-ring"></div>
+    <p class="loader-text">Loading ES Kabirizi…</p>
+  </div>
+
+  <div class="bg-[var(--navy)] text-white text-sm px-4 py-2">
+    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3">
+      <div class="flex flex-wrap items-center gap-4">
+        <span class="flex items-center gap-2 opacity-90"><i data-lucide="mail" class="w-4 h-4"></i> eskabirizi02@gmail.com</span>
+        <span class="flex items-center gap-2 opacity-90"><i data-lucide="phone" class="w-4 h-4"></i>+250 788 499 105</span>
+      </div>
+      <a href="index.html" class="hover:text-white text-white/75">Back to website</a>
+    </div>
+  </div>
+
+  <nav class="nav-glass sticky top-0 z-50 shadow-lg">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between gap-4">
+      <a href="index.html" class="flex items-center gap-3 min-w-0">
+        <img src="kabirizi picsss/%C3%89cole%20Secondaire%20DE.KABIRIZI%20emblem.png" alt="ES Kabirizi emblem" class="w-12 h-12 rounded-full bg-white p-1.5 shrink-0">
+        <div class="min-w-0">
+          <div class="text-white font-heading font-bold text-lg leading-tight">ES Kabirizi</div>
+          <div class="text-yellow-200 text-xs tracking-[0.18em] uppercase">Student Portal</div>
+        </div>
+      </a>
+      <div class="hidden md:flex items-center gap-6 text-white text-sm font-medium">
+        <a href="index.html" class="hover:text-yellow-200 transition-colors">Home</a>
+        <a href="about.html" class="hover:text-yellow-200 transition-colors">About</a>
+        <a href="programs.html" class="hover:text-yellow-200 transition-colors">Programs</a>
+        <a href="gallery.html" class="hover:text-yellow-200 transition-colors">Gallery</a>
+        <a href="contact.html" class="hover:text-yellow-200 transition-colors">Contact</a>
+      </div>
+      <button id="menu-btn" class="md:hidden text-white" aria-label="Toggle menu"><i data-lucide="menu" class="w-7 h-7"></i></button>
+    </div>
+    <div id="mobile-nav" class="mobile-menu md:hidden nav-glass px-4">
+      <div class="flex flex-col gap-3 py-4 text-white text-sm font-medium">
+        <a href="index.html" class="hover:text-yellow-200">Home</a>
+        <a href="about.html" class="hover:text-yellow-200">About</a>
+        <a href="programs.html" class="hover:text-yellow-200">Programs</a>
+        <a href="gallery.html" class="hover:text-yellow-200">Gallery</a>
+        <a href="contact.html" class="hover:text-yellow-200">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="min-h-screen px-4 py-12 md:py-16 bg-gradient-to-b from-blue-50 to-white">
+    <section class="max-w-md mx-auto">
+      <div class="bg-white rounded-2xl shadow-2xl border border-slate-200 p-6 md:p-8">
+        <div class="text-center">
+          <div class="mx-auto w-16 h-16 rounded-full bg-[#2f5fa9]/10 text-[#2f5fa9] flex items-center justify-center">
+            <i data-lucide="user" class="w-8 h-8"></i>
+          </div>
+          <h1 class="font-heading text-3xl font-bold text-[#092f6a] mt-5">Student Login</h1>
+          <p class="text-sm text-slate-600 mt-2">Access your student portal and academic information.</p>
+        </div>
+
+        <!-- Login Form -->
+        <form id="student-login-form" class="mt-8 space-y-5">
+          <div>
+            <label for="student-email" class="block font-semibold text-slate-950 mb-2">Email Address</label>
+            <input id="student-email" type="email" autocomplete="email" placeholder="Enter your email" class="w-full rounded-md border border-slate-300 bg-white px-4 py-3 text-sm outline-none transition focus:border-[#2f5fa9] focus:ring-2 focus:ring-[#2f5fa9]/20">
+          </div>
+          <div>
+            <label for="student-password" class="block font-semibold text-slate-950 mb-2">Password</label>
+            <input id="student-password" type="password" autocomplete="current-password" placeholder="Enter password" class="w-full rounded-md border border-slate-300 bg-white px-4 py-3 text-sm outline-none transition focus:border-[#2f5fa9] focus:ring-2 focus:ring-[#2f5fa9]/20">
+          </div>
+          <button type="submit" class="w-full rounded-md bg-[#2f5fa9] px-5 py-3 font-semibold text-white transition hover:bg-[#234f93]">Login</button>
+          <p id="student-login-message" class="hidden text-sm text-center"></p>
+        </form>
+
+        <div class="mt-6 space-y-3 text-sm text-slate-600">
+          <p><a href="index.html#registration" class="text-[#2f5fa9] font-semibold hover:underline">Don't have an account? Register here</a></p>
+          <p><a href="#" class="text-[#2f5fa9] font-semibold hover:underline">Forgot your password?</a></p>
+        </div>
+
+        <div class="mt-6 rounded-lg bg-blue-50 border border-blue-200 p-4 text-sm text-slate-600">
+          <p class="font-semibold text-slate-950 mb-2">Need help?</p>
+          <p>Contact the school office: <span class="font-semibold">eskabirizi02@gmail.com</span></p>
+          <p>Phone: <span class="font-semibold">+250 788 499 105</span></p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bg-slate-100 text-slate-900">
+    <div class="bg-[#092f6a] text-white text-sm px-4 py-3">
+      <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
+        <div class="flex items-center gap-2">
+          <i data-lucide="phone" class="w-4 h-4"></i>
+          <span>+250 788 499 105</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <i data-lucide="mail" class="w-4 h-4"></i>
+          <span>eskabirizi02@gmail.com</span>
+        </div>
+      </div>
+    </div>
+    <div class="max-w-7xl mx-auto px-4 py-6 text-center text-sm text-slate-500">
+      &copy; 2026 ES Kabirizi. All rights reserved.
+    </div>
+  </footer>
+
+  <script src="assets/site.js"></script>
+  <script>
+    document.getElementById('student-login-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const msg = document.getElementById('student-login-message');
+      msg.textContent = 'Login submitted. Please check your email for confirmation.';
+      msg.className = 'text-sm text-center text-green-700 font-medium';
+      msg.classList.remove('hidden');
+      this.reset();
+      setTimeout(function() {
+        msg.classList.add('hidden');
+      }, 4000);
+    });
+  </script>
+</body>
+</html>

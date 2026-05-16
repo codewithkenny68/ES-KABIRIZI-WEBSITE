@@ -87,13 +87,21 @@ document.addEventListener('DOMContentLoaded', function () {
   const videoModal = document.getElementById('video-modal');
   const videoOpen = document.querySelector('[data-video-open]');
   const videoClose = document.querySelector('[data-video-close]');
+  const videoEl = document.getElementById('video-modal-video');
   if (videoModal && videoOpen) {
     videoOpen.addEventListener('click', function () {
       videoModal.classList.add('open');
       videoModal.setAttribute('aria-hidden', 'false');
+      if (videoEl) {
+        try { videoEl.currentTime = 0; } catch (e) {}
+        videoEl.play().catch(function () {});
+      }
     });
 
     function closeVideoModal() {
+      if (videoEl) {
+        try { videoEl.pause(); videoEl.currentTime = 0; } catch (e) {}
+      }
       videoModal.classList.remove('open');
       videoModal.setAttribute('aria-hidden', 'true');
     }
