@@ -35,6 +35,86 @@ document.addEventListener('DOMContentLoaded', function () {
     observer.observe(el);
   });
 
+  const liveCounters = Array.from(document.querySelectorAll('.live-count'));
+  if (liveCounters.length) {
+    function animateCounter(counter) {
+      const target = Number(counter.dataset.countTarget || 0);
+      const suffix = counter.dataset.countSuffix || '';
+      const duration = 1800;
+      const startTime = performance.now();
+
+      function tick(now) {
+        const progress = Math.min((now - startTime) / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        counter.textContent = Math.round(target * eased) + suffix;
+        if (progress < 1) {
+          requestAnimationFrame(tick);
+        }
+      }
+
+      counter.dataset.counted = 'true';
+      requestAnimationFrame(tick);
+    }
+
+    const countObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting && entry.target.dataset.counted !== 'true') {
+          animateCounter(entry.target);
+        }
+      });
+    }, { threshold: 0.4 });
+
+    liveCounters.forEach(function (counter) {
+      countObserver.observe(counter);
+    });
+  }
+
+  const heroSlider = document.querySelector('[data-hero-slider]');
+  if (heroSlider) {
+    const heroSlides = Array.from(heroSlider.querySelectorAll('.hero-slide'));
+    let heroIndex = Math.max(0, heroSlides.findIndex(function (slide) {
+      return slide.classList.contains('is-active');
+    }));
+
+    setInterval(function () {
+      if (!heroSlides.length) return;
+      heroSlides[heroIndex].classList.remove('is-active');
+      heroIndex = (heroIndex + 1) % heroSlides.length;
+      heroSlides[heroIndex].classList.add('is-active');
+    }, 4800);
+  }
+
+  const videoModal = document.getElementById('video-modal');
+  const videoOpen = document.querySelector('[data-video-open]');
+  const videoClose = document.querySelector('[data-video-close]');
+  if (videoModal && videoOpen) {
+    videoOpen.addEventListener('click', function () {
+      videoModal.classList.add('open');
+      videoModal.setAttribute('aria-hidden', 'false');
+    });
+
+    function closeVideoModal() {
+      videoModal.classList.remove('open');
+      videoModal.setAttribute('aria-hidden', 'true');
+    }
+
+    if (videoClose) {
+      videoClose.addEventListener('click', closeVideoModal);
+    }
+
+    videoModal.addEventListener('click', function (event) {
+      if (event.target === videoModal) {
+        closeVideoModal();
+      }
+    });
+
+    document.addEventListener('keydown', function (event) {
+      if (event.key === 'Escape') {
+        closeVideoModal();
+      }
+    });
+  }
+
   if (!document.querySelector('.corner-actions')) {
     const cornerActions = document.createElement('div');
     cornerActions.className = 'corner-actions';

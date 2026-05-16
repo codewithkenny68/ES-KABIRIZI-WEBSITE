@@ -37,6 +37,30 @@ body {
   background: linear-gradient(90deg, rgba(6, 18, 31, 0.84) 0%, rgba(8, 24, 43, 0.72) 40%, rgba(13, 31, 55, 0.36) 100%);
 }
 
+.hero-slider,
+.hero-slide {
+  position: absolute;
+  inset: 0;
+}
+
+.hero-slider {
+  overflow: hidden;
+  background: #071827;
+}
+
+.hero-slide {
+  background-position: center;
+  background-size: cover;
+  opacity: 0;
+  transform: scale(1.06);
+  transition: opacity 1s ease, transform 5.6s ease;
+}
+
+.hero-slide.is-active {
+  opacity: 1;
+  transform: scale(1);
+}
+
 .section-label {
   color: var(--gold);
   letter-spacing: 0.18em;
@@ -465,6 +489,102 @@ body {
 .slider-dot.is-active {
   width: 2rem;
   background: #f8e399;
+}
+
+.video-feature {
+  min-height: 520px;
+  display: flex;
+  align-items: center;
+}
+
+.video-play-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+  border: 0;
+  border-radius: 999px;
+  background: #28a942;
+  color: #fff;
+  padding: 0.85rem 2rem 0.85rem 0.9rem;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.35rem;
+  font-weight: 800;
+  line-height: 1;
+  box-shadow: 0 20px 42px rgba(40, 169, 66, 0.34);
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+}
+
+.video-play-btn:hover {
+  transform: translateY(-2px);
+  background: #23953a;
+  box-shadow: 0 24px 48px rgba(40, 169, 66, 0.44);
+}
+
+.video-play-icon {
+  display: inline-flex;
+  width: 4.2rem;
+  height: 4.2rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: #fff;
+  color: #28a942;
+}
+
+.video-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 10001;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  background: rgba(0, 0, 0, 0.82);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+
+.video-modal.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.video-modal-panel {
+  position: relative;
+  width: min(920px, 100%);
+  min-height: 420px;
+  overflow: hidden;
+  border-radius: 18px;
+  background: #071827;
+  box-shadow: 0 28px 80px rgba(0, 0, 0, 0.55);
+}
+
+.video-modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 2;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.video-modal-empty {
+  min-height: 420px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  color: #fff;
+  text-align: center;
 }
 
 .corner-actions {
