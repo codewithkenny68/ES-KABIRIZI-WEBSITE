@@ -1,4 +1,31 @@
 document.addEventListener('DOMContentLoaded', function () {
+  const REGISTRATIONS_KEY = 'esKabiriziRegistrations';
+  const DONATIONS_KEY = 'esKabiriziDonations';
+
+  function readJson(key, fallback) {
+    try {
+      return JSON.parse(localStorage.getItem(key)) || fallback;
+    } catch (error) {
+      return fallback;
+    }
+  }
+
+  function writeJson(key, value) {
+    localStorage.setItem(key, JSON.stringify(value));
+  }
+
+  function setFormMessage(element, text, type) {
+    if (!element) return;
+    element.textContent = text;
+    element.className = type === 'error'
+      ? 'text-sm text-center text-red-700 font-semibold'
+      : 'text-sm text-center text-green-700 font-semibold';
+    element.classList.remove('hidden');
+    setTimeout(function () {
+      element.classList.add('hidden');
+    }, 4500);
+  }
+
   const mobileNav = document.getElementById('mobile-nav');
   const menuBtn = document.getElementById('menu-btn');
 
@@ -22,6 +49,68 @@ document.addEventListener('DOMContentLoaded', function () {
         }, 4000);
       }
       contactForm.reset();
+    });
+  }
+
+  const registrationForm = document.getElementById('registration-form');
+  if (registrationForm) {
+    registrationForm.addEventListener('submit', function (event) {
+      event.preventDefault();
+      const firstName = document.getElementById('first-name').value.trim();
+      const email = document.getElementById('email-address').value.trim();
+      const phone = document.getElementById('phone-number').value.trim();
+      const program = document.getElementById('program-interest').value;
+      const message = document.getElementById('student-message').value.trim();
+      const formMessage = document.getElementById('registration-message');
+
+      if (!firstName || !email || !phone || !message) {
+        setFormMessage(formMessage, 'Please complete all required registration fields.', 'error');
+        return;
+      }
+
+      const registrations = readJson(REGISTRATIONS_KEY, []);
+      registrations.unshift({
+        firstName,
+        email,
+        phone,
+        program: program === 'Select a program' ? 'Not selected' : program,
+        message,
+        date: new Date().toLocaleString()
+      });
+      writeJson(REGISTRATIONS_KEY, registrations);
+      registrationForm.reset();
+      setFormMessage(formMessage, 'Registration sent successfully. Admin can now review it.', 'success');
+    });
+  }
+
+  const donationForm = document.getElementById('donation-form');
+  if (donationForm) {
+    donationForm.addEventListener('submit', function (event) {
+      event.preventDefault();
+      const donorName = document.getElementById('payment-name').value.trim();
+      const phone = document.getElementById('payment-phone').value.trim();
+      const method = document.getElementById('payment-method').value;
+      const amount = document.getElementById('payment-amount').value.trim();
+      const reference = document.getElementById('payment-reference').value.trim();
+      const formMessage = document.getElementById('donation-message');
+
+      if (!donorName || !phone || !amount || !reference) {
+        setFormMessage(formMessage, 'Please complete all required donation confirmation fields.', 'error');
+        return;
+      }
+
+      const donations = readJson(DONATIONS_KEY, []);
+      donations.unshift({
+        donorName,
+        phone,
+        method,
+        amount,
+        reference,
+        date: new Date().toLocaleString()
+      });
+      writeJson(DONATIONS_KEY, donations);
+      donationForm.reset();
+      setFormMessage(formMessage, 'Donation confirmation saved. Admin can now review it.', 'success');
     });
   }
 
@@ -123,7 +212,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  if (!document.querySelector('.corner-actions')) {
+  if (!document.querySelector('.corner-actions') && (document.getElementById('registration') || document.getElementById('donation-payment'))) {
     const cornerActions = document.createElement('div');
     cornerActions.className = 'corner-actions';
     cornerActions.innerHTML = [
@@ -217,44 +306,78 @@ window.addEventListener('load', function () {
   }
 });
 
-/* Image modal viewer: open image on click, set download link */
+/* Image modal viewer: open image on click, navigate with arrows, close with click or Escape */
 (function () {
-  function openModal(src, alt) {
-    var modal = document.getElementById('img-modal');
-    var modalImg = document.getElementById('img-modal-img');
-    var dl = document.getElementById('img-modal-download');
-    if (!modal || !modalImg || !dl) return;
-    modalImg.src = src;
-    modalImg.alt = alt || '';
-    dl.href = src;
-    var filename = src.split('/').pop().split('?')[0];
-    dl.setAttribute('download', filename || 'image');
+  var modal = null;
+  var modalImg = null;
+  var zoomableImages = [];
+  var currentIndex = 0;
+
+  function showModal(index) {
+    if (!modal || !modalImg || !zoomableImages.length) return;
+    currentIndex = (index + zoomableImages.length) % zoomableImages.length;
+    var target = zoomableImages[currentIndex];
+    modalImg.src = target.src;
+    modalImg.alt = target.alt || '';
     modal.classList.add('open');
     modal.setAttribute('aria-hidden', 'false');
   }
 
+  function closeModal() {
+    if (!modal) return;
+    modal.classList.remove('open');
+    modal.setAttribute('aria-hidden', 'true');
+  }
+
+  function showNext() {
+    showModal(currentIndex + 1);
+  }
+
+  function showPrev() {
+    showModal(currentIndex - 1);
+  }
+
   document.addEventListener('DOMContentLoaded', function () {
-    document.querySelectorAll('.zoomable').forEach(function (img) {
+    modal = document.getElementById('img-modal');
+    modalImg = document.getElementById('img-modal-img');
+    zoomableImages = Array.from(document.querySelectorAll('.zoomable'));
+
+    zoomableImages.forEach(function (img, index) {
       img.addEventListener('click', function () {
-        openModal(img.src, img.alt);
+        showModal(index);
       });
     });
 
-    var modal = document.getElementById('img-modal');
-    if (modal) {
-      modal.addEventListener('click', function (e) {
-        if (e.target === modal || e.target.classList.contains('img-modal-close')) {
-          modal.classList.remove('open');
-          modal.setAttribute('aria-hidden', 'true');
-        }
-      });
+    if (!modal) return;
 
-      document.addEventListener('keydown', function (e) {
-        if (e.key === 'Escape') {
-          modal.classList.remove('open');
-          modal.setAttribute('aria-hidden', 'true');
-        }
-      });
-    }
+    modal.addEventListener('click', function (e) {
+      if (e.target === modal || e.target.closest('.img-modal-close')) {
+        closeModal();
+      }
+    });
+
+    var nextButton = modal.querySelector('.img-modal-next');
+    var prevButton = modal.querySelector('.img-modal-prev');
+    if (nextButton) nextButton.addEventListener('click', function (e) {
+      e.stopPropagation();
+      showNext();
+    });
+    if (prevButton) prevButton.addEventListener('click', function (e) {
+      e.stopPropagation();
+      showPrev();
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (!modal.classList.contains('open')) return;
+      if (e.key === 'Escape') {
+        closeModal();
+      }
+      if (e.key === 'ArrowRight') {
+        showNext();
+      }
+      if (e.key === 'ArrowLeft') {
+        showPrev();
+      }
+    });
   });
 })();

@@ -12,7 +12,7 @@
 </head>
 <body>  <div id="page-loader" class="page-loader">
     <div class="loader-ring"></div>
-    <p class="loader-text">Loading ES Kabirizi�</p>
+    <p class="loader-text">Loading ES Kabirizi</p>
   </div>
   <div class="bg-[var(--navy)] text-white text-sm px-4 py-2"><div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3"><div class="flex flex-wrap items-center gap-4"><span class="flex items-center gap-2 opacity-90"><i data-lucide="mail" class="w-4 h-4"></i>eskabirizi02@gmail.com</span><span class="flex items-center gap-2 opacity-90"><i data-lucide="phone" class="w-4 h-4"></i>+250 788 499 105</span></div><a href="contact.html" class="hidden sm:inline hover:text-white text-white/75">Contact</a></div></div>
   <nav class="nav-glass sticky top-0 z-50 shadow-lg"><div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between gap-4"><a href="index.html" class="flex items-center gap-3 min-w-0"><img src="kabirizi picsss/%C3%89cole%20Secondaire%20DE.KABIRIZI%20emblem.png" alt="ES Kabirizi emblem" class="w-12 h-12 rounded-full bg-white p-1.5 shrink-0"><div><div class="text-white font-heading font-bold text-lg leading-tight">ES Kabirizi</div><div class="text-yellow-200 text-xs tracking-[0.18em] uppercase">Science and conscience</div></div></a><div class="hidden md:flex items-center gap-6 text-white text-sm font-medium"><a href="index.html" class="hover:text-yellow-200">Home</a><a href="about.html" class="hover:text-yellow-200">About</a><a href="programs.html" class="hover:text-yellow-200">Programs</a><a href="administration.html" class="hover:text-yellow-200">Administration</a><a href="gallery.html" class="text-yellow-200">Gallery</a><a href="contact.html" class="hover:text-yellow-200">Contact</a><a href="dashboard.html" class="hover:text-yellow-200">Dashboard</a></div><button id="menu-btn" class="md:hidden text-white" aria-label="Toggle menu"><i data-lucide="menu" class="w-7 h-7"></i></button></div><div id="mobile-nav" class="mobile-menu md:hidden nav-glass px-4"><div class="flex flex-col gap-3 py-4 text-white text-sm font-medium"><a href="index.html">Home</a><a href="about.html">About</a><a href="programs.html">Programs</a><a href="administration.html">Administration</a><a href="gallery.html" class="text-yellow-200">Gallery</a><a href="contact.html">Contact</a><a href="dashboard.html">Dashboard</a></div></div></nav>
@@ -41,22 +41,39 @@
          
         </div>
         <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 mt-10">
-          <div class="gallery-tile h-72"><img src="kabirizi picsss/20260323_164135.JPG" alt="Campus entrance"></div>
-          <div class="gallery-tile h-72"><img src="kabirizi picsss/20260323_163308.JPG" alt="School grounds"></div>
-          <div class="gallery-tile h-72"><img src="kabirizi picsss/20260323_163059.JPG" alt="School view"></div>
-           <div class="gallery-tile h-72"><img src="kabirizi picsss/20260323_163443.JPG" alt="School view"></div>
-          <div class="gallery-tile h-72"><img src="kabirizi picsss/20260323_164029.JPG" alt="Campus building"></div>
-          <div class="gallery-tile h-72"><img src="kabirizi picsss/20260323_164328.JPG" alt="School activity area"></div>
-        <div class="gallery-tile h-72"><img src="kabirizi picsss/20260323_164330.JPG" alt="ES Kabirizi campus scene"></div>
-        <div class="gallery-tile h-72"><img src="kabirizi picsss/20260323_164557.JPG" alt="ES Kabirizi campus scene"></div>
-        <div class="gallery-tile h-72"><img src="kabirizi picsss/20260323_163815.JPG" alt="ES Kabirizi campus scene"></div>
-          <div class="gallery-tile h-72"><img src="kabirizi picsss/20260323_164619.JPG" alt="ES Kabirizi campus scene"></div>
-          <div class="gallery-tile h-72"><img src="kabirizi picsss/5.jpg" alt="ES Kabirizi campus scene"></div>
+          <div class="gallery-tile h-72"><img class="zoomable" src="kabirizi picsss/20260323_164135.JPG" alt="Campus entrance"></div>
+          <div class="gallery-tile h-72"><img class="zoomable" src="kabirizi picsss/20260323_163308.JPG" alt="School grounds"></div>
+          <div class="gallery-tile h-72"><img class="zoomable" src="kabirizi picsss/20260323_163059.JPG" alt="School view"></div>
+           <div class="gallery-tile h-72"><img class="zoomable" src="kabirizi picsss/20260323_163443.JPG" alt="School view"></div>
+          <div class="gallery-tile h-72"><img class="zoomable" src="kabirizi picsss/20260323_164029.JPG" alt="Campus building"></div>
+          <div class="gallery-tile h-72"><img class="zoomable" src="kabirizi picsss/20260323_164328.JPG" alt="School activity area"></div>
+        <div class="gallery-tile h-72"><img class="zoomable" src="kabirizi picsss/20260323_164330.JPG" alt="ES Kabirizi campus scene"></div>
+        <div class="gallery-tile h-72"><img class="zoomable" src="kabirizi picsss/20260323_164557.JPG" alt="ES Kabirizi campus scene"></div>
+        <div class="gallery-tile h-72"><img class="zoomable" src="kabirizi picsss/20260323_163815.JPG" alt="ES Kabirizi campus scene"></div>
+          <div class="gallery-tile h-72"><img class="zoomable" src="kabirizi picsss/20260323_164619.JPG" alt="ES Kabirizi campus scene"></div>
+          <div class="gallery-tile h-72"><img class="zoomable" src="kabirizi picsss/5.jpg" alt="ES Kabirizi campus scene"></div>
 
         </div>
       </div>
     </section>
   </main>
+
+  <div id="img-modal" class="img-modal" aria-hidden="true">
+    <div class="img-modal-panel" role="dialog" aria-modal="true" aria-label="Image preview">
+      <button type="button" class="img-modal-close" aria-label="Close preview">
+        <i data-lucide="x" class="w-6 h-6"></i>
+      </button>
+      <button type="button" class="img-modal-nav img-modal-prev" aria-label="Previous image">
+        <i data-lucide="chevron-left" class="w-6 h-6"></i>
+      </button>
+      <div class="img-modal-content">
+        <img id="img-modal-img" src="" alt="" />
+      </div>
+      <button type="button" class="img-modal-nav img-modal-next" aria-label="Next image">
+        <i data-lucide="chevron-right" class="w-6 h-6"></i>
+      </button>
+    </div>
+  </div>
 
   <footer class="bg-slate-100 text-slate-900">
     <div class="bg-[#092f6a] text-white text-sm px-4 py-3">

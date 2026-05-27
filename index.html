@@ -3,700 +3,907 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Home | ES Kabirizi</title>
+  <title>ES Kabirizi | Excellence, Discipline, Future Leadership</title>
   <script src="https://cdn.tailwindcss.com/3.4.17"></script>
   <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700;800&family=Source+Sans+3:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/site.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="icon" href="kabirizi picsss/%C3%89cole%20Secondaire%20DE.KABIRIZI%20emblem.png" type="image/png">
+  <style>
+    :root {
+      --blue-950: #061b3a;
+      --blue-900: #092f6a;
+      --blue-700: #1557b0;
+      --blue-500: #2876df;
+      --gold: #d4a739;
+      --gold-soft: #f5df9f;
+      --ink: #102033;
+      --muted: #65738a;
+      --line: rgba(12, 40, 82, 0.1);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: "Poppins", Arial, sans-serif;
+      color: var(--ink);
+      background: #f7f9fd;
+    }
+    a { text-decoration: none; }
+    img { display: block; max-width: 100%; }
+
+    .container { width: min(1180px, calc(100% - 32px)); margin: 0 auto; }
+    .eyebrow {
+      color: var(--gold);
+      font-size: 0.76rem;
+      font-weight: 800;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+    .section-title {
+      color: var(--blue-950);
+      font-size: clamp(2rem, 4vw, 3.4rem);
+      font-weight: 800;
+      letter-spacing: 0;
+      line-height: 1.05;
+      margin: 0.7rem 0 1rem;
+    }
+    .section-copy {
+      color: var(--muted);
+      font-size: 1rem;
+      line-height: 1.8;
+      max-width: 680px;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.55rem;
+      min-height: 48px;
+      border-radius: 999px;
+      padding: 0.85rem 1.35rem;
+      font-weight: 700;
+      transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease, color 0.25s ease;
+    }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-gold {
+      color: #071a35;
+      background: linear-gradient(135deg, #ffe49a, var(--gold));
+      box-shadow: 0 18px 38px rgba(212, 167, 57, 0.28);
+    }
+    .btn-white {
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.68);
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(12px);
+    }
+    .btn-white:hover { background: rgba(255, 255, 255, 0.18); }
+
+    .site-header {
+      position: fixed;
+      inset: 0 0 auto;
+      z-index: 50;
+      transition: background 0.28s ease, box-shadow 0.28s ease, transform 0.28s ease;
+      color: #fff;
+    }
+    .site-header.scrolled {
+      background: rgba(6, 27, 58, 0.92);
+      box-shadow: 0 18px 48px rgba(4, 18, 39, 0.18);
+      backdrop-filter: blur(18px);
+    }
+    .top-strip {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+      font-size: 0.78rem;
+    }
+    .top-strip .container,
+    .navbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .top-strip .container { min-height: 38px; }
+    .top-info, .social-mini { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
+    .navbar { min-height: 78px; }
+    .brand { display: flex; align-items: center; gap: 0.85rem; color: #fff; min-width: 0; }
+    .brand img {
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      background: #fff;
+      padding: 0.35rem;
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.18);
+    }
+    .brand strong { display: block; font-size: 1.08rem; letter-spacing: 0; }
+    .brand span { display: block; color: var(--gold-soft); font-size: 0.66rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; }
+    .nav-links { display: flex; align-items: center; gap: 1.35rem; }
+    .nav-links a {
+      color: rgba(255, 255, 255, 0.86);
+      font-size: 0.88rem;
+      font-weight: 600;
+      transition: color 0.2s ease;
+    }
+    .nav-links a:hover, .nav-links a.active { color: var(--gold-soft); }
+    .mobile-panel { display: none; }
+    .menu-toggle {
+      display: none;
+      width: 44px;
+      height: 44px;
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      border-radius: 999px;
+      color: #fff;
+      background: rgba(255, 255, 255, 0.08);
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hero {
+      min-height: 100vh;
+      position: relative;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      color: #fff;
+      background: var(--blue-950);
+    }
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(90deg, rgba(4, 18, 39, 0.92) 0%, rgba(6, 27, 58, 0.74) 45%, rgba(6, 27, 58, 0.24) 100%),
+        url("kabirizi picsss/20260323_163059.JPG") center/cover no-repeat;
+      transform: scale(1.03);
+      animation: heroDrift 12s ease-in-out infinite alternate;
+    }
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0;
+      height: 160px;
+      background: linear-gradient(180deg, rgba(247, 249, 253, 0), #f7f9fd);
+    }
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+      padding-top: 116px;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      padding: 0.55rem 0.85rem;
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.09);
+      color: var(--gold-soft);
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      backdrop-filter: blur(14px);
+    }
+    .hero h1 {
+      max-width: 780px;
+      margin: 1.3rem 0 1.1rem;
+      font-size: clamp(3rem, 8vw, 6.7rem);
+      font-weight: 800;
+      letter-spacing: 0;
+      line-height: 0.98;
+    }
+    .hero p {
+      max-width: 680px;
+      color: rgba(255, 255, 255, 0.82);
+      font-size: clamp(1rem, 2vw, 1.26rem);
+      line-height: 1.8;
+    }
+    .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 2rem; }
+    .hero-metrics {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+      max-width: 780px;
+      margin-top: 3.2rem;
+    }
+    .hero-metric {
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 8px;
+      padding: 1.1rem;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(16px);
+    }
+    .hero-metric strong { display: block; color: #fff; font-size: 1.5rem; }
+    .hero-metric span { color: rgba(255, 255, 255, 0.7); font-size: 0.82rem; }
+
+    section { padding: 96px 0; }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 0.95fr 1.05fr;
+      gap: 3.5rem;
+      align-items: center;
+    }
+    .image-stack {
+      position: relative;
+      min-height: 560px;
+    }
+    .image-stack .main-photo,
+    .image-stack .small-photo {
+      position: absolute;
+      overflow: hidden;
+      border-radius: 8px;
+      box-shadow: 0 28px 70px rgba(8, 33, 72, 0.18);
+      background: #dce8f8;
+    }
+    .image-stack img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+    .image-stack .main-photo:hover img,
+    .image-stack .small-photo:hover img { transform: scale(1.05); }
+    .main-photo { inset: 0 12% 8% 0; }
+    .small-photo { right: 0; bottom: 0; width: 48%; height: 42%; border: 8px solid #f7f9fd; }
+    .principal-mini {
+      position: absolute;
+      left: 7%;
+      bottom: 8%;
+      max-width: 280px;
+      border-radius: 8px;
+      padding: 1.15rem;
+      background: #fff;
+      box-shadow: 0 18px 42px rgba(8, 33, 72, 0.16);
+    }
+    .principal-mini strong { color: var(--blue-900); display: block; }
+    .principal-mini p { color: var(--muted); font-size: 0.86rem; line-height: 1.6; margin: 0.35rem 0 0; }
+    .pill-list { display: flex; flex-wrap: wrap; gap: 0.7rem; margin-top: 1.6rem; }
+    .pill-list span {
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: #fff;
+      color: var(--blue-900);
+      padding: 0.6rem 0.9rem;
+      font-size: 0.86rem;
+      font-weight: 700;
+    }
+    .mvv-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+      margin-top: 2.3rem;
+    }
+    .mvv-card,
+    .program-card,
+    .news-card {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      box-shadow: 0 18px 40px rgba(8, 33, 72, 0.07);
+      transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease;
+    }
+    .mvv-card { padding: 1.35rem; }
+    .mvv-card:hover,
+    .program-card:hover,
+    .news-card:hover {
+      transform: translateY(-7px);
+      border-color: rgba(212, 167, 57, 0.45);
+      box-shadow: 0 28px 60px rgba(8, 33, 72, 0.13);
+    }
+    .icon-box {
+      width: 48px;
+      height: 48px;
+      display: grid;
+      place-items: center;
+      border-radius: 8px;
+      color: var(--blue-900);
+      background: rgba(212, 167, 57, 0.16);
+    }
+    .mvv-card h3, .program-card h3, .news-card h3 { margin: 1rem 0 0.45rem; color: var(--blue-950); font-size: 1.05rem; }
+    .mvv-card p, .program-card p, .news-card p { color: var(--muted); line-height: 1.7; font-size: 0.92rem; margin: 0; }
+
+    .stats-section {
+      background:
+        linear-gradient(90deg, rgba(6, 27, 58, 0.94), rgba(9, 47, 106, 0.9)),
+        url("kabirizi picsss/20260323_163138.JPG") center/cover fixed;
+      color: #fff;
+    }
+    .stats-section .section-title { color: #fff; }
+    .stats-section .section-copy { color: rgba(255, 255, 255, 0.75); }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 1rem;
+    }
+    .stat-card {
+      min-height: 180px;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 8px;
+      padding: 1.4rem;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(14px);
+    }
+    .stat-card i { color: var(--gold-soft); }
+    .stat-card strong { display: block; font-size: clamp(2rem, 4vw, 3.2rem); margin-top: 1.2rem; line-height: 1; }
+    .stat-card span { display: block; color: rgba(255, 255, 255, 0.74); margin-top: 0.6rem; }
+
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+    .section-head .section-copy { max-width: 520px; }
+    .programs-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1.3rem;
+    }
+    .program-card { overflow: hidden; }
+    .program-media { height: 230px; overflow: hidden; background: #dce8f8; }
+    .program-media img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.55s ease; }
+    .program-card:hover .program-media img { transform: scale(1.08); }
+    .program-body { padding: 1.35rem; }
+    .program-meta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      color: var(--blue-700);
+      font-size: 0.75rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .gallery-section { background: #fff; }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-auto-rows: 230px;
+      gap: 1rem;
+    }
+    .gallery-item {
+      position: relative;
+      overflow: hidden;
+      border-radius: 8px;
+      background: #dce8f8;
+      box-shadow: 0 18px 42px rgba(8, 33, 72, 0.09);
+    }
+    .gallery-item.wide { grid-column: span 2; }
+    .gallery-item.tall { grid-row: span 2; }
+    .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+    .gallery-item:hover img { transform: scale(1.08); }
+    .gallery-item::after {
+      content: attr(data-label);
+      position: absolute;
+      inset: auto 1rem 1rem;
+      color: #fff;
+      font-weight: 700;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 0.25s ease, transform 0.25s ease;
+      text-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+    }
+    .gallery-item::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(0, 0, 0, 0), rgba(6, 27, 58, 0.68));
+      opacity: 0;
+      transition: opacity 0.25s ease;
+      z-index: 1;
+    }
+    .gallery-item::after { z-index: 2; }
+    .gallery-item:hover::before,
+    .gallery-item:hover::after { opacity: 1; transform: translateY(0); }
+
+    .principal-section {
+      background:
+        linear-gradient(180deg, #f7f9fd, #eef4ff);
+    }
+    .principal-card {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 2.5rem;
+      align-items: center;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      background: #fff;
+      padding: 1rem;
+      box-shadow: 0 28px 80px rgba(8, 33, 72, 0.1);
+    }
+    .principal-photo {
+      min-height: 470px;
+      border-radius: 8px;
+      overflow: hidden;
+      background: #dce8f8;
+    }
+    .principal-photo img { width: 100%; height: 100%; object-fit: cover; }
+    .principal-copy { padding: 2rem 2rem 2rem 0; }
+    .quote-mark {
+      color: var(--gold);
+      font-size: 4rem;
+      font-weight: 800;
+      line-height: 0.7;
+    }
+    .principal-copy blockquote {
+      margin: 1rem 0;
+      color: var(--blue-950);
+      font-size: clamp(1.5rem, 3vw, 2.4rem);
+      font-weight: 700;
+      line-height: 1.25;
+    }
+    .principal-copy p { color: var(--muted); line-height: 1.8; }
+    .signature { margin-top: 1.5rem; color: var(--blue-900); font-weight: 800; }
+
+    .news-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1.2rem;
+    }
+    .news-card { overflow: hidden; }
+    .news-card img { width: 100%; height: 210px; object-fit: cover; }
+    .news-body { padding: 1.25rem; }
+    .date-tag {
+      color: var(--gold);
+      font-size: 0.75rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .cta-band {
+      padding: 78px 0;
+      background: linear-gradient(135deg, var(--blue-950), var(--blue-700));
+      color: #fff;
+      overflow: hidden;
+      position: relative;
+    }
+    .cta-band::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: url("kabirizi picsss/20260323_164135.JPG") center/cover;
+      opacity: 0.14;
+      transform: scale(1.04);
+    }
+    .cta-inner {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+    }
+    .cta-inner h2 { margin: 0; font-size: clamp(2rem, 4vw, 3.4rem); font-weight: 800; line-height: 1.08; }
+    .cta-inner p { color: rgba(255, 255, 255, 0.76); max-width: 590px; line-height: 1.8; }
+
+    footer {
+      background: #061b3a;
+      color: rgba(255, 255, 255, 0.76);
+      padding-top: 72px;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.3fr 0.8fr 0.8fr 1fr;
+      gap: 2rem;
+      padding-bottom: 56px;
+    }
+    .footer-brand img { width: 72px; height: 72px; padding: 0.45rem; background: #fff; border-radius: 50%; }
+    .footer-brand h3, footer h4 { color: #fff; margin: 1rem 0; }
+    .footer-brand p, footer p { line-height: 1.8; }
+    .footer-links { display: grid; gap: 0.7rem; }
+    .footer-links a { color: rgba(255, 255, 255, 0.72); transition: color 0.2s ease; }
+    .footer-links a:hover { color: var(--gold-soft); }
+    .footer-contact { display: grid; gap: 0.9rem; }
+    .footer-contact div { display: flex; align-items: flex-start; gap: 0.7rem; }
+    .footer-bottom {
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 1.2rem 0;
+      font-size: 0.85rem;
+    }
+    .footer-bottom .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    @keyframes heroDrift {
+      from { transform: scale(1.03) translateX(0); }
+      to { transform: scale(1.08) translateX(-1.5%); }
+    }
+
+    @media (max-width: 980px) {
+      .top-strip, .nav-links { display: none; }
+      .menu-toggle { display: inline-flex; }
+      .navbar { min-height: 72px; }
+      .mobile-panel {
+        display: grid;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.32s ease;
+        background: rgba(6, 27, 58, 0.96);
+        backdrop-filter: blur(18px);
+      }
+      .mobile-panel.open { max-height: 520px; }
+      .mobile-panel a {
+        color: rgba(255, 255, 255, 0.86);
+        padding: 0.9rem 0;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        font-weight: 700;
+      }
+      .about-grid,
+      .principal-card,
+      .cta-inner { grid-template-columns: 1fr; display: grid; }
+      .principal-copy { padding: 1.5rem; }
+      .stats-grid, .mvv-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .programs-grid, .news-grid { grid-template-columns: 1fr 1fr; }
+      .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 640px) {
+      .container { width: min(100% - 24px, 1180px); }
+      section { padding: 72px 0; }
+      .hero-content { width: min(100% - 24px, 820px); padding-top: 90px; }
+      .hero h1 { font-size: clamp(2.7rem, 16vw, 4.2rem); }
+      .hero-actions .btn { width: 100%; }
+      .hero-metrics, .mvv-grid, .stats-grid, .programs-grid, .news-grid, .footer-grid { grid-template-columns: 1fr; }
+      .image-stack { min-height: 430px; }
+      .main-photo { inset: 0 0 24% 0; }
+      .small-photo { width: 58%; height: 34%; }
+      .principal-mini { left: 0.8rem; right: 0.8rem; bottom: 5.5rem; max-width: none; }
+      .section-head { display: block; }
+      .gallery-grid { grid-template-columns: 1fr; grid-auto-rows: 240px; }
+      .gallery-item.wide, .gallery-item.tall { grid-column: auto; grid-row: auto; }
+      .principal-photo { min-height: 360px; }
+      .cta-inner { display: grid; }
+      .footer-bottom .container { justify-content: center; text-align: center; }
+    }
+  </style>
 </head>
 <body>
-  <div id="page-loader" class="page-loader">
-    <div class="loader-ring"></div>
-    <p class="loader-text">Loading ES Kabirizi…</p>
-  </div>
-  <div class="bg-[var(--navy)] text-white text-sm px-4 py-2">
-    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3">
-      <div class="flex flex-wrap items-center gap-4">
-        <span class="flex items-center gap-2 opacity-90"><i data-lucide="mail" class="w-4 h-4"></i> eskabirizi02@gmail.com</span>
-        <span class="flex items-center gap-2 opacity-90"><i data-lucide="phone" class="w-4 h-4"></i>+250 788 499 105</span>
-      </div>
-      <div class="hidden sm:flex items-center gap-3 text-white/75">
-        <a href="gallery.html" class="hover:text-white transition-colors">Campus photos</a>
-        <a href="contact.html" class="hover:text-white transition-colors">Contact</a>
-      </div>
-    </div>
-  </div>
-
-  <nav class="nav-glass sticky top-0 z-50 shadow-lg">
-    <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between gap-4">
-      <a href="index.html" class="flex items-center gap-3 min-w-0">
-        <img src="kabirizi picsss/%C3%89cole%20Secondaire%20DE.KABIRIZI%20emblem.png" alt="ES Kabirizi emblem" class="w-12 h-12 rounded-full bg-white p-1.5 shrink-0">
-        <div class="min-w-0">
-          <div class="text-white font-heading font-bold text-lg leading-tight">ES Kabirizi</div>
-          <div class="text-yellow-200 text-xs tracking-[0.18em] uppercase">Science and conscience</div>
+  <header class="site-header" id="site-header">
+    <div class="top-strip">
+      <div class="container">
+        <div class="top-info">
+          <span class="inline-flex items-center gap-2"><i data-lucide="mail" class="w-4 h-4"></i> eskabirizi02@gmail.com</span>
+          <span class="inline-flex items-center gap-2"><i data-lucide="phone" class="w-4 h-4"></i> +250 788 499 105</span>
         </div>
+        <div class="social-mini">
+          <a class="text-white/80 hover:text-white" href="gallery.html">Gallery</a>
+          <a class="text-white/80 hover:text-white" href="contact.html">Contact</a>
+        </div>
+      </div>
+    </div>
+    <div class="container navbar">
+      <a class="brand" href="index.html">
+        <img src="kabirizi picsss/%C3%89cole%20Secondaire%20DE.KABIRIZI%20emblem.png" alt="ES Kabirizi emblem">
+        <span>
+          <strong>ES Kabirizi</strong>
+          <span>Science and Conscience</span>
+        </span>
       </a>
-      <div class="hidden md:flex items-center gap-6 text-white text-sm font-medium">
-        <a href="index.html" class="text-yellow-200">Home</a>
-        <a href="about.html" class="hover:text-yellow-200 transition-colors">About</a>
-        <a href="programs.html" class="hover:text-yellow-200 transition-colors">Programs</a>
-        <a href="administration.html" class="hover:text-yellow-200 transition-colors">Administration</a>
-        <a href="gallery.html" class="hover:text-yellow-200 transition-colors">Gallery</a>
-        <a href="contact.html" class="hover:text-yellow-200 transition-colors">Contact</a>
-        <a href="news.html" class="hover:text-yellow-200 transition-colors">News</a>
-        <a href="dashboard.html" class="hover:text-yellow-200 transition-colors">Dashboard</a>
-        <a href="login.html" class="hover:text-yellow-200 transition-colors">Login</a>
-        <a href="admin.html" class="hover:text-yellow-200 transition-colors">Admin</a>
-      </div>
-      <button id="menu-btn" class="md:hidden text-white" aria-label="Toggle menu"><i data-lucide="menu" class="w-7 h-7"></i></button>
+      <nav class="nav-links" aria-label="Primary navigation">
+        <a class="active" href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="programs.html">Programs</a>
+        <a href="administration.html">Administration</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="news.html">News</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <button class="menu-toggle" id="menu-toggle" aria-label="Open menu">
+        <i data-lucide="menu" class="w-6 h-6"></i>
+      </button>
     </div>
-    <div id="mobile-nav" class="mobile-menu md:hidden nav-glass px-4">
-      <div class="flex flex-col gap-3 py-4 text-white text-sm font-medium">
-        <a href="index.html" class="text-yellow-200">Home</a>
-        <a href="about.html" class="hover:text-yellow-200">About</a>
-        <a href="programs.html" class="hover:text-yellow-200">Programs</a>
-        <a href="administration.html" class="hover:text-yellow-200">Administration</a>
-        <a href="gallery.html" class="hover:text-yellow-200">Gallery</a>
-        <a href="contact.html" class="hover:text-yellow-200">Contact</a>
-        <a href="news.html" class="hover:text-yellow-200">News</a>
-        <a href="dashboard.html" class="hover:text-yellow-200">Dashboard</a>
-        <a href="login.html" class="hover:text-yellow-200">Login</a>
-        <a href="admin.html" class="hover:text-yellow-200">Admin</a>
+    <div class="mobile-panel" id="mobile-panel">
+      <div class="container grid">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="programs.html">Programs</a>
+        <a href="administration.html">Administration</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="news.html">News</a>
+        <a href="contact.html">Contact</a>
       </div>
     </div>
-  </nav>
+  </header>
 
   <main>
-    <section class="relative min-h-[78vh] px-4 overflow-hidden">
-      <div class="hero-slider" data-hero-slider aria-hidden="true">
-        <div class="hero-slide is-active" style="background-image: url('kabirizi picsss/20260323_163059.JPG');"></div>
-        <div class="hero-slide" style="background-image: url('kabirizi picsss/20260323_163138.JPG');"></div>
-        <div class="hero-slide" style="background-image: url('kabirizi picsss/garuka ushimee pics.jpg');"></div>
-        <div class="hero-slide" style="background-image: url('kabirizi picsss/20260323_164135.JPG');"></div>
-        <div class="hero-slide" style="background-image: url('kabirizi picsss/20260323_165702.JPG');"></div>
+    <section class="hero">
+      <div class="hero-content">
+        <div class="hero-badge reveal"><i data-lucide="sparkles" class="w-4 h-4"></i> Premier secondary education in Kabirizi</div>
+        <h1 class="reveal">Shaping disciplined learners for a brighter Rwanda.</h1>
+        <p class="reveal">ES Kabirizi combines academic excellence, moral formation, leadership, and a caring campus culture so every student can grow with confidence and purpose.</p>
+        <div class="hero-actions reveal">
+          <a href="contact.html" class="btn btn-gold"><i data-lucide="send" class="w-5 h-5"></i> Apply Now</a>
+          <a href="#about" class="btn btn-white"><i data-lucide="play-circle" class="w-5 h-5"></i> Explore School</a>
+        </div>
+        <div class="hero-metrics reveal">
+          <div class="hero-metric"><strong>98%</strong><span>Student performance focus</span></div>
+          <div class="hero-metric"><strong>40+</strong><span>Dedicated staff members</span></div>
+          <div class="hero-metric"><strong>3</strong><span>Core values guiding life</span></div>
+        </div>
       </div>
-      <div class="absolute inset-0 hero-overlay"></div>
-      <div class="relative max-w-7xl mx-auto min-h-[78vh] flex items-center py-20 md:py-28">
-        <div class="max-w-3xl">
-          <div class="bg-white/10 border border-white/20 backdrop-blur-md rounded-3xl px-6 py-7 md:px-8 md:py-9 shadow-2xl">
-            <p class="section-label text-sm font-semibold uppercase fade-up">Ecole Secondaire de Kabirizi</p>
-            <h1 class="font-heading text-white text-4xl md:text-6xl leading-tight mt-3 fade-up delay-1">A school website rooted in the real campus</h1>
-            <p class="text-slate-100 text-lg md:text-xl leading-relaxed mt-5 max-w-2xl fade-up delay-2">Welcome to ES Kabirizi, presented through the school emblem, the campus entrance, and everyday scenes from the grounds.</p>
-            <div class="flex flex-wrap gap-4 mt-8 fade-up delay-2">
-              <a href="about.html" class="btn-primary px-7 py-3 rounded-full font-semibold text-sm shadow-lg">See the campus</a>
-              <a href="contact.html" class="btn-secondary px-7 py-3 rounded-full font-semibold text-sm">Contact the school</a>
-            </div>
+    </section>
+
+    <section id="about" class="about-section">
+      <div class="container about-grid">
+        <div class="image-stack reveal">
+          <div class="main-photo"><img src="kabirizi picsss/20260323_163138.JPG" alt="ES Kabirizi campus buildings"></div>
+          <div class="small-photo"><img src="kabirizi picsss/garuka ushimee pics.jpg" alt="ES Kabirizi students and community"></div>
+          <div class="principal-mini">
+            <strong>Learning with purpose</strong>
+            <p>A school culture built around discipline, respect, service, and academic ambition.</p>
           </div>
-          <div class="grid sm:grid-cols-3 gap-4 mt-6">
-            <div class="soft-card rounded-2xl px-5 py-4 fade-up delay-1">
-              <p class="text-xs uppercase tracking-[0.18em] text-[var(--gold)] font-semibold">Identity</p>
-              <p class="text-sm text-[var(--muted)] mt-2">Real school emblem and school colors used throughout the site.</p>
-            </div>
-            <div class="soft-card rounded-2xl px-5 py-4 fade-up delay-2">
-              <p class="text-xs uppercase tracking-[0.18em] text-[var(--gold)] font-semibold">Campus</p>
-              <p class="text-sm text-[var(--muted)] mt-2">The landing image shows the school entrance and administrative block.</p>
-            </div>
-            <div class="soft-card rounded-2xl px-5 py-4 fade-up delay-2">
-              <p class="text-xs uppercase tracking-[0.18em] text-[var(--gold)] font-semibold">Community</p>
-              <p class="text-sm text-[var(--muted)] mt-2">Pages highlight learning, leadership, campus life, and ways to connect.</p>
-            </div>
+        </div>
+        <div class="reveal">
+          <p class="eyebrow">About ES Kabirizi</p>
+          <h2 class="section-title">A modern school rooted in character and excellence.</h2>
+          <p class="section-copy">ES Kabirizi is a learning community where students are encouraged to think deeply, act responsibly, and prepare for meaningful futures. Our environment blends strong classroom routines with mentorship, creativity, and service.</p>
+          <div class="pill-list">
+            <span>Academic discipline</span>
+            <span>Student leadership</span>
+            <span>Community service</span>
+            <span>Science and conscience</span>
+          </div>
+          <div class="mvv-grid">
+            <article class="mvv-card">
+              <div class="icon-box"><i data-lucide="target" class="w-6 h-6"></i></div>
+              <h3>Mission</h3>
+              <p>To educate responsible, skilled, and ethical learners ready to serve their communities.</p>
+            </article>
+            <article class="mvv-card">
+              <div class="icon-box"><i data-lucide="telescope" class="w-6 h-6"></i></div>
+              <h3>Vision</h3>
+              <p>To be a leading school recognized for academic quality and student transformation.</p>
+            </article>
+            <article class="mvv-card">
+              <div class="icon-box"><i data-lucide="gem" class="w-6 h-6"></i></div>
+              <h3>Values</h3>
+              <p>Discipline, integrity, excellence, collaboration, respect, and lifelong learning.</p>
+            </article>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="py-16 md:py-20 px-4 scroll-reveal">
-      <div class="max-w-7xl mx-auto bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600 rounded-[2rem] p-6 md:p-10 shadow-2xl overflow-hidden">
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-          <div class="rounded-3xl border border-white/15 bg-white/10 p-6 text-center text-white">
-            <div class="mx-auto flex h-14 w-14 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white">
-              <i data-lucide="users" class="w-6 h-6"></i>
-            </div>
-            <p class="mt-6 text-4xl font-bold live-count" data-count-target="118" data-count-suffix="k">0</p>
-            <p class="mt-2 text-sm text-white/80">Our Happy Students</p>
+    <section class="stats-section">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <p class="eyebrow">School in numbers</p>
+            <h2 class="section-title text-white">Results that reflect commitment.</h2>
           </div>
-          <div class="rounded-3xl border border-white/15 bg-white/10 p-6 text-center text-white">
-            <div class="mx-auto flex h-14 w-14 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white">
-              <i data-lucide="graduation-cap" class="w-6 h-6"></i>
-            </div>
-            <p class="mt-6 text-4xl font-bold live-count" data-count-target="150" data-count-suffix="k">0</p>
-            <p class="mt-2 text-sm text-white/80">Enrolled Learner</p>
+          <p class="section-copy text-white/75">Clear goals, consistent mentorship, and a focused academic culture help students pursue strong outcomes year after year.</p>
+        </div>
+        <div class="stats-grid">
+          <div class="stat-card reveal"><i data-lucide="users" class="w-7 h-7"></i><strong class="count" data-target="850" data-suffix="+">0</strong><span>Students learning together</span></div>
+          <div class="stat-card reveal"><i data-lucide="graduation-cap" class="w-7 h-7"></i><strong class="count" data-target="42" data-suffix="+">0</strong><span>Teachers and mentors</span></div>
+          <div class="stat-card reveal"><i data-lucide="award" class="w-7 h-7"></i><strong class="count" data-target="96" data-suffix="%">0</strong><span>Performance target</span></div>
+          <div class="stat-card reveal"><i data-lucide="book-open-check" class="w-7 h-7"></i><strong class="count" data-target="12" data-suffix="+">0</strong><span>Student clubs and programs</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="programs-section">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <p class="eyebrow">Academic programs</p>
+            <h2 class="section-title">Learning pathways for confident futures.</h2>
           </div>
-          <div class="rounded-3xl border border-white/15 bg-white/10 p-6 text-center text-white">
-            <div class="mx-auto flex h-14 w-14 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white">
-              <i data-lucide="award" class="w-6 h-6"></i>
+          <p class="section-copy">Our programs balance knowledge, practical skills, collaboration, and disciplined study habits across classroom and campus life.</p>
+        </div>
+        <div class="programs-grid">
+          <article class="program-card reveal">
+            <div class="program-media"><img src="kabirizi picsss/science.jpg" alt="Science learning at ES Kabirizi"></div>
+            <div class="program-body">
+              <span class="program-meta"><i data-lucide="flask-conical" class="w-4 h-4"></i> Sciences</span>
+              <h3>STEM Foundation</h3>
+              <p>Strengthening inquiry, numeracy, scientific thinking, and problem solving for tomorrow's innovators.</p>
             </div>
-            <p class="mt-6 text-4xl font-bold live-count" data-count-target="120" data-count-suffix="+">0</p>
-            <p class="mt-2 text-sm text-white/80">Expert Instructor</p>
+          </article>
+          <article class="program-card reveal">
+            <div class="program-media"><img src="kabirizi picsss/math.jpg" alt="Mathematics program"></div>
+            <div class="program-body">
+              <span class="program-meta"><i data-lucide="calculator" class="w-4 h-4"></i> Mathematics</span>
+              <h3>Analytical Excellence</h3>
+              <p>Building precision, confidence, and exam readiness through focused practice and active support.</p>
+            </div>
+          </article>
+          <article class="program-card reveal">
+            <div class="program-media"><img src="kabirizi picsss/20260323_164135.JPG" alt="Student life at ES Kabirizi"></div>
+            <div class="program-body">
+              <span class="program-meta"><i data-lucide="users-round" class="w-4 h-4"></i> Leadership</span>
+              <h3>Character and Service</h3>
+              <p>Developing teamwork, responsibility, communication, and the confidence to lead with humility.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="gallery-section">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <p class="eyebrow">Campus gallery</p>
+            <h2 class="section-title">A glimpse of life at ES Kabirizi.</h2>
           </div>
-          <div class="rounded-3xl border border-white/15 bg-white/10 p-6 text-center text-white">
-            <div class="mx-auto flex h-14 w-14 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white">
-              <i data-lucide="thumbs-up" class="w-6 h-6"></i>
-            </div>
-            <p class="mt-6 text-4xl font-bold live-count" data-count-target="96" data-count-suffix="%">0</p>
-            <p class="mt-2 text-sm text-white/80">Satisfaction Rate</p>
+          <a href="gallery.html" class="btn btn-gold"><i data-lucide="images" class="w-5 h-5"></i> View Gallery</a>
+        </div>
+        <div class="gallery-grid">
+          <a class="gallery-item wide reveal" data-label="Campus entrance" href="gallery.html"><img src="kabirizi picsss/20260323_163029.JPG" alt="ES Kabirizi entrance"></a>
+          <a class="gallery-item tall reveal" data-label="School buildings" href="gallery.html"><img src="kabirizi picsss/20260323_163217.JPG" alt="School building"></a>
+          <a class="gallery-item reveal" data-label="Classroom area" href="gallery.html"><img src="kabirizi picsss/20260323_163308.JPG" alt="Classroom area"></a>
+          <a class="gallery-item reveal" data-label="Community moment" href="gallery.html"><img src="kabirizi picsss/garuka ushimee pics.jpg" alt="Community gathering"></a>
+          <a class="gallery-item reveal" data-label="Campus walkways" href="gallery.html"><img src="kabirizi picsss/20260323_163430.JPG" alt="Campus walkways"></a>
+          <a class="gallery-item wide reveal" data-label="Afternoon at school" href="gallery.html"><img src="kabirizi picsss/20260323_165702.JPG" alt="Afternoon campus view"></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="principal-section">
+      <div class="container">
+        <div class="principal-card reveal">
+          <div class="principal-photo"><img src="kabirizi picsss/20260323_163533.JPG" alt="ES Kabirizi leadership and campus"></div>
+          <div class="principal-copy">
+            <p class="eyebrow">Principal message</p>
+            <div class="quote-mark">"</div>
+            <blockquote>At ES Kabirizi, we form learners who are prepared not only to pass exams, but to live with discipline, courage, and service.</blockquote>
+            <p>Our team is committed to nurturing every student through strong teaching, mentorship, and a school culture where excellence is practiced daily. We welcome families, alumni, and partners to join us in building a brighter future.</p>
+            <div class="signature">Principal, ES Kabirizi</div>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="py-16 md:py-20 px-4 scroll-reveal">
-      <div class="max-w-7xl mx-auto grid lg:grid-cols-[1fr_1.1fr] gap-10 items-center">
+    <section class="news-section">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <p class="eyebrow">Latest news</p>
+            <h2 class="section-title">Stories from our school community.</h2>
+          </div>
+          <a href="news.html" class="btn btn-gold"><i data-lucide="newspaper" class="w-5 h-5"></i> Read News</a>
+        </div>
+        <div class="news-grid">
+          <article class="news-card reveal">
+            <img src="kabirizi picsss/20260323_163610.JPG" alt="Students on campus">
+            <div class="news-body">
+              <span class="date-tag">Academics</span>
+              <h3>Preparing students for a strong term</h3>
+              <p>Teachers and student leaders continue to reinforce study routines, discipline, and focused learning habits.</p>
+            </div>
+          </article>
+          <article class="news-card reveal">
+            <img src="kabirizi picsss/20260323_164328.JPG" alt="Campus activity">
+            <div class="news-body">
+              <span class="date-tag">Campus life</span>
+              <h3>Building confidence through activities</h3>
+              <p>Clubs and co-curricular activities help students discover talents and learn teamwork beyond the classroom.</p>
+            </div>
+          </article>
+          <article class="news-card reveal">
+            <img src="kabirizi picsss/20260323_164557.JPG" alt="School grounds">
+            <div class="news-body">
+              <span class="date-tag">Community</span>
+              <h3>Partnerships that strengthen education</h3>
+              <p>Families, alumni, and local partners play a meaningful role in supporting the mission of ES Kabirizi.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-band">
+      <div class="container cta-inner">
         <div>
-          <p class="section-label text-sm font-bold uppercase">Welcome</p>
-          <h2 class="font-heading text-3xl md:text-5xl text-[var(--navy)] leading-tight mt-3">Learning shaped by discipline, care, and ambition.</h2>
-          <div class="gold-line mt-5"></div>
-          <p class="text-[var(--muted)] text-lg leading-relaxed mt-6">ES Kabirizi serves students through a balanced school experience: strong classroom routines, supportive leadership, campus activities, and a visible connection to the local community.</p>
-          <div class="grid sm:grid-cols-2 gap-4 mt-8">
-            <a href="programs.html" class="soft-card card-hover rounded-2xl p-5 block">
-              <i data-lucide="book-open" class="w-7 h-7 text-[var(--green)]"></i>
-              <h3 class="font-semibold text-[var(--navy)] mt-4">Academic Programs</h3>
-              <p class="text-sm text-[var(--muted)] mt-2">Explore learning areas and student development.</p>
-            </a>
-            <a href="administration.html" class="soft-card card-hover rounded-2xl p-5 block">
-              <i data-lucide="users" class="w-7 h-7 text-[var(--green)]"></i>
-              <h3 class="font-semibold text-[var(--navy)] mt-4">Administration</h3>
-              <p class="text-sm text-[var(--muted)] mt-2">Meet the offices that keep the school moving.</p>
-            </a>
-          </div>
+          <p class="eyebrow">Join ES Kabirizi</p>
+          <h2>Ready to begin the next chapter?</h2>
+          <p>Contact the school office to learn more about admissions, programs, campus life, and how ES Kabirizi can support your student's future.</p>
         </div>
-        <div class="media-frame h-[460px] shadow-xl">
-          <img src="kabirizi picsss/20260323_163138.JPG" alt="ES Kabirizi campus view">
-        </div>
+        <a href="contact.html" class="btn btn-gold"><i data-lucide="arrow-right" class="w-5 h-5"></i> Contact Admissions</a>
       </div>
     </section>
   </main>
 
-    <section class="py-16 md:py-20 px-4">
-      <div class="max-w-7xl mx-auto">
-        <p class="section-label text-sm font-bold uppercase">BABYEYI</p>
-        <h2 class="font-heading text-2xl mt-2 mb-4">Click an image to view babyeyi</h2>
-        <div class="grid sm:grid-cols-3 gap-4">
-          <div class="rounded-2xl overflow-hidden">
-            <img src="babyeyiiii.jpg" alt="Campus sample" class="zoomable w-full h-56 object-cover rounded-lg shadow-lg" />
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="py-16 md:py-20 px-4 scroll-reveal">
-      <div class="max-w-7xl mx-auto bg-white/90 rounded-[2rem] border border-slate-200 shadow-2xl p-6 md:p-10">
-        <div class="grid lg:grid-cols-[0.9fr_1.1fr] gap-8 items-center">
-          <div class="space-y-4">
-            <p class="section-label text-sm font-bold uppercase">Featured image</p>
-            <h2 class="font-heading text-3xl md:text-4xl text-[var(--navy)]">Late afternoon at ES Kabirizi</h2>
-            <p class="text-[var(--muted)] text-base leading-relaxed">This photograph captures the ES Kabirizi campus at around 16:57. The warm afternoon light highlights the school grounds, pathways, and buildings, creating a calm and welcoming atmosphere that reflects the peaceful everyday life of the school.</p>
-            <p class="text-sm text-[var(--muted)]">Use this section to introduce the photo, explain the location, provide context for visitors, and help the image feel like part of the school story.</p>
-          </div>
-          <div class="overflow-hidden rounded-[1.5rem] shadow-lg border border-slate-200 bg-slate-100">
-            <img src="kabirizi picsss/20260323_165702.JPG" alt="Late afternoon view of ES Kabirizi campus" class="w-full h-full object-cover" />
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="bg-white py-16 px-6 md:px-20">
-  <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-10 items-center">
-    
-    <!-- Image -->
-    <div class="rounded-2xl overflow-hidden shadow-lg">
-      <img 
-        src="kabirizi picsss/garuka ushimee pics.jpg" 
-        alt="School community students and teachers together"
-        class="w-full h-full object-cover"
-      />
-    </div>
-
-    <!-- Text Content -->
-    <div>
-      <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-6">
-        Our School Community
-      </h2>
-
-      <p class="text-gray-600 text-lg leading-relaxed mb-6">
-        Our school community is built on respect, unity, and collaboration. 
-        We believe that learning goes beyond the classroom and includes 
-        building strong relationships, leadership, and responsibility.
-      </p>
-
-      <div class="space-y-5">
-
-        <div>
-          <h3 class="text-xl font-semibold text-gray-800">Students</h3>
-          <p class="text-gray-600">
-            Students are active learners who participate in academics, sports, 
-            and extracurricular activities that shape their future.
-          </p>
-        </div>
-
-        <div>
-          <h3 class="text-xl font-semibold text-gray-800">Teachers</h3>
-          <p class="text-gray-600">
-            Teachers guide and inspire students, providing knowledge, discipline, 
-            and mentorship in a supportive environment.
-          </p>
-        </div>
-
-        <div>
-          <h3 class="text-xl font-semibold text-gray-800">Parents & Community</h3>
-          <p class="text-gray-600">
-            Parents and the wider community work closely with the school to ensure 
-            students grow academically, socially, and morally.
-          </p>
-        </div>
-
-      </div>
-    </div>
-
-  </div>
-</section>
-   
-    <section id="registration" class="py-16 md:py-20 px-4 bg-white scroll-reveal">
-      <div class="max-w-5xl mx-auto">
-        <div class="text-center">
-          <h2 class="font-heading text-3xl md:text-4xl font-bold text-[#2f5fa9]">Contact &amp; Registration</h2>
-          <div class="w-16 h-1 bg-[#2f5fa9] mx-auto mt-3 rounded-full"></div>
-          <p class="mt-4 text-sm text-slate-900">Get in touch with us to start your journey at ES Kabirizi</p>
-        </div>
-
-        <div class="grid lg:grid-cols-2 gap-12 mt-12 items-start">
-          <form class="bg-slate-50 rounded-xl p-6 md:p-10 shadow-sm">
-            <h3 class="font-heading text-lg font-bold text-[#1f56a7] mb-8">Register as New Student</h3>
-
-            <div class="space-y-6">
-              <div>
-                <label for="first-name" class="block font-semibold text-slate-950 mb-2">First Name *</label>
-                <input id="first-name" name="first-name" type="text" placeholder="Enter your first name" class="w-full rounded-md border border-slate-300 bg-white px-4 py-3 text-sm text-slate-700 outline-none transition focus:border-[#2f5fa9] focus:ring-2 focus:ring-[#2f5fa9]/20">
-              </div>
-
-              <div>
-                <label for="email-address" class="block font-semibold text-slate-950 mb-2">Email Address *</label>
-                <input id="email-address" name="email-address" type="email" placeholder="Enter your email address" class="w-full rounded-md border border-slate-300 bg-white px-4 py-3 text-sm text-slate-700 outline-none transition focus:border-[#2f5fa9] focus:ring-2 focus:ring-[#2f5fa9]/20">
-              </div>
-
-              <div>
-                <label for="phone-number" class="block font-semibold text-slate-950 mb-2">Phone Number *</label>
-                <input id="phone-number" name="phone-number" type="tel" placeholder="Enter your phone number" class="w-full rounded-md border border-slate-300 bg-white px-4 py-3 text-sm text-slate-700 outline-none transition focus:border-[#2f5fa9] focus:ring-2 focus:ring-[#2f5fa9]/20">
-              </div>
-
-              <div>
-                <label for="program-interest" class="block font-semibold text-slate-950 mb-2">Program Interest</label>
-                <select id="program-interest" name="program-interest" class="w-full rounded-md border border-slate-300 bg-white px-4 py-3 text-sm text-slate-950 outline-none transition focus:border-[#2f5fa9] focus:ring-2 focus:ring-[#2f5fa9]/20">
-                  <option>Select a program</option>
-                  <option>Ordinary Level</option>
-                  <option>Advanced Level</option>
-                  <option>Science Program</option>
-                  <option>Boarding Program</option>
-                </select>
-              </div>
-
-              <div>
-                <label for="student-message" class="block font-semibold text-slate-950 mb-2">Message or Inquiry *</label>
-                <textarea id="student-message" name="student-message" rows="5" placeholder="Your message or inquiry" class="w-full rounded-md border border-slate-300 bg-white px-4 py-3 text-sm text-slate-700 outline-none transition focus:border-[#2f5fa9] focus:ring-2 focus:ring-[#2f5fa9]/20"></textarea>
-              </div>
-
-              <button type="submit" class="mx-auto flex w-full max-w-[280px] items-center justify-center gap-2 rounded-full bg-[#28a942] px-8 py-4 font-heading text-xl font-bold text-white shadow-[0_16px_32px_rgba(40,169,66,0.28)] transition hover:-translate-y-0.5 hover:bg-[#23953a]">
-                <i data-lucide="user-plus" class="w-6 h-6"></i>
-                <span>Register Now</span>
-              </button>
-            </div>
-          </form>
-
-          <div>
-            <h3 class="font-heading text-lg font-bold text-[#1f56a7] mb-8">Get In Touch</h3>
-            <div class="space-y-7">
-              <div class="bg-slate-50 rounded-lg p-6 flex gap-4">
-                <i data-lucide="globe-2" class="w-6 h-6 text-[#2f5fa9] shrink-0 mt-1"></i>
-                <div>
-                  <h4 class="font-semibold text-slate-950">Website</h4>
-                  <p class="mt-2 text-sm text-slate-700">eskabirizi.rw</p>
-                </div>
-              </div>
-
-              <div class="bg-slate-50 rounded-lg p-6 flex gap-4">
-                <i data-lucide="mail" class="w-6 h-6 text-[#2f5fa9] shrink-0 mt-1"></i>
-                <div>
-                  <h4 class="font-semibold text-slate-950">Email Addresses</h4>
-                  <p class="mt-2 text-sm text-slate-700">eskabirizi02@gmail.com</p>
-                  <p class="text-sm text-slate-700">info@eskabirizi.rw</p>
-                </div>
-              </div>
-
-              <div class="bg-slate-50 rounded-lg p-6 flex gap-4">
-                <i data-lucide="phone" class="w-6 h-6 text-[#2f5fa9] shrink-0 mt-1"></i>
-                <div>
-                  <h4 class="font-semibold text-slate-950">Phone</h4>
-                  <p class="mt-2 text-sm text-slate-700">(+250) 788 499 109</p>
-                </div>
-              </div>
-
-              <div class="bg-slate-50 rounded-lg p-6 flex gap-4">
-                <i data-lucide="clock" class="w-6 h-6 text-[#2f5fa9] shrink-0 mt-1"></i>
-                <div>
-                  <h4 class="font-semibold text-slate-950">Working Hours</h4>
-                  <p class="mt-2 text-sm text-slate-700">Monday - Friday: 7:30 AM - 4:00 PM</p>
-                </div>
-              </div>
-            </div>
-
-            <div class="mt-8 text-center">
-              <div class="flex justify-center gap-1 text-[#d9a620]">
-                <i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                <i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                <i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                <i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                <i data-lucide="star" class="w-4 h-4 fill-current"></i>
-              </div>
-              <p class="mt-4 italic text-sm leading-relaxed text-slate-700">"ES Kabirizi has transformed my child's education and prepared them for a successful future."</p>
-              <p class="mt-1 font-bold text-[#1f56a7]">- Parent Testimonial</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="video-feature relative overflow-hidden px-4 py-20 md:py-28 scroll-reveal">
-      <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('kabirizi picsss/20260323_164330.JPG');"></div>
-      <div class="absolute inset-0 bg-black/65"></div>
-      <div class="relative max-w-5xl mx-auto text-center text-white">
-        <p class="section-label text-sm font-bold uppercase">Watch Our Story</p>
-        <h2 class="font-heading mt-4 text-4xl md:text-6xl font-bold leading-tight">Experience Life at ES Kabirizi</h2>
-        <p class="mx-auto mt-5 max-w-2xl text-lg leading-relaxed text-white/85">See the campus, classrooms, and student life through a short school video.</p>
-        <button type="button" class="video-play-btn mt-10" data-video-open aria-label="Play school video">
-          <span class="video-play-icon"><i data-lucide="play" class="w-9 h-9 fill-current"></i></span>
-          <span>Play Video</span>
-        </button>
-      </div>
-    </section>
-
-    <section id="donation" class="py-16 md:py-20 px-4 bg-[#f8f4ea] scroll-reveal">
-      <div class="max-w-7xl mx-auto overflow-hidden rounded-2xl bg-white shadow-2xl">
-        <div class="grid lg:grid-cols-[0.95fr_1.05fr]">
-          <div class="p-7 md:p-12 lg:p-14">
-            <p class="text-[#08283f] text-4xl md:text-6xl font-bold leading-none">Invest in</p>
-            <h2 class="text-[#4c822e] text-6xl md:text-8xl font-extrabold leading-none mt-2">Education</h2>
-            <p class="mt-7 text-[#08283f] text-3xl md:text-4xl font-bold leading-tight">Inspire Potential.<br>Build Futures.</p>
-            <div class="w-24 h-1 bg-[#4c822e] mt-7"></div>
-            <p class="mt-8 max-w-md text-xl md:text-2xl leading-relaxed text-[#08283f]">Quality education opens doors, builds confidence, and creates lifelong impact.</p>
-
-            <div class="mt-10 space-y-6">
-              <div class="flex gap-5 border-b border-slate-200 pb-6">
-                <div class="w-16 h-16 rounded-full bg-[#dfe8d6] text-[#4c822e] flex items-center justify-center shrink-0">
-                  <i data-lucide="book-open" class="w-8 h-8"></i>
-                </div>
-                <div>
-                  <h3 class="text-2xl font-bold text-[#4c822e]">Learn</h3>
-                  <p class="text-lg leading-snug text-[#08283f]">Every child deserves the chance to learn.</p>
-                </div>
-              </div>
-
-              <div class="flex gap-5 border-b border-slate-200 pb-6">
-                <div class="w-16 h-16 rounded-full bg-[#dfe8d6] text-[#4c822e] flex items-center justify-center shrink-0">
-                  <i data-lucide="sprout" class="w-8 h-8"></i>
-                </div>
-                <div>
-                  <h3 class="text-2xl font-bold text-[#4c822e]">Grow</h3>
-                  <p class="text-lg leading-snug text-[#08283f]">Education empowers minds and transforms lives.</p>
-                </div>
-              </div>
-
-              <div class="flex gap-5">
-                <div class="w-16 h-16 rounded-full bg-[#dfe8d6] text-[#4c822e] flex items-center justify-center shrink-0">
-                  <i data-lucide="users" class="w-8 h-8"></i>
-                </div>
-                <div>
-                  <h3 class="text-2xl font-bold text-[#4c822e]">Lead</h3>
-                  <p class="text-lg leading-snug text-[#08283f]">Empowered learners become leaders and changemakers.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="relative min-h-[520px] bg-[#dcebe3]">
-            <img src="assets/donation.png" alt="Invest in education donation campaign" class="absolute inset-0 w-full h-full object-cover object-center">
-            <div class="absolute inset-x-0 bottom-0 bg-[#062f45]/95 px-7 py-8 md:px-10 text-white">
-              <div class="flex gap-4 items-start max-w-xl">
-                <span class="text-[#8aba47] text-6xl font-heading leading-none">"</span>
-                <p class="text-xl md:text-2xl leading-relaxed">When we support education, we do not just change a life, we shape a <span class="text-[#9cca55] font-bold">better tomorrow.</span></p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="m-6 md:m-10 rounded-2xl bg-[#e7eedc] p-6 md:p-8 grid md:grid-cols-[1fr_auto_1fr] gap-6 items-center">
-          <div class="flex items-center gap-5">
-            <div class="w-16 h-16 rounded-full bg-[#5b9136] text-white flex items-center justify-center shrink-0">
-              <i data-lucide="star" class="w-8 h-8 fill-current"></i>
-            </div>
-            <div>
-              <h3 class="text-2xl font-bold text-[#08283f]">Be a part of the change.</h3>
-              <p class="mt-1 text-lg leading-snug text-[#08283f]">Your support helps create opportunities, strengthen communities, and build a brighter future.</p>
-            </div>
-          </div>
-
-          <div class="hidden md:block h-20 w-px bg-[#9bad91]"></div>
-
-          <div class="flex items-center gap-5 md:justify-center">
-            <i data-lucide="door-open" class="w-16 h-16 text-[#4c822e] shrink-0"></i>
-            <p class="text-2xl leading-tight text-[#08283f]">Let us open doors to <span class="text-[#4c822e] font-bold">opportunity.</span></p>
-          </div>
-        </div>
-
-        <div class="px-6 md:px-10 pb-10 grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          <div class="flex gap-4 items-center">
-            <i data-lucide="shield-check" class="w-12 h-12 text-[#4c822e] shrink-0"></i>
-            <div>
-              <h4 class="font-bold text-[#08283f]">Transparent</h4>
-              <p class="text-sm text-[#08283f]">We value trust and accountability.</p>
-            </div>
-          </div>
-
-          <div class="flex gap-4 items-center">
-            <i data-lucide="hand-heart" class="w-12 h-12 text-[#4c822e] shrink-0"></i>
-            <div>
-              <h4 class="font-bold text-[#08283f]">Responsible</h4>
-              <p class="text-sm text-[#08283f]">Every contribution is used wisely.</p>
-            </div>
-          </div>
-
-          <div class="flex gap-4 items-center">
-            <i data-lucide="users" class="w-12 h-12 text-[#4c822e] shrink-0"></i>
-            <div>
-              <h4 class="font-bold text-[#08283f]">Impactful</h4>
-              <p class="text-sm text-[#08283f]">Real stories. Real change.</p>
-            </div>
-          </div>
-
-          <div class="flex gap-4 items-center">
-            <i data-lucide="graduation-cap" class="w-12 h-12 text-[#08283f] shrink-0"></i>
-            <div>
-              <h4 class="font-bold text-[#08283f]">Together, we can</h4>
-              <p class="text-sm text-[#08283f]">Unlock potential and build a better future through education.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="donation-payment" class="py-16 md:py-20 px-4 bg-white scroll-reveal">
-      <div class="max-w-6xl mx-auto">
-        <div class="text-center max-w-3xl mx-auto">
-          <p class="section-label text-sm font-bold uppercase">Donation Payments</p>
-          <h2 class="font-heading text-3xl md:text-5xl font-bold text-[#092f6a] mt-3">Donate by Bank or Mobile Money</h2>
-          <div class="w-16 h-1 bg-[#2f5fa9] mx-auto mt-4 rounded-full"></div>
-          <p class="mt-5 text-slate-600 leading-relaxed">Choose the payment method that works best for you, then share your transaction details so the school office can confirm and record your support.</p>
-        </div>
-
-        <div class="grid lg:grid-cols-2 gap-8 mt-12">
-          <div class="rounded-xl bg-slate-50 border border-slate-200 p-6 md:p-8">
-            <div class="flex items-center gap-4">
-              <div class="w-14 h-14 rounded-full bg-[#2f5fa9]/10 text-[#2f5fa9] flex items-center justify-center">
-                <i data-lucide="landmark" class="w-7 h-7"></i>
-              </div>
-              <div>
-                <h3 class="font-heading text-2xl font-bold text-[#092f6a]">Bank Transfer</h3>
-                <p class="text-sm text-slate-600">Use these details for a direct school donation.</p>
-              </div>
-            </div>
-
-            <div class="mt-7 divide-y divide-slate-200 rounded-lg bg-white border border-slate-200">
-              <div class="grid sm:grid-cols-[150px_1fr] gap-2 p-4">
-                <span class="text-sm font-semibold text-slate-500">Account Name</span>
-                <span class="font-semibold text-slate-950">ES Kabirizi</span>
-              </div>
-              <div class="grid sm:grid-cols-[150px_1fr] gap-2 p-4">
-                <span class="text-sm font-semibold text-slate-500">Bank Name</span>
-                <span class="font-semibold text-slate-950">Bank of Kigali</span>
-              </div>
-              <div class="grid sm:grid-cols-[150px_1fr] gap-2 p-4">
-                <span class="text-sm font-semibold text-slate-500">Account No.</span>
-                <span class="font-semibold text-slate-950">000-0000000-00</span>
-              </div>
-              <div class="grid sm:grid-cols-[150px_1fr] gap-2 p-4">
-                <span class="text-sm font-semibold text-slate-500">Reference</span>
-                <span class="font-semibold text-slate-950">DONATION + Your Name</span>
-              </div>
-            </div>
-
-            <p class="mt-5 text-sm leading-relaxed text-slate-600">After sending, keep your bank receipt or confirmation message. The account number shown here can be replaced with the official school account when available.</p>
-          </div>
-
-          <div class="rounded-xl bg-[#092f6a] p-6 md:p-8 text-white">
-            <div class="flex items-center gap-4">
-              <div class="w-14 h-14 rounded-full bg-white/10 text-white flex items-center justify-center">
-                <i data-lucide="smartphone" class="w-7 h-7"></i>
-              </div>
-              <div>
-                <h3 class="font-heading text-2xl font-bold">Mobile Money</h3>
-                <p class="text-sm text-white/75">Send support quickly by phone.</p>
-              </div>
-            </div>
-
-            <div class="mt-7 grid sm:grid-cols-2 gap-4">
-              <div class="rounded-lg bg-white/10 border border-white/15 p-5">
-                <h4 class="font-bold text-yellow-200">MTN Mobile Money</h4>
-                <p class="mt-3 text-sm text-white/80">Recipient Name</p>
-                <p class="font-semibold">NSENGIYUMVA Emmanuel</p>
-                <p class="mt-3 text-sm text-white/80">Phone Number</p>
-                <p class="font-semibold">+250 788 499 105</p>
-              </div>
-
-              <div class="rounded-lg bg-white/10 border border-white/15 p-5">
-                <h4 class="font-bold text-yellow-200">Airtel Money</h4>
-                <p class="mt-3 text-sm text-white/80">Recipient Name</p>
-                <p class="font-semibold">NSENGIYUMVA Emmanuel</p>
-                <p class="mt-3 text-sm text-white/80">Phone Number</p>
-                <p class="font-semibold">+250 788 499 105</p>
-              </div>
-            </div>
-
-            <ol class="mt-7 space-y-3 text-sm text-white/85">
-              <li class="flex gap-3"><span class="font-bold text-yellow-200">1.</span><span>Open your mobile money menu and choose send money.</span></li>
-              <li class="flex gap-3"><span class="font-bold text-yellow-200">2.</span><span>Enter the school number, amount, and your PIN.</span></li>
-              <li class="flex gap-3"><span class="font-bold text-yellow-200">3.</span><span>Use your name as the reason or reference.</span></li>
-              <li class="flex gap-3"><span class="font-bold text-yellow-200">4.</span><span>Send the transaction ID to the school for confirmation.</span></li>
-            </ol>
-          </div>
-        </div>
-
-        <form class="mt-8 rounded-xl bg-slate-50 border border-slate-200 p-6 md:p-8">
-          <div class="grid lg:grid-cols-[0.9fr_1.1fr] gap-8 items-start">
-            <div>
-              <h3 class="font-heading text-2xl font-bold text-[#092f6a]">Confirm Your Donation</h3>
-              <p class="mt-3 text-sm leading-relaxed text-slate-600">Fill this after donating. It helps the school match your payment with your name and send a thank-you confirmation.</p>
-              <div class="mt-5 flex items-start gap-3 rounded-lg bg-white border border-slate-200 p-4">
-                <i data-lucide="shield-check" class="w-6 h-6 text-[#4c822e] shrink-0"></i>
-                <p class="text-sm text-slate-600">Your transaction details are used only for donation verification and school records.</p>
-              </div>
-            </div>
-
-            <div class="grid sm:grid-cols-2 gap-4">
-              <div>
-                <label for="payment-name" class="block font-semibold text-slate-950 mb-2">Donor Name *</label>
-                <input id="payment-name" name="payment-name" type="text" placeholder="Enter your name" class="w-full rounded-md border border-slate-300 bg-white px-4 py-3 text-sm text-slate-700 outline-none transition focus:border-[#2f5fa9] focus:ring-2 focus:ring-[#2f5fa9]/20">
-              </div>
-
-              <div>
-                <label for="payment-phone" class="block font-semibold text-slate-950 mb-2">Phone Number *</label>
-                <input id="payment-phone" name="payment-phone" type="tel" placeholder="Enter your phone number" class="w-full rounded-md border border-slate-300 bg-white px-4 py-3 text-sm text-slate-700 outline-none transition focus:border-[#2f5fa9] focus:ring-2 focus:ring-[#2f5fa9]/20">
-              </div>
-
-              <div>
-                <label for="payment-method" class="block font-semibold text-slate-950 mb-2">Payment Method *</label>
-                <select id="payment-method" name="payment-method" class="w-full rounded-md border border-slate-300 bg-white px-4 py-3 text-sm text-slate-950 outline-none transition focus:border-[#2f5fa9] focus:ring-2 focus:ring-[#2f5fa9]/20">
-                  <option>Bank Transfer</option>
-                  <option>MTN Mobile Money</option>
-                  <option>Airtel Money</option>
-                </select>
-              </div>
-
-              <div>
-                <label for="payment-amount" class="block font-semibold text-slate-950 mb-2">Amount Donated *</label>
-                <input id="payment-amount" name="payment-amount" type="text" placeholder="Example: 10,000 RWF" class="w-full rounded-md border border-slate-300 bg-white px-4 py-3 text-sm text-slate-700 outline-none transition focus:border-[#2f5fa9] focus:ring-2 focus:ring-[#2f5fa9]/20">
-              </div>
-
-              <div class="sm:col-span-2">
-                <label for="payment-reference" class="block font-semibold text-slate-950 mb-2">Transaction ID or Bank Reference *</label>
-                <input id="payment-reference" name="payment-reference" type="text" placeholder="Enter transaction ID or reference number" class="w-full rounded-md border border-slate-300 bg-white px-4 py-3 text-sm text-slate-700 outline-none transition focus:border-[#2f5fa9] focus:ring-2 focus:ring-[#2f5fa9]/20">
-              </div>
-
-              <button type="submit" class="sm:col-span-2 mx-auto flex w-full max-w-[280px] items-center justify-center gap-2 rounded-full bg-[#28a942] px-8 py-4 font-heading text-xl font-bold text-white shadow-[0_16px_32px_rgba(40,169,66,0.28)] transition hover:-translate-y-0.5 hover:bg-[#23953a]">
-                <i data-lucide="hand-heart" class="w-6 h-6"></i>
-                <span>Donate Now</span>
-              </button>
-            </div>
-          </div>
-        </form>
-      </div>
-    </section>
-
-  <div id="img-modal" class="img-modal" aria-hidden="true">
-    <div class="img-modal-content">
-      <button class="img-modal-close" aria-label="Close">&times;</button>
-      <img id="img-modal-img" src="" alt="">
-      <a id="img-modal-download" class="btn-primary px-5 py-2 rounded-full mt-4" href="#" download>Download</a>
-    </div>
-  </div>
-
-  <div id="video-modal" class="video-modal" aria-hidden="true">
-    <div class="video-modal-panel">
-      <button type="button" class="video-modal-close" data-video-close aria-label="Close video">&times;</button>
-      <div class="video-modal-player px-6 py-8">
-        <video id="video-modal-video" class="w-full max-w-4xl mx-auto rounded-lg shadow-lg" controls playsinline preload="metadata">
-          <source src="kabirizi picsss/20260323_164220.mp4" type="video/mp4">
-          Your browser does not support the video tag.
-        </video>
-      </div>
-    </div>
-  </div>
-
-  <footer class="bg-slate-100 text-slate-900">
-    <div class="bg-[#092f6a] text-white text-sm px-4 py-3">
-      <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
-        <div class="flex items-center gap-2">
-          <i data-lucide="phone" class="w-4 h-4"></i>
-          <span>+250 788 499 105</span>
-        </div>
-        <div class="flex items-center gap-2">
-          <i data-lucide="mail" class="w-4 h-4"></i>
-          <span>eskabirizi02@gmail.com</span>
-        </div>
-      </div>
-    </div>
-    <div class="max-w-7xl mx-auto px-4 py-14 grid gap-10 lg:grid-cols-[1fr_1.2fr_1fr]">
-      <div class="text-center lg:text-left">
-        <img src="kabirizi picsss/%C3%89cole%20Secondaire%20DE.KABIRIZI%20emblem.png" alt="ES Kabirizi emblem" class="mx-auto lg:mx-0 w-20 h-20 rounded-full bg-white p-3">
-        <p class="mt-6 text-sm text-slate-600 max-w-sm mx-auto lg:mx-0">ES Kabirizi is a school where science and conscience guide learning, discipline, and service for every student.</p>
-        <div class="mt-6 flex items-center justify-center lg:justify-start gap-3">
-          <a href="#" class="w-10 h-10 rounded-xl bg-slate-200 text-slate-700 flex items-center justify-center hover:bg-slate-300"><i data-lucide="facebook" class="w-4 h-4"></i></a>
-          <a href="#" class="w-10 h-10 rounded-xl bg-slate-200 text-slate-700 flex items-center justify-center hover:bg-slate-300"><i data-lucide="twitter" class="w-4 h-4"></i></a>
-          <a href="#" class="w-10 h-10 rounded-xl bg-slate-200 text-slate-700 flex items-center justify-center hover:bg-slate-300"><i data-lucide="linkedin" class="w-4 h-4"></i></a>
-          <a href="#" class="w-10 h-10 rounded-xl bg-slate-200 text-slate-700 flex items-center justify-center hover:bg-slate-300"><i data-lucide="youtube" class="w-4 h-4"></i></a>
-        </div>
-      </div>
-      <div class="grid sm:grid-cols-2 gap-8">
-        <div>
-          <h3 class="text-lg font-semibold text-slate-900 mb-4">Quick Links</h3>
-          <nav class="flex flex-col gap-3 text-sm text-slate-600">
-            <a href="about.html" class="hover:text-slate-900">About Us</a>
-            <a href="programs.html" class="hover:text-slate-900">Programs</a>
-            <a href="gallery.html" class="hover:text-slate-900">Gallery</a>
-            <a href="news.html" class="hover:text-slate-900">News</a>
-          </nav>
-        </div>
-        <div>
-          <h3 class="text-lg font-semibold text-slate-900 mb-4">School Info</h3>
-          <nav class="flex flex-col gap-3 text-sm text-slate-600">
-            <a href="administration.html" class="hover:text-slate-900">Administration</a>
-            <a href="contact.html" class="hover:text-slate-900">Contact</a>
-            <a href="dashboard.html" class="hover:text-slate-900">Dashboard</a>
-            <a href="admin.html" class="hover:text-slate-900">Admin</a>
-          </nav>
-        </div>
+  <footer>
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <img src="kabirizi picsss/%C3%89cole%20Secondaire%20DE.KABIRIZI%20emblem.png" alt="ES Kabirizi emblem">
+        <h3>ES Kabirizi</h3>
+        <p>Science and conscience guide our commitment to disciplined learning, strong character, and excellent student outcomes.</p>
       </div>
       <div>
-        <h3 class="text-lg font-semibold text-slate-900 mb-4">Get In Touch</h3>
-        <div class="flex flex-col gap-4 text-sm text-slate-600">
-          <div class="flex items-center gap-3">
-            <i data-lucide="map-pin" class="w-4 h-4"></i>
-            <span>Kabirizi, Rwanda</span>
-          </div>
-          <div class="flex items-center gap-3">
-            <i data-lucide="mail" class="w-4 h-4"></i>
-            <span>eskabirizi02@gmail.com</span>
-          </div>
-          <div class="flex items-center gap-3">
-            <i data-lucide="phone" class="w-4 h-4"></i>
-            <span>+250 788 499 105</span>
-          </div>
+        <h4>Explore</h4>
+        <nav class="footer-links">
+          <a href="about.html">About</a>
+          <a href="programs.html">Programs</a>
+          <a href="gallery.html">Gallery</a>
+          <a href="news.html">News</a>
+        </nav>
+      </div>
+      <div>
+        <h4>School</h4>
+        <nav class="footer-links">
+          <a href="administration.html">Administration</a>
+          <a href="contact.html">Contact</a>
+          <a href="dashboard.html">Dashboard</a>
+          <a href="login.html">Login</a>
+        </nav>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <div class="footer-contact">
+          <div><i data-lucide="map-pin" class="w-5 h-5 text-[var(--gold-soft)]"></i><span>Kabirizi, Rwanda</span></div>
+          <div><i data-lucide="mail" class="w-5 h-5 text-[var(--gold-soft)]"></i><span>eskabirizi02@gmail.com</span></div>
+          <div><i data-lucide="phone" class="w-5 h-5 text-[var(--gold-soft)]"></i><span>+250 788 499 105</span></div>
         </div>
       </div>
     </div>
-    <div class="border-t border-slate-200">
-      <div class="max-w-7xl mx-auto px-4 py-5 text-center text-sm text-slate-500">&copy; 2026 ES Kabirizi. All rights reserved.</div>
+    <div class="footer-bottom">
+      <div class="container">
+        <span>&copy; 2026 ES Kabirizi. All rights reserved.</span>
+        <span>Designed for excellence, service, and leadership.</span>
+      </div>
     </div>
   </footer>
-  <script src="assets/site.js"></script>
+
+  <div class="corner-actions" hidden></div>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const header = document.getElementById("site-header");
+      const menuToggle = document.getElementById("menu-toggle");
+      const mobilePanel = document.getElementById("mobile-panel");
+
+      function updateHeader() {
+        header.classList.toggle("scrolled", window.scrollY > 24);
+      }
+      updateHeader();
+      window.addEventListener("scroll", updateHeader, { passive: true });
+
+      if (menuToggle && mobilePanel) {
+        menuToggle.addEventListener("click", function () {
+          mobilePanel.classList.toggle("open");
+        });
+      }
+
+      const revealObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) entry.target.classList.add("visible");
+        });
+      }, { threshold: 0.14 });
+      document.querySelectorAll(".reveal").forEach(function (el) { revealObserver.observe(el); });
+
+      function animateCount(el) {
+        const target = Number(el.dataset.target || 0);
+        const suffix = el.dataset.suffix || "";
+        const start = performance.now();
+        const duration = 1600;
+        function frame(now) {
+          const progress = Math.min((now - start) / duration, 1);
+          const eased = 1 - Math.pow(1 - progress, 3);
+          el.textContent = Math.round(target * eased) + suffix;
+          if (progress < 1) requestAnimationFrame(frame);
+        }
+        el.dataset.counted = "true";
+        requestAnimationFrame(frame);
+      }
+
+      const countObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting && entry.target.dataset.counted !== "true") animateCount(entry.target);
+        });
+      }, { threshold: 0.45 });
+      document.querySelectorAll(".count").forEach(function (el) { countObserver.observe(el); });
+
+      if (window.lucide) window.lucide.createIcons();
+    });
+  </script>
 </body>
 </html>

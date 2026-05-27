@@ -7,6 +7,8 @@
   const SESSION_KEY = 'esKabiriziAdminSession';
   const POSTS_KEY = 'esKabiriziAdminPosts';
   const USERS_KEY = 'esKabiriziUsers';
+  const REGISTRATIONS_KEY = 'esKabiriziRegistrations';
+  const DONATIONS_KEY = 'esKabiriziDonations';
 
   function readJson(key, fallback) {
     try {
@@ -30,6 +32,14 @@
 
   function getUsers() {
     return readJson(USERS_KEY, []);
+  }
+
+  function getRegistrations() {
+    return readJson(REGISTRATIONS_KEY, []);
+  }
+
+  function getDonations() {
+    return readJson(DONATIONS_KEY, []);
   }
 
   function setMessage(element, text, type) {
@@ -62,6 +72,8 @@
 
     renderPosts();
     renderUsers();
+    renderRegistrations();
+    renderDonations();
   }
 
   function showLogin() {
@@ -121,6 +133,63 @@
     }).join('');
   }
 
+  function renderRegistrations() {
+    const list = document.getElementById('admin-registration-list');
+    if (!list) return;
+
+    const registrations = getRegistrations();
+    if (!registrations.length) {
+      list.innerHTML = '<p class="text-sm text-slate-500">No student registrations have been submitted yet.</p>';
+      return;
+    }
+
+    list.innerHTML = registrations.map(function (registration) {
+      return [
+        '<article class="rounded-xl border border-slate-200 bg-slate-50 p-5">',
+        '<div class="flex flex-wrap items-start justify-between gap-3">',
+        '<div>',
+        '<h3 class="font-heading text-xl font-bold text-slate-950">' + escapeHtml(registration.firstName) + '</h3>',
+        '<p class="mt-1 text-sm text-slate-600">' + escapeHtml(registration.email) + ' | ' + escapeHtml(registration.phone) + '</p>',
+        '</div>',
+        '<span class="rounded-full bg-[#2f5fa9]/10 px-3 py-1 text-xs font-bold text-[#2f5fa9]">' + escapeHtml(registration.program || 'Not selected') + '</span>',
+        '</div>',
+        '<p class="mt-4 text-sm leading-relaxed text-slate-600">' + escapeHtml(registration.message) + '</p>',
+        '<p class="mt-4 text-xs text-slate-400">' + escapeHtml(registration.date) + '</p>',
+        '</article>'
+      ].join('');
+    }).join('');
+  }
+
+  function renderDonations() {
+    const list = document.getElementById('admin-donation-list');
+    if (!list) return;
+
+    const donations = getDonations();
+    if (!donations.length) {
+      list.innerHTML = '<p class="text-sm text-slate-500">No donation confirmations have been submitted yet.</p>';
+      return;
+    }
+
+    list.innerHTML = donations.map(function (donation) {
+      return [
+        '<article class="rounded-xl border border-slate-200 bg-slate-50 p-5">',
+        '<div class="flex flex-wrap items-start justify-between gap-3">',
+        '<div>',
+        '<h3 class="font-heading text-xl font-bold text-slate-950">' + escapeHtml(donation.donorName) + '</h3>',
+        '<p class="mt-1 text-sm text-slate-600">' + escapeHtml(donation.phone) + '</p>',
+        '</div>',
+        '<span class="rounded-full bg-green-100 px-3 py-1 text-xs font-bold text-green-700">' + escapeHtml(donation.amount) + '</span>',
+        '</div>',
+        '<dl class="mt-4 grid gap-3 text-sm text-slate-600">',
+        '<div><dt class="font-semibold text-slate-950">Method</dt><dd>' + escapeHtml(donation.method) + '</dd></div>',
+        '<div><dt class="font-semibold text-slate-950">Reference</dt><dd>' + escapeHtml(donation.reference) + '</dd></div>',
+        '</dl>',
+        '<p class="mt-4 text-xs text-slate-400">' + escapeHtml(donation.date) + '</p>',
+        '</article>'
+      ].join('');
+    }).join('');
+  }
+
   function escapeHtml(value) {
     return String(value)
       .replace(/&/g, '&amp;')
@@ -139,6 +208,8 @@
     const userForm = document.getElementById('admin-user-form');
     const userMessage = document.getElementById('user-message');
     const clearPosts = document.getElementById('clear-posts');
+    const clearRegistrations = document.getElementById('clear-registrations');
+    const clearDonations = document.getElementById('clear-donations');
 
     if (getSession()) {
       showDashboard();
@@ -226,6 +297,20 @@
       clearPosts.addEventListener('click', function () {
         writeJson(POSTS_KEY, []);
         renderPosts();
+      });
+    }
+
+    if (clearRegistrations) {
+      clearRegistrations.addEventListener('click', function () {
+        writeJson(REGISTRATIONS_KEY, []);
+        renderRegistrations();
+      });
+    }
+
+    if (clearDonations) {
+      clearDonations.addEventListener('click', function () {
+        writeJson(DONATIONS_KEY, []);
+        renderDonations();
       });
     }
   });
