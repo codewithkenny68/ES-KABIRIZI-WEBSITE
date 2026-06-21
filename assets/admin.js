@@ -1,14 +1,16 @@
 (function () {
-  const ADMIN_ACCOUNTS = [
-    { username: 'admin', password: 'school2026', role: 'Administrator' },
-    { username: 'teacher1', password: 'class2026', role: 'Teacher' },
-    { username: 'staff1', password: 'welcome2026', role: 'Staff' }
-  ];
-  const SESSION_KEY = 'esKabiriziAdminSession';
-  const POSTS_KEY = 'esKabiriziAdminPosts';
-  const USERS_KEY = 'esKabiriziUsers';
-  const REGISTRATIONS_KEY = 'esKabiriziRegistrations';
-  const DONATIONS_KEY = 'esKabiriziDonations';
+  const DEFAULT_PASSWORD = 'school2026';
+  const STORAGE = {
+    session: 'esKabiriziAdminSession',
+    password: 'esKabiriziAdminPassword',
+    teachers: 'esKabiriziTeachers',
+    students: 'esKabiriziStudents',
+    announcements: 'esKabiriziAnnouncements',
+    babyeyi: 'esKabiriziBabyeyi',
+    gallery: 'esKabiriziGallery',
+    registrations: 'esKabiriziRegistrations',
+    donations: 'esKabiriziDonations'
+  };
 
   function readJson(key, fallback) {
     try {
@@ -18,180 +20,16 @@
     }
   }
 
-  function getSession() {
-    return readJson(SESSION_KEY, null);
-  }
-
   function writeJson(key, value) {
     localStorage.setItem(key, JSON.stringify(value));
   }
 
-  function getPosts() {
-    return readJson(POSTS_KEY, []);
-  }
-
-  function getUsers() {
-    return readJson(USERS_KEY, []);
-  }
-
-  function getRegistrations() {
-    return readJson(REGISTRATIONS_KEY, []);
-  }
-
-  function getDonations() {
-    return readJson(DONATIONS_KEY, []);
-  }
-
-  function setMessage(element, text, type) {
-    if (!element) return;
-    element.textContent = text;
-    element.className = type === 'error'
-      ? 'mt-4 text-sm text-red-700 font-semibold'
-      : 'mt-4 text-sm text-green-700 font-semibold';
-    element.classList.remove('hidden');
-    setTimeout(function () {
-      element.classList.add('hidden');
-    }, 3500);
-  }
-
-  function showDashboard() {
-    const loginView = document.getElementById('admin-login-view');
-    const dashboardView = document.getElementById('admin-dashboard-view');
-    if (loginView) loginView.classList.add('hidden');
-    if (dashboardView) dashboardView.classList.remove('hidden');
-
-    const session = getSession();
-    const welcomeText = document.getElementById('admin-welcome');
-    if (welcomeText) {
-      if (session && session.username) {
-        welcomeText.textContent = 'Welcome, ' + session.username + ' (' + session.role + '). Choose a page or feature to review.';
-      } else {
-        welcomeText.textContent = 'Welcome back. Choose an area to review or post updates.';
-      }
-    }
-
-    renderPosts();
-    renderUsers();
-    renderRegistrations();
-    renderDonations();
-  }
-
-  function showLogin() {
-    const loginView = document.getElementById('admin-login-view');
-    const dashboardView = document.getElementById('admin-dashboard-view');
-    if (loginView) loginView.classList.remove('hidden');
-    if (dashboardView) dashboardView.classList.add('hidden');
-  }
-
-  function renderPosts() {
-    const list = document.getElementById('admin-post-list');
-    if (!list) return;
-
-    const posts = getPosts();
-    if (!posts.length) {
-      list.innerHTML = '<p class="text-sm text-slate-500">No information has been posted yet.</p>';
-      return;
-    }
-
-    list.innerHTML = posts.map(function (post) {
-      return [
-        '<article class="rounded-xl border border-slate-200 bg-slate-50 p-5">',
-        '<div class="flex flex-wrap items-center justify-between gap-3">',
-        '<h3 class="font-heading text-xl font-bold text-slate-950">' + escapeHtml(post.title) + '</h3>',
-        '<span class="rounded-full bg-[#2f5fa9]/10 px-3 py-1 text-xs font-bold text-[#2f5fa9]">' + escapeHtml(post.category) + '</span>',
-        '</div>',
-        '<p class="mt-3 text-sm leading-relaxed text-slate-600">' + escapeHtml(post.body) + '</p>',
-        '<p class="mt-4 text-xs text-slate-400">' + escapeHtml(post.date) + '</p>',
-        '</article>'
-      ].join('');
-    }).join('');
-  }
-
-  function renderUsers() {
-    const list = document.getElementById('admin-user-list');
-    if (!list) return;
-
-    const users = getUsers();
-    if (!users.length) {
-      list.innerHTML = '<p class="text-sm text-slate-500">No users have been added yet.</p>';
-      return;
-    }
-
-    list.innerHTML = users.map(function (user) {
-      return [
-        '<div class="rounded-xl border border-slate-200 bg-slate-50 p-5">',
-        '<div class="flex items-center justify-between gap-3">',
-        '<div>',
-        '<h3 class="font-bold text-slate-950">' + escapeHtml(user.username) + '</h3>',
-        '<p class="text-sm text-slate-500">' + escapeHtml(user.role) + '</p>',
-        '</div>',
-        '<span class="rounded-full bg-green-100 px-3 py-1 text-xs font-bold text-green-700">Active</span>',
-        '</div>',
-        '<p class="mt-4 text-sm text-slate-600">Password: <span class="font-semibold text-slate-950">' + escapeHtml(user.password) + '</span></p>',
-        '</div>'
-      ].join('');
-    }).join('');
-  }
-
-  function renderRegistrations() {
-    const list = document.getElementById('admin-registration-list');
-    if (!list) return;
-
-    const registrations = getRegistrations();
-    if (!registrations.length) {
-      list.innerHTML = '<p class="text-sm text-slate-500">No student registrations have been submitted yet.</p>';
-      return;
-    }
-
-    list.innerHTML = registrations.map(function (registration) {
-      return [
-        '<article class="rounded-xl border border-slate-200 bg-slate-50 p-5">',
-        '<div class="flex flex-wrap items-start justify-between gap-3">',
-        '<div>',
-        '<h3 class="font-heading text-xl font-bold text-slate-950">' + escapeHtml(registration.firstName) + '</h3>',
-        '<p class="mt-1 text-sm text-slate-600">' + escapeHtml(registration.email) + ' | ' + escapeHtml(registration.phone) + '</p>',
-        '</div>',
-        '<span class="rounded-full bg-[#2f5fa9]/10 px-3 py-1 text-xs font-bold text-[#2f5fa9]">' + escapeHtml(registration.program || 'Not selected') + '</span>',
-        '</div>',
-        '<p class="mt-4 text-sm leading-relaxed text-slate-600">' + escapeHtml(registration.message) + '</p>',
-        '<p class="mt-4 text-xs text-slate-400">' + escapeHtml(registration.date) + '</p>',
-        '</article>'
-      ].join('');
-    }).join('');
-  }
-
-  function renderDonations() {
-    const list = document.getElementById('admin-donation-list');
-    if (!list) return;
-
-    const donations = getDonations();
-    if (!donations.length) {
-      list.innerHTML = '<p class="text-sm text-slate-500">No donation confirmations have been submitted yet.</p>';
-      return;
-    }
-
-    list.innerHTML = donations.map(function (donation) {
-      return [
-        '<article class="rounded-xl border border-slate-200 bg-slate-50 p-5">',
-        '<div class="flex flex-wrap items-start justify-between gap-3">',
-        '<div>',
-        '<h3 class="font-heading text-xl font-bold text-slate-950">' + escapeHtml(donation.donorName) + '</h3>',
-        '<p class="mt-1 text-sm text-slate-600">' + escapeHtml(donation.phone) + '</p>',
-        '</div>',
-        '<span class="rounded-full bg-green-100 px-3 py-1 text-xs font-bold text-green-700">' + escapeHtml(donation.amount) + '</span>',
-        '</div>',
-        '<dl class="mt-4 grid gap-3 text-sm text-slate-600">',
-        '<div><dt class="font-semibold text-slate-950">Method</dt><dd>' + escapeHtml(donation.method) + '</dd></div>',
-        '<div><dt class="font-semibold text-slate-950">Reference</dt><dd>' + escapeHtml(donation.reference) + '</dd></div>',
-        '</dl>',
-        '<p class="mt-4 text-xs text-slate-400">' + escapeHtml(donation.date) + '</p>',
-        '</article>'
-      ].join('');
-    }).join('');
+  function getPassword() {
+    return localStorage.getItem(STORAGE.password) || DEFAULT_PASSWORD;
   }
 
   function escapeHtml(value) {
-    return String(value)
+    return String(value || '')
       .replace(/&/g, '&amp;')
       .replace(/</g, '&lt;')
       .replace(/>/g, '&gt;')
@@ -199,119 +37,278 @@
       .replace(/'/g, '&#039;');
   }
 
+  function setMessage(element, text, type) {
+    if (!element) return;
+    element.textContent = text;
+    element.className = type === 'error'
+      ? 'text-sm font-semibold text-red-700'
+      : 'text-sm font-semibold text-green-700';
+    element.classList.remove('hidden');
+    setTimeout(function () {
+      element.classList.add('hidden');
+    }, 3800);
+  }
+
+  function fileToDataUrl(file) {
+    return new Promise(function (resolve, reject) {
+      const reader = new FileReader();
+      reader.onload = function () { resolve(reader.result); };
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+  }
+
+  function showDashboard() {
+    document.getElementById('admin-login-view').classList.add('hidden');
+    document.getElementById('admin-dashboard-view').classList.remove('hidden');
+    const welcome = document.getElementById('admin-welcome');
+    if (welcome) welcome.textContent = 'Welcome, admin';
+    renderAll();
+  }
+
+  function showLogin() {
+    document.getElementById('admin-login-view').classList.remove('hidden');
+    document.getElementById('admin-dashboard-view').classList.add('hidden');
+  }
+
+  function removeItem(key, id) {
+    const items = readJson(key, []).filter(function (item) {
+      return item.id !== id;
+    });
+    writeJson(key, items);
+    renderAll();
+  }
+
+  function renderCounts() {
+    const counts = [
+      ['teacher-count', STORAGE.teachers],
+      ['student-count', STORAGE.students],
+      ['announcement-count', STORAGE.announcements],
+      ['babyeyi-count', STORAGE.babyeyi],
+      ['gallery-count', STORAGE.gallery]
+    ];
+    counts.forEach(function (pair) {
+      const node = document.getElementById(pair[0]);
+      if (node) node.textContent = readJson(pair[1], []).length;
+    });
+  }
+
+  function renderPeople(listId, key, emptyText, template) {
+    const list = document.getElementById(listId);
+    if (!list) return;
+    const items = readJson(key, []);
+    if (!items.length) {
+      list.innerHTML = '<p class="rounded-xl border border-dashed border-slate-300 bg-white p-4 text-sm text-slate-500">' + emptyText + '</p>';
+      return;
+    }
+    list.innerHTML = items.map(function (item) {
+      return [
+        '<div class="rounded-xl border border-slate-200 bg-white p-4">',
+        '<div class="flex items-start justify-between gap-4">',
+        '<div>' + template(item) + '</div>',
+        '<button type="button" class="admin-remove rounded-full border border-red-200 px-3 py-1 text-xs font-bold text-red-700 hover:bg-red-50" data-key="' + key + '" data-id="' + item.id + '">Remove</button>',
+        '</div>',
+        '</div>'
+      ].join('');
+    }).join('');
+  }
+
+  function renderAnnouncements() {
+    const list = document.getElementById('announcement-list');
+    if (!list) return;
+    const items = readJson(STORAGE.announcements, []);
+    if (!items.length) {
+      list.innerHTML = '<p class="rounded-xl border border-dashed border-slate-300 bg-white p-4 text-sm text-slate-500">No announcements uploaded yet.</p>';
+      return;
+    }
+    list.innerHTML = items.map(function (item) {
+      return [
+        '<article class="rounded-xl border border-slate-200 bg-white p-4">',
+        '<div class="flex items-start justify-between gap-4">',
+        '<div>',
+        '<h3 class="font-bold text-slate-950">' + escapeHtml(item.title) + '</h3>',
+        '<p class="mt-1 text-xs font-bold uppercase tracking-[0.12em] text-[#1557b0]">' + escapeHtml(item.category) + '</p>',
+        '<p class="mt-2 text-sm text-slate-600">' + escapeHtml(item.body) + '</p>',
+        '<p class="mt-2 text-xs text-slate-400">' + escapeHtml(item.date) + '</p>',
+        '</div>',
+        '<button type="button" class="admin-remove rounded-full border border-red-200 px-3 py-1 text-xs font-bold text-red-700 hover:bg-red-50" data-key="' + STORAGE.announcements + '" data-id="' + item.id + '">Remove</button>',
+        '</div>',
+        '</article>'
+      ].join('');
+    }).join('');
+  }
+
+  function renderImages(listId, key, emptyText) {
+    const list = document.getElementById(listId);
+    if (!list) return;
+    const items = readJson(key, []);
+    if (!items.length) {
+      list.innerHTML = '<p class="rounded-xl border border-dashed border-slate-300 bg-white p-4 text-sm text-slate-500">' + emptyText + '</p>';
+      return;
+    }
+    list.innerHTML = items.map(function (item) {
+      return [
+        '<figure class="overflow-hidden rounded-xl border border-slate-200 bg-white">',
+        '<img src="' + escapeHtml(item.src) + '" alt="' + escapeHtml(item.title) + '" class="h-44 w-full object-cover">',
+        '<figcaption class="p-4">',
+        '<div class="flex items-start justify-between gap-3">',
+        '<div><p class="font-bold text-slate-950">' + escapeHtml(item.title) + '</p><p class="text-xs text-slate-400">' + escapeHtml(item.date) + '</p></div>',
+        '<button type="button" class="admin-remove rounded-full border border-red-200 px-3 py-1 text-xs font-bold text-red-700 hover:bg-red-50" data-key="' + key + '" data-id="' + item.id + '">Remove</button>',
+        '</div>',
+        '</figcaption>',
+        '</figure>'
+      ].join('');
+    }).join('');
+  }
+
+  function renderSubmissions() {
+    const registrationList = document.getElementById('registration-list');
+    const donationList = document.getElementById('donation-list');
+    const registrations = readJson(STORAGE.registrations, []);
+    const donations = readJson(STORAGE.donations, []);
+
+    if (registrationList) {
+      registrationList.innerHTML = registrations.length
+        ? registrations.slice(0, 3).map(function (item) {
+          return '<div class="rounded-lg bg-white border border-slate-200 p-3 text-sm"><strong>' + escapeHtml(item.firstName) + '</strong><br>' + escapeHtml(item.email || item.phone) + '<br><span class="text-slate-500">' + escapeHtml(item.program) + '</span></div>';
+        }).join('')
+        : '<p class="text-sm text-slate-500">No registrations submitted yet.</p>';
+    }
+
+    if (donationList) {
+      donationList.innerHTML = donations.length
+        ? donations.slice(0, 3).map(function (item) {
+          return '<div class="rounded-lg bg-white border border-slate-200 p-3 text-sm"><strong>' + escapeHtml(item.donorName) + '</strong><br>' + escapeHtml(item.amount) + ' via ' + escapeHtml(item.method) + '<br><span class="text-slate-500">' + escapeHtml(item.reference) + '</span></div>';
+        }).join('')
+        : '<p class="text-sm text-slate-500">No donations submitted yet.</p>';
+    }
+  }
+
+  function renderAll() {
+    renderCounts();
+    renderPeople('teacher-list', STORAGE.teachers, 'No teachers have been added yet.', function (item) {
+      return '<h3 class="font-bold text-slate-950">' + escapeHtml(item.name) + '</h3><p class="text-sm text-slate-600">' + escapeHtml(item.subject) + '</p><p class="text-xs text-slate-400">' + escapeHtml(item.phone) + '</p>';
+    });
+    renderPeople('student-list', STORAGE.students, 'No students have been added yet.', function (item) {
+      return '<h3 class="font-bold text-slate-950">' + escapeHtml(item.name) + '</h3><p class="text-sm text-slate-600">' + escapeHtml(item.className) + '</p><span class="status-pill status-green mt-2">' + escapeHtml(item.status) + '</span>';
+    });
+    renderAnnouncements();
+    renderImages('babyeyi-list', STORAGE.babyeyi, 'No babyeyi image has been uploaded yet.');
+    renderImages('gallery-list', STORAGE.gallery, 'No gallery image has been uploaded yet.');
+    renderSubmissions();
+    if (window.lucide) window.lucide.createIcons();
+  }
+
+  function addItem(key, item) {
+    const items = readJson(key, []);
+    items.unshift(Object.assign({ id: Date.now().toString(36) + Math.random().toString(36).slice(2), date: new Date().toLocaleString() }, item));
+    writeJson(key, items);
+    renderAll();
+  }
+
   document.addEventListener('DOMContentLoaded', function () {
     const loginForm = document.getElementById('admin-login-form');
-    const loginMessage = document.getElementById('admin-login-message');
     const logoutButton = document.getElementById('admin-logout');
-    const postForm = document.getElementById('admin-post-form');
-    const postMessage = document.getElementById('post-message');
-    const userForm = document.getElementById('admin-user-form');
-    const userMessage = document.getElementById('user-message');
-    const clearPosts = document.getElementById('clear-posts');
-    const clearRegistrations = document.getElementById('clear-registrations');
-    const clearDonations = document.getElementById('clear-donations');
 
-    if (getSession()) {
-      showDashboard();
-    } else {
-      showLogin();
-    }
+    if (readJson(STORAGE.session, null)) showDashboard();
+    else showLogin();
 
     if (loginForm) {
       loginForm.addEventListener('submit', function (event) {
         event.preventDefault();
-        const username = document.getElementById('admin-username').value.trim();
+        const username = document.getElementById('admin-username').value.trim().toLowerCase();
         const password = document.getElementById('admin-password').value;
-
-        const account = ADMIN_ACCOUNTS.find(function (acct) {
-          return acct.username.toLowerCase() === username.toLowerCase() && acct.password === password;
-        });
-
-        if (account) {
-          writeJson(SESSION_KEY, { username: account.username, role: account.role });
+        if (username === 'admin' && password === getPassword()) {
+          writeJson(STORAGE.session, { username: 'admin', date: new Date().toLocaleString() });
           loginForm.reset();
           showDashboard();
         } else {
-          setMessage(loginMessage, 'Incorrect username or password.', 'error');
+          setMessage(document.getElementById('admin-login-message'), 'Incorrect username or password.', 'error');
         }
       });
     }
 
     if (logoutButton) {
       logoutButton.addEventListener('click', function () {
-        localStorage.removeItem(SESSION_KEY);
+        localStorage.removeItem(STORAGE.session);
         showLogin();
       });
     }
 
-    if (postForm) {
-      postForm.addEventListener('submit', function (event) {
-        event.preventDefault();
-        const title = document.getElementById('post-title').value.trim();
-        const category = document.getElementById('post-category').value;
-        const body = document.getElementById('post-body').value.trim();
-
-        if (!title || !body) {
-          setMessage(postMessage, 'Please add a title and information before publishing.', 'error');
-          return;
-        }
-
-        const posts = getPosts();
-        posts.unshift({
-          title,
-          category,
-          body,
-          date: new Date().toLocaleString()
-        });
-        writeJson(POSTS_KEY, posts);
-        postForm.reset();
-        renderPosts();
-        setMessage(postMessage, 'Information published successfully.', 'success');
+    document.getElementById('teacher-form').addEventListener('submit', function (event) {
+      event.preventDefault();
+      addItem(STORAGE.teachers, {
+        name: document.getElementById('teacher-name').value.trim(),
+        subject: document.getElementById('teacher-subject').value.trim(),
+        phone: document.getElementById('teacher-phone').value.trim()
       });
-    }
+      event.target.reset();
+    });
 
-    if (userForm) {
-      userForm.addEventListener('submit', function (event) {
-        event.preventDefault();
-        const username = document.getElementById('new-user-name').value.trim();
-        const password = document.getElementById('new-user-password').value.trim();
-        const role = document.getElementById('new-user-role').value;
-
-        if (!username || !password) {
-          setMessage(userMessage, 'Please add both username and password.', 'error');
-          return;
-        }
-
-        const users = getUsers().filter(function (user) {
-          return user.username.toLowerCase() !== username.toLowerCase();
-        });
-        users.unshift({ username, password, role });
-        writeJson(USERS_KEY, users);
-        userForm.reset();
-        renderUsers();
-        setMessage(userMessage, 'User password saved successfully.', 'success');
+    document.getElementById('student-form').addEventListener('submit', function (event) {
+      event.preventDefault();
+      addItem(STORAGE.students, {
+        name: document.getElementById('student-name').value.trim(),
+        className: document.getElementById('student-class').value.trim(),
+        status: document.getElementById('student-status').value
       });
-    }
+      event.target.reset();
+    });
 
-    if (clearPosts) {
-      clearPosts.addEventListener('click', function () {
-        writeJson(POSTS_KEY, []);
-        renderPosts();
+    document.getElementById('announcement-form').addEventListener('submit', function (event) {
+      event.preventDefault();
+      addItem(STORAGE.announcements, {
+        title: document.getElementById('announcement-title').value.trim(),
+        category: document.getElementById('announcement-category').value,
+        body: document.getElementById('announcement-body').value.trim()
       });
-    }
+      event.target.reset();
+    });
 
-    if (clearRegistrations) {
-      clearRegistrations.addEventListener('click', function () {
-        writeJson(REGISTRATIONS_KEY, []);
-        renderRegistrations();
+    document.getElementById('babyeyi-form').addEventListener('submit', async function (event) {
+      event.preventDefault();
+      const file = document.getElementById('babyeyi-file').files[0];
+      if (!file) return;
+      addItem(STORAGE.babyeyi, {
+        title: document.getElementById('babyeyi-title').value.trim(),
+        src: await fileToDataUrl(file)
       });
-    }
+      event.target.reset();
+    });
 
-    if (clearDonations) {
-      clearDonations.addEventListener('click', function () {
-        writeJson(DONATIONS_KEY, []);
-        renderDonations();
+    document.getElementById('gallery-form').addEventListener('submit', async function (event) {
+      event.preventDefault();
+      const file = document.getElementById('gallery-file').files[0];
+      if (!file) return;
+      addItem(STORAGE.gallery, {
+        title: document.getElementById('gallery-title').value.trim(),
+        src: await fileToDataUrl(file)
       });
-    }
+      event.target.reset();
+    });
+
+    document.getElementById('password-form').addEventListener('submit', function (event) {
+      event.preventDefault();
+      const current = document.getElementById('current-password').value;
+      const next = document.getElementById('new-admin-password').value.trim();
+      const message = document.getElementById('password-message');
+      if (current !== getPassword()) {
+        setMessage(message, 'Current password is incorrect.', 'error');
+        return;
+      }
+      if (next.length < 6) {
+        setMessage(message, 'Use at least 6 characters for the new password.', 'error');
+        return;
+      }
+      localStorage.setItem(STORAGE.password, next);
+      event.target.reset();
+      setMessage(message, 'Admin password changed successfully.', 'success');
+    });
+
+    document.addEventListener('click', function (event) {
+      const button = event.target.closest('.admin-remove');
+      if (!button) return;
+      removeItem(button.dataset.key, button.dataset.id);
+    });
   });
 })();

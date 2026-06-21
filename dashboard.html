@@ -3,331 +3,441 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>School Dashboard | ES Kabirizi</title>
+  <title>School Management Dashboard | ES Kabirizi</title>
   <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/site.css">
   <link rel="icon" href="kabirizi picsss/%C3%89cole%20Secondaire%20DE.KABIRIZI%20emblem.png" type="image/png">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ["Poppins", "Arial", "sans-serif"] },
+          colors: {
+            school: {
+              navy: "#061b3a",
+              blue: "#0b3f88",
+              bright: "#1557b0",
+              gold: "#d4a739",
+              mist: "#eef4ff",
+              ink: "#102033"
+            }
+          },
+          boxShadow: {
+            soft: "0 18px 45px rgba(8, 33, 72, 0.08)",
+            lift: "0 26px 70px rgba(8, 33, 72, 0.16)"
+          },
+          keyframes: {
+            rise: {
+              "0%": { opacity: "0", transform: "translateY(16px)" },
+              "100%": { opacity: "1", transform: "translateY(0)" }
+            }
+          },
+          animation: {
+            rise: "rise .55s ease both"
+          }
+        }
+      }
+    };
+  </script>
   <style>
     body { font-family: "Poppins", Arial, sans-serif; }
-    .dashboard-layout {
-      display: grid;
-      grid-template-columns: 280px minmax(0, 1fr);
-      min-height: 100vh;
-      background: #f7f9fd;
-    }
-    .sidebar {
-      position: sticky;
-      top: 0;
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      gap: 1.5rem;
-      padding: 1.3rem;
-      background: #061b3a;
-      color: #fff;
-    }
-    .brand { display: flex; align-items: center; gap: 0.8rem; color: #fff; }
-    .brand img { width: 52px; height: 52px; border-radius: 50%; background: #fff; padding: 0.35rem; }
-    .brand strong { display: block; font-weight: 800; }
-    .brand span { display: block; color: #f5df9f; font-size: 0.68rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; }
-    .side-nav { display: grid; gap: 0.45rem; }
-    .side-nav a {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      border-radius: 8px;
-      padding: 0.85rem 0.9rem;
-      color: rgba(255,255,255,0.76);
-      font-weight: 700;
-      transition: background 0.2s ease, color 0.2s ease;
-    }
-    .side-nav a:hover, .side-nav a.active { background: rgba(255,255,255,0.1); color: #f5df9f; }
-    .sidebar-card {
-      margin-top: auto;
-      border-radius: 8px;
-      padding: 1rem;
-      border: 1px solid rgba(255,255,255,0.14);
-      background: rgba(255,255,255,0.08);
-    }
-    .dashboard-main { min-width: 0; }
-    .topbar {
-      position: sticky;
-      top: 0;
-      z-index: 20;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 1rem;
-      min-height: 76px;
-      padding: 1rem clamp(1rem, 3vw, 2rem);
-      background: rgba(247,249,253,0.86);
-      backdrop-filter: blur(18px);
-      border-bottom: 1px solid rgba(12,40,82,0.08);
-    }
-    .search-box {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      width: min(460px, 100%);
-      border: 1px solid rgba(12,40,82,0.1);
-      border-radius: 999px;
-      background: #fff;
-      padding: 0.75rem 1rem;
-      color: #65738a;
-    }
-    .search-box input { width: 100%; outline: none; background: transparent; color: #102033; }
-    .user-chip { display: flex; align-items: center; gap: 0.7rem; border-radius: 999px; background: #fff; padding: 0.45rem 0.75rem; border: 1px solid rgba(12,40,82,0.1); }
-    .avatar { width: 38px; height: 38px; border-radius: 50%; display: grid; place-items: center; background: #eef4ff; color: #092f6a; font-weight: 800; }
-    .dashboard-content { padding: clamp(1rem, 3vw, 2rem); }
-    .hero-panel {
-      position: relative;
-      overflow: hidden;
-      border-radius: 8px;
-      padding: clamp(1.5rem, 4vw, 2.5rem);
-      color: #fff;
-      background:
-        linear-gradient(90deg, rgba(6,27,58,0.94), rgba(9,47,106,0.82)),
-        url("kabirizi picsss/20260323_164135.JPG") center/cover;
-      box-shadow: 0 28px 70px rgba(8,33,72,0.16);
-    }
-    .hero-panel h1 { margin: 0.55rem 0 0.8rem; font-size: clamp(2rem, 4.5vw, 4.2rem); font-weight: 800; line-height: 1.02; }
-    .hero-panel p { color: rgba(255,255,255,0.78); max-width: 740px; line-height: 1.8; }
-    .hero-actions { display: flex; flex-wrap: wrap; gap: 0.8rem; margin-top: 1.5rem; }
-    .dash-btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.5rem;
-      min-height: 46px;
-      border-radius: 999px;
-      padding: 0.75rem 1rem;
-      font-weight: 800;
-      transition: transform 0.2s ease, background 0.2s ease;
-    }
-    .dash-btn:hover { transform: translateY(-2px); }
-    .dash-btn.gold { background: linear-gradient(135deg, #ffe49a, #d4a739); color: #071a35; }
-    .dash-btn.ghost { border: 1px solid rgba(255,255,255,0.46); color: #fff; background: rgba(255,255,255,0.08); }
-    .metric-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1rem; margin-top: 1rem; }
-    .metric-card { padding: 1.2rem; }
-    .metric-card .icon { width: 46px; height: 46px; border-radius: 8px; display: grid; place-items: center; background: rgba(212,167,57,0.16); color: #092f6a; }
-    .metric-card strong { display: block; color: #061b3a; font-size: 2.2rem; margin-top: 1rem; line-height: 1; }
-    .metric-card span { color: #65738a; font-size: 0.88rem; }
-    .dashboard-grid { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(320px, 0.65fr); gap: 1rem; margin-top: 1rem; }
-    .dash-card {
-      border: 1px solid rgba(12,40,82,0.1);
-      border-radius: 8px;
-      background: #fff;
-      box-shadow: 0 18px 40px rgba(8,33,72,0.07);
-      padding: 1.25rem;
-    }
-    .dash-card h2 { color: #061b3a; font-size: 1.45rem; font-weight: 800; margin: 0.25rem 0 0; }
-    .card-label { color: #d4a739; font-size: 0.72rem; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; }
-    .progress-row { display: grid; gap: 0.55rem; padding: 1rem 0; border-bottom: 1px solid rgba(12,40,82,0.08); }
-    .progress-row:last-child { border-bottom: 0; }
-    .progress-head { display: flex; align-items: center; justify-content: space-between; gap: 1rem; color: #061b3a; font-weight: 800; }
-    .bar { height: 9px; border-radius: 999px; background: #eef4ff; overflow: hidden; }
-    .bar span { display: block; height: 100%; border-radius: inherit; background: linear-gradient(90deg, #1557b0, #d4a739); }
-    .event { display: flex; gap: 0.9rem; padding: 1rem 0; border-bottom: 1px solid rgba(12,40,82,0.08); }
-    .event:last-child { border-bottom: 0; }
-    .event-date { width: 54px; height: 54px; border-radius: 8px; display: grid; place-items: center; background: #eef4ff; color: #092f6a; font-weight: 800; text-align: center; line-height: 1.1; }
-    .campus-img { height: 220px; border-radius: 8px; overflow: hidden; }
-    .campus-img img { width: 100%; height: 100%; object-fit: cover; }
-    .mobile-menu-button { display: none; }
-    @media (max-width: 1100px) {
-      .dashboard-layout { grid-template-columns: 1fr; }
-      .sidebar { position: static; height: auto; }
-      .side-nav { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-      .sidebar-card { display: none; }
-      .dashboard-grid { grid-template-columns: 1fr; }
-      .metric-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    }
-    @media (max-width: 640px) {
-      .topbar { align-items: stretch; flex-direction: column; }
-      .side-nav { grid-template-columns: 1fr 1fr; }
-      .metric-grid { grid-template-columns: 1fr; }
-      .hero-actions .dash-btn { width: 100%; }
-      .user-chip { width: 100%; justify-content: space-between; }
-    }
+    canvas { max-width: 100%; }
   </style>
 </head>
-<body class="dashboard-shell">
-  <div class="dashboard-layout">
-    <aside class="sidebar">
-      <a class="brand" href="index.html">
-        <img src="kabirizi picsss/%C3%89cole%20Secondaire%20DE.KABIRIZI%20emblem.png" alt="ES Kabirizi emblem">
-        <span><strong>ES Kabirizi</strong><span>Dashboard</span></span>
-      </a>
-      <nav class="side-nav" aria-label="Dashboard navigation">
-        <a class="active" href="dashboard.html"><i data-lucide="layout-dashboard" class="w-5 h-5"></i> Overview</a>
-        <a href="news.html"><i data-lucide="newspaper" class="w-5 h-5"></i> News</a>
-        <a href="programs.html"><i data-lucide="book-open-check" class="w-5 h-5"></i> Programs</a>
-        <a href="gallery.html"><i data-lucide="images" class="w-5 h-5"></i> Gallery</a>
-        <a href="administration.html"><i data-lucide="users" class="w-5 h-5"></i> Staff</a>
-        <a href="contact.html"><i data-lucide="mail" class="w-5 h-5"></i> Messages</a>
-        <a href="index.html"><i data-lucide="globe-2" class="w-5 h-5"></i> Website</a>
-      </nav>
-      <div class="sidebar-card">
-        <p class="text-xs font-bold uppercase tracking-[0.16em] text-[#f5df9f]">Today</p>
-        <p class="mt-2 text-sm text-white/75">Keep academics, communication, and campus activity moving from one calm control center.</p>
-      </div>
-    </aside>
+<body class="bg-[#f7f9fd] text-school-ink">
+  <div id="root"></div>
 
-    <div class="dashboard-main">
-      <header class="topbar">
-        <div class="search-box">
-          <i data-lucide="search" class="w-5 h-5"></i>
-          <input type="search" placeholder="Search students, notices, programs">
-        </div>
-        <div class="user-chip">
-          <div>
-            <p class="m-0 text-sm font-bold text-slate-900">School Office</p>
-            <p class="m-0 text-xs text-slate-500">Admin workspace</p>
-          </div>
-          <div class="avatar">ES</div>
-        </div>
-      </header>
+  <script type="text/babel">
+    (function () {
+      try {
+        const session = JSON.parse(localStorage.getItem('esKabiriziAdminSession'));
+        if (!session || !session.username) {
+          window.location.href = 'admin.html';
+        }
+      } catch (error) {
+        window.location.href = 'admin.html';
+      }
+    })();
 
-      <main class="dashboard-content">
-        <section class="hero-panel">
-          <p class="card-label">School operations dashboard</p>
-          <h1>Good day, ES Kabirizi team.</h1>
-          <p>Monitor students, academic progress, notices, events, and campus communication from a polished dashboard designed for quick decisions and daily school rhythm.</p>
-          <div class="hero-actions">
-            <a href="admin.html" class="dash-btn gold"><i data-lucide="plus-circle" class="w-5 h-5"></i> Publish Update</a>
-            <a href="contact.html" class="dash-btn ghost"><i data-lucide="send" class="w-5 h-5"></i> Contact Office</a>
-          </div>
-        </section>
+    const { useEffect, useMemo, useRef, useState } = React;
 
-        <section class="metric-grid">
-          <article class="metric-card">
-            <div class="icon"><i data-lucide="graduation-cap" class="w-6 h-6"></i></div>
-            <strong>850+</strong>
-            <span>Students enrolled</span>
-          </article>
-          <article class="metric-card">
-            <div class="icon"><i data-lucide="calendar-check" class="w-6 h-6"></i></div>
-            <strong>94%</strong>
-            <span>Weekly attendance</span>
-          </article>
-          <article class="metric-card">
-            <div class="icon"><i data-lucide="award" class="w-6 h-6"></i></div>
-            <strong>96%</strong>
-            <span>Performance target</span>
-          </article>
-          <article class="metric-card">
-            <div class="icon"><i data-lucide="message-square" class="w-6 h-6"></i></div>
-            <strong>18</strong>
-            <span>Messages to review</span>
-          </article>
-        </section>
+    const navItems = [
+      ["LayoutDashboard", "Overview"],
+      ["UsersRound", "Students"],
+      ["CalendarCheck", "Attendance"],
+      ["BarChart3", "Results"],
+      ["Bell", "Notices"],
+      ["Settings", "Settings"]
+    ];
 
-        <section class="dashboard-grid">
-          <div class="grid gap-4">
-            <article class="dash-card">
-              <p class="card-label">Academic progress</p>
-              <h2>Program performance</h2>
-              <div class="mt-5">
-                <div class="progress-row">
-                  <div class="progress-head"><span>Sciences</span><span>88%</span></div>
-                  <div class="bar"><span style="width:88%"></span></div>
-                </div>
-                <div class="progress-row">
-                  <div class="progress-head"><span>Mathematics</span><span>84%</span></div>
-                  <div class="bar"><span style="width:84%"></span></div>
-                </div>
-                <div class="progress-row">
-                  <div class="progress-head"><span>Languages</span><span>78%</span></div>
-                  <div class="bar"><span style="width:78%"></span></div>
-                </div>
-                <div class="progress-row">
-                  <div class="progress-head"><span>ICT Skills</span><span>81%</span></div>
-                  <div class="bar"><span style="width:81%"></span></div>
-                </div>
+    const students = [
+      { id: "ESK-001", name: "Ishimwe Aline", className: "S4 MCB", attendance: 97, performance: 88, status: "Excellent" },
+      { id: "ESK-002", name: "Niyonkuru Patrick", className: "S5 PCM", attendance: 92, performance: 81, status: "Good" },
+      { id: "ESK-003", name: "Uwase Diane", className: "S3", attendance: 86, performance: 74, status: "Watch" },
+      { id: "ESK-004", name: "Habimana Eric", className: "S6 HEG", attendance: 95, performance: 91, status: "Excellent" },
+      { id: "ESK-005", name: "Mukamana Grace", className: "S2", attendance: 89, performance: 79, status: "Good" },
+      { id: "ESK-006", name: "Twizeyimana Jean", className: "S1", attendance: 78, performance: 68, status: "Support" },
+      { id: "ESK-007", name: "Ingabire Clarisse", className: "S5 PCB", attendance: 94, performance: 85, status: "Good" },
+      { id: "ESK-008", name: "Nsengiyumva Claude", className: "S4 MEG", attendance: 82, performance: 72, status: "Watch" }
+    ];
+
+    const notifications = [
+      { icon: "Megaphone", title: "Parent meeting confirmed", text: "Senior classes meet parents on Friday at 2:00 PM.", tone: "blue" },
+      { icon: "BookOpenCheck", title: "Mock results uploaded", text: "Science and language department scores are ready for review.", tone: "gold" },
+      { icon: "ShieldCheck", title: "Attendance follow-up", text: "Six students need attendance review this week.", tone: "green" }
+    ];
+
+    const calendarItems = [
+      { day: "Mon", date: "08", title: "Weekly assembly", time: "7:30 AM" },
+      { day: "Wed", date: "10", title: "Department review", time: "2:00 PM" },
+      { day: "Fri", date: "12", title: "Staff planning", time: "3:00 PM" }
+    ];
+
+    function iconName(name) {
+      return name.replace(/([a-z0-9])([A-Z])/g, "$1-$2").toLowerCase();
+    }
+
+    function Icon({ name, className = "w-5 h-5" }) {
+      return <i data-lucide={iconName(name)} className={className}></i>;
+    }
+
+    function Sidebar({ active, setActive, open, setOpen }) {
+      return (
+        <>
+          <div className={`fixed inset-0 z-30 bg-black/40 transition md:hidden ${open ? "opacity-100" : "pointer-events-none opacity-0"}`} onClick={() => setOpen(false)} />
+          <aside className={`fixed inset-y-0 left-0 z-40 flex w-72 flex-col bg-school-navy p-5 text-white shadow-lift transition-transform duration-300 md:sticky md:top-0 md:h-screen md:translate-x-0 ${open ? "translate-x-0" : "-translate-x-full"}`}>
+            <a href="index.html" className="flex items-center gap-3">
+              <img src="kabirizi picsss/%C3%89cole%20Secondaire%20DE.KABIRIZI%20emblem.png" alt="ES Kabirizi emblem" className="h-14 w-14 rounded-full bg-white p-1.5" />
+              <div>
+                <p className="text-lg font-extrabold leading-tight">ES Kabirizi</p>
+                <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-[#f5df9f]">Management</p>
               </div>
-            </article>
+            </a>
 
-            <article class="dash-card">
-              <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3">
-                <div>
-                  <p class="card-label">Live notices</p>
-                  <h2>Latest school updates</h2>
-                </div>
-                <a href="news.html" class="text-sm font-bold text-[#1557b0]">Open news</a>
-              </div>
-              <div id="dashboard-session-banner" class="mt-5"></div>
-              <div id="dashboard-posts" class="space-y-4 mt-5">
-                <div class="rounded-lg border border-slate-100 bg-slate-50 p-4 text-sm text-slate-500">Loading dashboard updates...</div>
-              </div>
-            </article>
-          </div>
+            <nav className="mt-8 grid gap-2">
+              {navItems.map(([icon, label]) => (
+                <button
+                  key={label}
+                  onClick={() => { setActive(label); setOpen(false); }}
+                  className={`flex items-center gap-3 rounded-lg px-4 py-3 text-left text-sm font-bold transition ${active === label ? "bg-white text-school-navy shadow-soft" : "text-white/75 hover:bg-white/10 hover:text-white"}`}
+                >
+                  <Icon name={icon} className="h-5 w-5" />
+                  {label}
+                </button>
+              ))}
+            </nav>
 
-          <aside class="grid gap-4">
-            <article class="dash-card">
-              <p class="card-label">This week</p>
-              <h2>Calendar</h2>
-              <div class="mt-4">
-                <div class="event">
-                  <div class="event-date">Mon<br><span class="text-xs">7:30</span></div>
-                  <div><p class="font-bold text-slate-900">Morning assembly</p><p class="text-sm text-slate-500">School-wide discipline and weekly focus.</p></div>
-                </div>
-                <div class="event">
-                  <div class="event-date">Wed<br><span class="text-xs">2:00</span></div>
-                  <div><p class="font-bold text-slate-900">Program review</p><p class="text-sm text-slate-500">Academic department progress check.</p></div>
-                </div>
-                <div class="event">
-                  <div class="event-date">Fri<br><span class="text-xs">3:00</span></div>
-                  <div><p class="font-bold text-slate-900">Staff meeting</p><p class="text-sm text-slate-500">Operations, notices, and planning.</p></div>
-                </div>
-              </div>
-            </article>
-
-            <article class="dash-card">
-              <p class="card-label">Campus snapshot</p>
-              <div class="campus-img mt-3"><img src="kabirizi picsss/20260323_163059.JPG" alt="ES Kabirizi campus entrance"></div>
-              <h2 class="mt-4">Campus ready</h2>
-              <p class="text-sm text-slate-500 leading-relaxed mt-2">The public website and dashboard now share a cleaner, more modern school identity.</p>
-            </article>
-
-            <article class="dash-card">
-              <p class="card-label">Quick actions</p>
-              <div class="grid gap-2 mt-4">
-                <a href="admin.html" class="dash-btn gold"><i data-lucide="newspaper" class="w-5 h-5"></i> Manage Posts</a>
-                <a href="gallery.html" class="dash-btn" style="background:#eef4ff;color:#092f6a;"><i data-lucide="image-plus" class="w-5 h-5"></i> Review Gallery</a>
-              </div>
-            </article>
+            <div className="mt-auto rounded-lg border border-white/15 bg-white/10 p-4">
+              <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#f5df9f]">Term Focus</p>
+              <p className="mt-2 text-sm leading-relaxed text-white/75">Improve attendance consistency, academic support, and parent communication.</p>
+              <a href="index.html" className="mt-4 inline-flex items-center gap-2 text-sm font-bold text-[#f5df9f]">
+                Website <Icon name="ArrowRight" className="h-4 w-4" />
+              </a>
+            </div>
           </aside>
-        </section>
-      </main>
-    </div>
-  </div>
+        </>
+      );
+    }
 
-  <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      const banner = document.getElementById("dashboard-session-banner");
-      const posts = document.getElementById("dashboard-posts");
-      if (banner) {
-        banner.innerHTML = '<div class="rounded-lg border border-blue-100 bg-blue-50 p-4 text-sm text-slate-600"><strong class="text-slate-950">Portal status:</strong> Dashboard is ready for school notices and admin updates.</div>';
-      }
-      if (posts) {
-        posts.innerHTML = [
-          '<article class="rounded-lg border border-slate-100 bg-slate-50 p-4">',
-          '<p class="text-xs font-bold uppercase tracking-[0.14em] text-[#d4a739]">Today</p>',
-          '<h3 class="mt-2 font-bold text-slate-950">Academic routines remain active</h3>',
-          '<p class="mt-1 text-sm leading-relaxed text-slate-500">Classroom teams continue weekly checks for attendance, revision, and student support.</p>',
-          '</article>',
-          '<article class="rounded-lg border border-slate-100 bg-slate-50 p-4">',
-          '<p class="text-xs font-bold uppercase tracking-[0.14em] text-[#d4a739]">Reminder</p>',
-          '<h3 class="mt-2 font-bold text-slate-950">Keep gallery and news updated</h3>',
-          '<p class="mt-1 text-sm leading-relaxed text-slate-500">Use the admin page to publish announcements and keep families informed.</p>',
-          '</article>'
-        ].join('');
-      }
-      if (window.lucide) window.lucide.createIcons();
-    });
+    function KpiCard({ icon, label, value, change, tone }) {
+      return (
+        <article className="animate-rise rounded-lg border border-slate-200 bg-white p-5 shadow-soft transition hover:-translate-y-1 hover:shadow-lift">
+          <div className="flex items-start justify-between gap-3">
+            <div className={`grid h-12 w-12 place-items-center rounded-lg ${tone}`}>
+              <Icon name={icon} className="h-6 w-6" />
+            </div>
+            <span className="rounded-full bg-emerald-50 px-3 py-1 text-xs font-bold text-emerald-700">{change}</span>
+          </div>
+          <p className="mt-5 text-sm font-semibold text-slate-500">{label}</p>
+          <p className="mt-1 text-3xl font-extrabold tracking-tight text-school-navy">{value}</p>
+        </article>
+      );
+    }
+
+    function ChartCard({ title, subtitle, type }) {
+      const canvasRef = useRef(null);
+      const chartRef = useRef(null);
+
+      useEffect(() => {
+        const ctx = canvasRef.current;
+        if (!ctx || !window.Chart) return;
+        if (chartRef.current) chartRef.current.destroy();
+
+        const isAttendance = type === "attendance";
+        chartRef.current = new Chart(ctx, {
+          type: isAttendance ? "line" : "bar",
+          data: {
+            labels: isAttendance ? ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat"] : ["Sciences", "Math", "Languages", "ICT", "Humanities"],
+            datasets: [{
+              label: isAttendance ? "Attendance %" : "Average Results",
+              data: isAttendance ? [91, 94, 92, 96, 95, 93] : [88, 84, 78, 81, 76],
+              borderColor: "#1557b0",
+              backgroundColor: isAttendance ? "rgba(21, 87, 176, 0.12)" : ["#1557b0", "#0b3f88", "#d4a739", "#1e6b49", "#8aa0bd"],
+              borderWidth: 3,
+              fill: isAttendance,
+              tension: 0.38,
+              borderRadius: 8
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { legend: { display: false } },
+            scales: {
+              x: { grid: { display: false }, ticks: { color: "#65738a", font: { family: "Poppins" } } },
+              y: { beginAtZero: false, grid: { color: "rgba(12,40,82,.08)" }, ticks: { color: "#65738a", font: { family: "Poppins" } } }
+            }
+          }
+        });
+
+        return () => chartRef.current?.destroy();
+      }, [type]);
+
+      return (
+        <article className="rounded-lg border border-slate-200 bg-white p-5 shadow-soft">
+          <div className="flex items-start justify-between gap-4">
+            <div>
+              <p className="text-xs font-extrabold uppercase tracking-[0.16em] text-school-gold">{subtitle}</p>
+              <h2 className="mt-2 text-xl font-extrabold text-school-navy">{title}</h2>
+            </div>
+            <button className="rounded-full border border-slate-200 p-2 text-slate-500 hover:bg-slate-50" aria-label="More chart options">
+              <Icon name="MoreHorizontal" />
+            </button>
+          </div>
+          <div className="mt-5 h-72">
+            <canvas ref={canvasRef}></canvas>
+          </div>
+        </article>
+      );
+    }
+
+    function StudentTable() {
+      const [query, setQuery] = useState("");
+      const [status, setStatus] = useState("All");
+
+      const filtered = useMemo(() => {
+        return students.filter((student) => {
+          const matchesQuery = `${student.name} ${student.id} ${student.className}`.toLowerCase().includes(query.toLowerCase());
+          const matchesStatus = status === "All" || student.status === status;
+          return matchesQuery && matchesStatus;
+        });
+      }, [query, status]);
+
+      return (
+        <article className="rounded-lg border border-slate-200 bg-white p-5 shadow-soft">
+          <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+            <div>
+              <p className="text-xs font-extrabold uppercase tracking-[0.16em] text-school-gold">Student records</p>
+              <h2 className="mt-2 text-xl font-extrabold text-school-navy">Students</h2>
+            </div>
+            <div className="flex flex-col gap-3 sm:flex-row">
+              <label className="flex min-h-[44px] items-center gap-2 rounded-lg border border-slate-200 bg-slate-50 px-3 text-sm text-slate-500">
+                <Icon name="Search" className="h-4 w-4" />
+                <input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search student" className="w-full bg-transparent outline-none sm:w-52" />
+              </label>
+              <select value={status} onChange={(e) => setStatus(e.target.value)} className="min-h-[44px] rounded-lg border border-slate-200 bg-white px-3 text-sm font-semibold text-slate-700 outline-none">
+                {["All", "Excellent", "Good", "Watch", "Support"].map((option) => <option key={option}>{option}</option>)}
+              </select>
+            </div>
+          </div>
+
+          <div className="mt-5 overflow-x-auto">
+            <table className="w-full min-w-[760px] border-collapse text-left text-sm">
+              <thead>
+                <tr className="border-b border-slate-200 text-xs uppercase tracking-[0.12em] text-slate-500">
+                  <th className="py-3 pr-4">Student</th>
+                  <th className="py-3 pr-4">Class</th>
+                  <th className="py-3 pr-4">Attendance</th>
+                  <th className="py-3 pr-4">Performance</th>
+                  <th className="py-3 pr-4">Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                {filtered.map((student) => (
+                  <tr key={student.id} className="border-b border-slate-100 transition hover:bg-slate-50">
+                    <td className="py-4 pr-4">
+                      <div className="flex items-center gap-3">
+                        <div className="grid h-10 w-10 place-items-center rounded-full bg-school-mist font-extrabold text-school-blue">{student.name.split(" ").map((part) => part[0]).join("")}</div>
+                        <div>
+                          <p className="font-bold text-school-navy">{student.name}</p>
+                          <p className="text-xs text-slate-500">{student.id}</p>
+                        </div>
+                      </div>
+                    </td>
+                    <td className="py-4 pr-4 font-semibold text-slate-700">{student.className}</td>
+                    <td className="py-4 pr-4">{student.attendance}%</td>
+                    <td className="py-4 pr-4">{student.performance}%</td>
+                    <td className="py-4 pr-4">
+                      <span className={`rounded-full px-3 py-1 text-xs font-extrabold ${student.status === "Excellent" ? "bg-emerald-50 text-emerald-700" : student.status === "Good" ? "bg-blue-50 text-blue-700" : student.status === "Watch" ? "bg-amber-50 text-amber-700" : "bg-rose-50 text-rose-700"}`}>{student.status}</span>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </article>
+      );
+    }
+
+    function Notifications() {
+      const tones = {
+        blue: "bg-blue-50 text-blue-700",
+        gold: "bg-amber-50 text-amber-700",
+        green: "bg-emerald-50 text-emerald-700"
+      };
+
+      return (
+        <article className="rounded-lg border border-slate-200 bg-white p-5 shadow-soft">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-xs font-extrabold uppercase tracking-[0.16em] text-school-gold">Communication</p>
+              <h2 className="mt-2 text-xl font-extrabold text-school-navy">Notifications</h2>
+            </div>
+            <span className="rounded-full bg-school-mist px-3 py-1 text-xs font-bold text-school-blue">3 new</span>
+          </div>
+          <div className="mt-5 grid gap-3">
+            {notifications.map((item) => (
+              <div key={item.title} className="flex gap-3 rounded-lg border border-slate-100 bg-slate-50 p-4">
+                <div className={`grid h-10 w-10 shrink-0 place-items-center rounded-lg ${tones[item.tone]}`}>
+                  <Icon name={item.icon} className="h-5 w-5" />
+                </div>
+                <div>
+                  <p className="font-bold text-school-navy">{item.title}</p>
+                  <p className="mt-1 text-sm leading-relaxed text-slate-500">{item.text}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </article>
+      );
+    }
+
+    function CalendarPanel() {
+      return (
+        <article className="rounded-lg border border-slate-200 bg-white p-5 shadow-soft">
+          <p className="text-xs font-extrabold uppercase tracking-[0.16em] text-school-gold">Calendar</p>
+          <h2 className="mt-2 text-xl font-extrabold text-school-navy">This Week</h2>
+          <div className="mt-5 grid gap-3">
+            {calendarItems.map((item) => (
+              <div key={item.title} className="flex gap-3 rounded-lg border border-slate-100 p-3 transition hover:bg-slate-50">
+                <div className="grid h-14 w-14 shrink-0 place-items-center rounded-lg bg-school-mist text-center">
+                  <span className="text-[11px] font-extrabold uppercase text-school-blue">{item.day}</span>
+                  <span className="-mt-2 text-lg font-extrabold text-school-navy">{item.date}</span>
+                </div>
+                <div>
+                  <p className="font-bold text-school-navy">{item.title}</p>
+                  <p className="mt-1 text-sm text-slate-500">{item.time}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </article>
+      );
+    }
+
+    function Dashboard() {
+      const [active, setActive] = useState("Overview");
+      const [sidebarOpen, setSidebarOpen] = useState(false);
+      const newsPostsCount = JSON.parse(localStorage.getItem("schoolNews") || "[]").length;
+
+      useEffect(() => {
+        if (window.lucide) window.lucide.createIcons();
+      });
+
+      return (
+        <div className="min-h-screen md:grid md:grid-cols-[288px_minmax(0,1fr)]">
+          <Sidebar active={active} setActive={setActive} open={sidebarOpen} setOpen={setSidebarOpen} />
+
+          <main className="min-w-0">
+            <header className="sticky top-0 z-20 border-b border-slate-200/80 bg-[#f7f9fd]/90 px-4 py-4 backdrop-blur-xl lg:px-8">
+              <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+                <div className="flex items-center gap-3">
+                  <button onClick={() => setSidebarOpen(true)} className="grid h-11 w-11 place-items-center rounded-lg border border-slate-200 bg-white text-school-navy md:hidden" aria-label="Open menu">
+                    <Icon name="Menu" />
+                  </button>
+                  <div>
+                    <p className="text-xs font-extrabold uppercase tracking-[0.16em] text-school-gold">School Dashboard</p>
+                    <h1 className="text-2xl font-extrabold text-school-navy lg:text-3xl">Good day, ES Kabirizi team</h1>
+                  </div>
+                </div>
+                <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+                  <label className="flex min-h-[46px] items-center gap-2 rounded-full border border-slate-200 bg-white px-4 text-sm text-slate-500 shadow-sm">
+                    <Icon name="Search" className="h-4 w-4" />
+                    <input placeholder="Search dashboard" className="w-full bg-transparent outline-none sm:w-56" />
+                  </label>
+                  <div className="flex items-center gap-3 rounded-full border border-slate-200 bg-white py-1 pl-1 pr-4 shadow-sm">
+                    <div className="grid h-10 w-10 place-items-center rounded-full bg-school-mist font-extrabold text-school-blue">ES</div>
+                    <div>
+                      <p className="text-sm font-bold text-school-navy">School Office</p>
+                      <p className="text-xs text-slate-500">Admin workspace</p>
+                    </div>
+                  </div>
+                  <a href="admin.html" className="inline-flex min-h-[46px] items-center gap-2 rounded-full border border-slate-200 bg-white px-4 text-sm font-bold text-school-navy hover:bg-slate-50">
+                    <Icon name="ShieldCheck" /> Admin panel
+                  </a>
+                </div>
+              </div>
+            </header>
+
+            <div className="space-y-5 p-4 lg:p-8">
+              <section className="animate-rise overflow-hidden rounded-lg bg-school-navy shadow-lift">
+                <div className="grid gap-6 p-6 text-white lg:grid-cols-[1fr_360px] lg:p-8">
+                  <div>
+                    <p className="text-xs font-extrabold uppercase tracking-[0.18em] text-[#f5df9f]">Modern school management</p>
+                    <h2 className="mt-3 max-w-3xl text-3xl font-extrabold leading-tight lg:text-5xl">Manage attendance, results, students, and communication in one calm workspace.</h2>
+                    <p className="mt-4 max-w-2xl leading-relaxed text-white/75">A clean SaaS-style dashboard for school leaders, designed with ES Kabirizi colors, fast scanning, and responsive access from phone or desktop.</p>
+                    <div className="mt-6 flex flex-wrap gap-3">
+                      <a href="admin.html" className="inline-flex min-h-[46px] items-center gap-2 rounded-full bg-[#f5df9f] px-5 font-extrabold text-school-navy transition hover:-translate-y-0.5">
+                        <Icon name="PlusCircle" /> Publish Update
+                      </a>
+                      <a href="index.html" className="inline-flex min-h-[46px] items-center gap-2 rounded-full border border-white/30 px-5 font-extrabold text-white transition hover:-translate-y-0.5 hover:bg-white/10">
+                        <Icon name="Globe2" /> View Website
+                      </a>
+                    </div>
+                  </div>
+                  <div className="rounded-lg border border-white/15 bg-white/10 p-5 backdrop-blur">
+                    <p className="text-sm font-bold text-[#f5df9f]">Today at a glance</p>
+                    <div className="mt-5 grid gap-4">
+                      <div className="flex items-center justify-between border-b border-white/10 pb-3"><span className="text-white/70">Attendance</span><strong>94%</strong></div>
+                      <div className="flex items-center justify-between border-b border-white/10 pb-3"><span className="text-white/70">Pending messages</span><strong>18</strong></div>
+                      <div className="flex items-center justify-between"><span className="text-white/70">Upcoming events</span><strong>3</strong></div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              <section className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+                <KpiCard icon="UsersRound" label="Students" value="850+" change="+34 term" tone="bg-blue-50 text-blue-700" />
+                <KpiCard icon="CalendarCheck" label="Attendance" value="94%" change="+2.1%" tone="bg-emerald-50 text-emerald-700" />
+                <KpiCard icon="Newspaper" label="News Posts" value={newsPostsCount} change="Published" tone="bg-purple-50 text-purple-700" />
+                <KpiCard icon="Award" label="Performance" value="86%" change="+4.6%" tone="bg-amber-50 text-amber-700" />
+                <KpiCard icon="GraduationCap" label="Teachers" value="42" change="Active" tone="bg-indigo-50 text-indigo-700" />
+              </section>
+
+              <section className="grid gap-5 xl:grid-cols-2">
+                <ChartCard title="Attendance Trends" subtitle="Weekly view" type="attendance" />
+                <ChartCard title="Academic Results" subtitle="Department average" type="results" />
+              </section>
+
+              <section className="grid gap-5 xl:grid-cols-[minmax(0,1.45fr)_minmax(320px,.55fr)]">
+                <StudentTable />
+                <div className="grid gap-5">
+                  <Notifications />
+                  <CalendarPanel />
+                </div>
+              </section>
+            </div>
+          </main>
+        </div>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById("root")).render(<Dashboard />);
   </script>
-  <script src="assets/site.js"></script>
-  <script src="assets/admin.js"></script>
 </body>
 </html>
