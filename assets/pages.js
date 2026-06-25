@@ -1,4 +1,4 @@
-(function () {
+﻿(function () {
   const navItems = [
     ['home', 'Home', 'index.html'],
     ['about', 'About Us', 'about.html'],
@@ -249,7 +249,59 @@
   }
 
   function donationSection() {
-    return '<section class="page-section bg-white"><div class="max-w-7xl mx-auto grid lg:grid-cols-[0.9fr_1.1fr] gap-10 items-start"><div><p class="section-label text-sm font-bold uppercase">Payment System</p><h2 class="section-title">Online donation checkout</h2><p class="section-copy">The buttons below are ready for real provider payment links. Add the school payment URLs in <code>assets/site.js</code> when the school has merchant accounts. Until then, mobile money and bank details are shown for real-world manual payment confirmation.</p><div class="payment-grid mt-8"><button type="button" data-payment-provider="mtn"><i data-lucide="smartphone"></i><span>MTN MoMo Pay</span></button><button type="button" data-payment-provider="airtel"><i data-lucide="smartphone"></i><span>Airtel Money</span></button><button type="button" data-payment-provider="card"><i data-lucide="credit-card"></i><span>Card Checkout</span></button><button type="button" data-payment-provider="bank"><i data-lucide="landmark"></i><span>Bank Transfer</span></button></div><div class="mt-8 rounded-2xl bg-[#092f6a] p-6 text-white"><h3 class="font-heading text-2xl font-bold">Current Donation Details</h3><p class="mt-3 text-white/85">Mobile Money recipient: NSENGIYUMVA Emmanuel</p><p class="font-bold">Phone: +250 788 499 105</p><p class="mt-3 text-white/75 text-sm">Replace placeholder bank details with the official school account before publishing.</p></div></div><form id="donation-form" class="dashboard-card"><h3 class="font-heading text-2xl font-bold text-[#092f6a]">Donation Confirmation Form</h3><div class="grid sm:grid-cols-2 gap-4 mt-6"><div><label for="payment-name" class="form-label">Donor Name *</label><input id="payment-name" type="text" required class="form-input" placeholder="Enter your name"></div><div><label for="payment-phone" class="form-label">Phone Number *</label><input id="payment-phone" type="tel" required class="form-input" placeholder="Enter your phone"></div><div><label for="payment-method" class="form-label">Payment Method *</label><select id="payment-method" class="form-input"><option>MTN Mobile Money</option><option>Airtel Money</option><option>Bank Transfer</option><option>Online Card Checkout</option></select></div><div><label for="payment-amount" class="form-label">Amount *</label><input id="payment-amount" type="text" required class="form-input" placeholder="Example: 10,000 RWF"></div><div class="sm:col-span-2"><label for="payment-reference" class="form-label">Transaction ID or Reference *</label><input id="payment-reference" type="text" required class="form-input" placeholder="Enter confirmation reference"></div></div><button type="submit" class="btn-solid mt-6"><i data-lucide="hand-heart" class="w-5 h-5"></i> Submit Donation</button><p id="donation-message" class="hidden mt-4 text-sm font-semibold"></p><p id="payment-message" class="hidden mt-4 text-sm font-semibold"></p></form></div></section>';
+    return `
+      <section class="page-section donation-showcase bg-white">
+        <div class="max-w-7xl mx-auto grid lg:grid-cols-[0.82fr_1.18fr] gap-10 items-center">
+          <div class="scroll-reveal">
+            <p class="section-label text-sm font-bold uppercase">Support Education</p>
+            <h2 class="section-title">Invest in students and open doors to opportunity.</h2>
+            <p class="section-copy">Your donation helps ES Kabirizi strengthen learning, support students, and build a brighter future for the whole school community.</p>
+            <div class="donation-highlights">
+              <span><i data-lucide="book-open"></i> Learning materials</span>
+              <span><i data-lucide="graduation-cap"></i> Student support</span>
+              <span><i data-lucide="hand-heart"></i> Community impact</span>
+            </div>
+            <a href="support.html" class="btn-solid mt-7"><i data-lucide="hand-heart" class="w-5 h-5"></i> Support the school</a>
+          </div>
+          <figure class="donation-poster scroll-reveal">
+            <img src="assets/donation.png" alt="Invest in education donation poster">
+          </figure>
+        </div>
+      </section>
+      <section class="page-section donation-payment-band">
+        <div class="max-w-7xl mx-auto grid lg:grid-cols-[0.9fr_1.1fr] gap-10 items-start">
+          <div>
+            <p class="section-label text-sm font-bold uppercase">Payment System</p>
+            <h2 class="section-title">Online donation checkout</h2>
+            <p class="section-copy">The buttons below are ready for real provider payment links. Add the school payment URLs in <code>assets/site.js</code> when the school has merchant accounts. Until then, mobile money and bank details are shown for real-world manual payment confirmation.</p>
+            <div class="payment-grid mt-8">
+              <button type="button" data-payment-provider="mtn"><i data-lucide="smartphone"></i><span>MTN MoMo Pay</span></button>
+              <button type="button" data-payment-provider="airtel"><i data-lucide="smartphone"></i><span>Airtel Money</span></button>
+              <button type="button" data-payment-provider="card"><i data-lucide="credit-card"></i><span>Card Checkout</span></button>
+              <button type="button" data-payment-provider="bank"><i data-lucide="landmark"></i><span>Bank Transfer</span></button>
+            </div>
+            <div class="mt-8 rounded-2xl bg-[#092f6a] p-6 text-white">
+              <h3 class="font-heading text-2xl font-bold">Current Donation Details</h3>
+              <p class="mt-3 text-white/85">Mobile Money recipient: NSENGIYUMVA Emmanuel</p>
+              <p class="font-bold">Phone: +250 788 499 105</p>
+              <p class="mt-3 text-white/75 text-sm">Replace placeholder bank details with the official school account before publishing.</p>
+            </div>
+          </div>
+          <form id="donation-form" class="dashboard-card">
+            <h3 class="font-heading text-2xl font-bold text-[#092f6a]">Donation Confirmation Form</h3>
+            <div class="grid sm:grid-cols-2 gap-4 mt-6">
+              <div><label for="payment-name" class="form-label">Donor Name *</label><input id="payment-name" type="text" required class="form-input" placeholder="Enter your name"></div>
+              <div><label for="payment-phone" class="form-label">Phone Number *</label><input id="payment-phone" type="tel" required class="form-input" placeholder="Enter your phone"></div>
+              <div><label for="payment-method" class="form-label">Payment Method *</label><select id="payment-method" class="form-input"><option>MTN Mobile Money</option><option>Airtel Money</option><option>Bank Transfer</option><option>Online Card Checkout</option></select></div>
+              <div><label for="payment-amount" class="form-label">Amount *</label><input id="payment-amount" type="text" required class="form-input" placeholder="Example: 10,000 RWF"></div>
+              <div class="sm:col-span-2"><label for="payment-reference" class="form-label">Transaction ID or Reference *</label><input id="payment-reference" type="text" required class="form-input" placeholder="Enter confirmation reference"></div>
+            </div>
+            <button type="submit" class="btn-solid mt-6"><i data-lucide="hand-heart" class="w-5 h-5"></i> Submit Donation</button>
+            <p id="donation-message" class="hidden mt-4 text-sm font-semibold"></p>
+            <p id="payment-message" class="hidden mt-4 text-sm font-semibold"></p>
+          </form>
+        </div>
+      </section>`;
   }
 
   function renderPage(pageId) {
@@ -281,3 +333,4 @@
 
   renderPage(window.ESK_PAGE || 'home');
 })();
+
